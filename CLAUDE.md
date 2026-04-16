@@ -47,15 +47,17 @@ Reference: **nostalgianation.net** — we use its DNA (dark + gold, editorial Ar
   - Booking form → WhatsApp redirect (see §9).
 - **Forbidden**: WebGL heroes, 3D shader fluids, particle explosions, default shadcn slate, purple/blue/pink gradients, pure white text (too cold — use warm off-white), Inter as display, emoji icons, stock illustrations, AI-mascot characters (no robots), autoplaying sound, scroll-hijacking. If it feels like a Vercel template, delete it.
 - **Motion budget**: subtle. Fade-up, text mask reveal, marquee, count-up, cursor glow. NO parallax. NO scroll-pinning. Respect `prefers-reduced-motion`.
-- **Color system** (locked):
-  - `--bg`: `#0A0A0A` (near-black, not pure)
-  - `--bg-elev`: `#121212` (cards)
-  - `--fg`: `#E8E2D5` (warm off-white — the warmth matters)
-  - `--muted`: `#8A857A` (gray for labels/secondary)
-  - `--accent`: `#C9A66B` (warm gold/bronze — the single brand hue)
-  - `--accent-dim`: `#8A7B55` (for strokes/borders)
-  - `--border`: `#1F1F1F`
-  - `--whatsapp`: `#25D366` (ONLY for the final submit button in the booking form)
+- **Color system** (locked — terminal / AI-lab palette):
+  - `--bg`: `#08090F` (deep space black)
+  - `--bg-elevated`: `#10121A` (cards / elevated surfaces)
+  - `--fg`: `#E4E6EB` (cool off-white — primary body text, ALWAYS this for body copy)
+  - `--fg-muted`: `#8B92A3` (labels, secondary text, timestamps)
+  - `--accent`: `#00FFA3` (matrix green — use SPARINGLY: section numerals, one word per headline max, dots/icons. NEVER whole paragraphs or full headlines.)
+  - `--electric`: `#60A5FA` (blue — reserved ONLY for interactive states: hover underlines, focus rings, link color. Never static.)
+  - `--whatsapp`: `#25D366` (ONLY for WhatsApp CTA buttons)
+  - `--whatsapp-hover`: `#1DA851` (WhatsApp button hover state only)
+  - `--border`: `#1F2937`
+  - `--grid`: `rgba(228, 230, 235, 0.04)` (dot-grid overlay fill)
   - Zero other hues. If Claude Code wants to add a color, it must ask first.
 - **Typography**:
   - Arabic display: `IBM Plex Sans Arabic` at weight 700 via `next/font/google` as the default. If a premium budget exists, upgrade to `29LT Bukra Bold` or `Boutros Ads Bold` via self-hosted woff2. Weight must be heavy — 600 minimum, 800 for hero.
@@ -184,6 +186,43 @@ Implementation notes:
 - All copy in `messages/*.json`. Components read via `useTranslations()`. NEVER hardcode Arabic or English strings in components.
 - Numerals: display numbers in Arabic-Indic digits (٠١٢٣) when locale is `ar`, Latin (0123) when `en`. Helper: `formatNumber(n, locale)`.
 - Test every section in both locales before committing — the RTL version must not break any layout.
+
+## Color + Type System
+
+### Palette (terminal / AI-lab)
+
+| Token | Value | When to use |
+|---|---|---|
+| `--bg` | `#08090F` | Page background only |
+| `--bg-elevated` | `#10121A` | Cards, modals, elevated surfaces |
+| `--fg` | `#E4E6EB` | **All body text. Default for everything.** |
+| `--fg-muted` | `#8B92A3` | Labels, secondary text, captions, subtitles |
+| `--accent` | `#00FFA3` | Section numerals, ONE word/phrase per headline, decorative dots. Never paragraphs. |
+| `--electric` | `#60A5FA` | Interactive states ONLY — hover underline, focus ring, link color. Never static text. |
+| `--whatsapp` | `#25D366` | WhatsApp CTA buttons only |
+| `--whatsapp-hover` | `#1DA851` | WhatsApp button :hover/:focus only |
+| `--border` | `#1F2937` | Dividers, card borders, input borders |
+| `--grid` | `rgba(228,230,235,0.04)` | DotGrid overlay fill |
+
+### Usage rules (hard constraints)
+
+1. Primary body text is ALWAYS `--fg`. Never `--accent`.
+2. `--accent` is used sparingly — maximum one highlighted word/phrase per headline. It is the visual anchor, not a theme color.
+3. `--electric` is purely interactive. If an element does not respond to user input, it must not use `--electric`.
+4. `--whatsapp` never appears outside the booking form submit button and WhatsApp icon links.
+5. No new colors without explicit approval. If a design need can't be met by this palette, ask.
+
+### Typography stack
+
+| Role | Font | Weights | Usage |
+|---|---|---|---|
+| Arabic display + body | IBM Plex Sans Arabic | 400 / 500 / 700 | All Arabic text |
+| Mono labels | IBM Plex Mono | 400 / 500 | Section tags, dates, breadcrumbs, code |
+| Stat numerals | Cormorant Garamond | 500 / 600 | Large display numbers only |
+
+No fourth font. Ever. For English display copy, IBM Plex Sans Arabic is still used.
+
+---
 
 ## 10. What I want from Claude Code
 

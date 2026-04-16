@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
+/* ─── Design tokens — terminal / AI-lab palette ──────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #08090f;
+  --bg-elevated: #10121a;
+  --fg: #e4e6eb;
+  --fg-muted: #8b92a3;
+  --accent: #00ffa3;
+  --electric: #60a5fa;
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1da851;
+  --border: #1f2937;
+  --grid: rgba(228, 230, 235, 0.04);
 }
 
+/* ─── Tailwind v4 theme mapping ──────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-electric: var(--electric);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-hover: var(--whatsapp-hover);
+  --color-border: var(--border);
+
+  --font-arabic: var(--font-plex-arabic);
+  --font-mono: var(--font-plex-mono);
+  --font-display: var(--font-cormorant);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Base reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-plex-arabic), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ─── Scrollbar (WebKit) ─────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
 }
