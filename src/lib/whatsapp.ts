@@ -14,10 +14,10 @@ type Ctx =
 
 const QUICK_MESSAGES: Record<Locale, Record<Ctx, string>> = {
   ar: {
-    hero: "السلام عليكم، أبغى أستفسر عن دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي.",
+    hero: "السلام عليكم، أرغب بالاستفسار عن دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي.",
     final: "السلام عليكم، جاهز أسجل في الدورة القادمة.",
-    "pricing-early-bird": "السلام عليكم، أبغى أحجز مقعد بسعر الحجز المبكر (Early Access).",
-    "pricing-standard": "السلام عليكم، أبغى أحجز مقعد في الدورة.",
+    "pricing-early-bird": "السلام عليكم، أرغب بحجز مقعد بسعر الحجز المبكر (Early Access).",
+    "pricing-standard": "السلام عليكم، أرغب بحجز مقعد في الدورة.",
   },
   en: {
     hero: "Hi, I'd like to ask about the AI content & ads workshop.",
@@ -65,15 +65,13 @@ export function buildBookingUrl(data: BookingFormData, locale: Locale = "ar"): s
     locale === "ar"
       ? [
           "السلام عليكم،",
-          "أبغى أسجّل في دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي.",
+          "أرغب بالتسجيل في دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي.",
           "",
           `الاسم: ${data.name}`,
           `الهاتف: ${data.phone}`,
           `الإيميل: ${data.email || "-"}`,
           `المجال: ${data.workField}`,
           `الفئة: ${tierName}${priceLine ? ` (${priceLine})` : ""}`,
-          "",
-          "— من نموذج الحجز في الموقع",
         ].join("\n")
       : [
           "Hi,",
@@ -84,8 +82,6 @@ export function buildBookingUrl(data: BookingFormData, locale: Locale = "ar"): s
           `Email: ${data.email || "-"}`,
           `Field: ${data.workField}`,
           `Tier: ${tierName}${priceLine ? ` (${priceLine})` : ""}`,
-          "",
-          "— via booking form",
         ].join("\n");
 
   return toWaUrl(SITE.whatsapp, message);

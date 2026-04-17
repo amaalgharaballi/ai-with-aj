@@ -47,7 +47,7 @@ export default function Booking() {
     let formattedPhone = phone.replace(/\s/g, "");
     try {
       const parsed = parsePhoneNumber(formattedPhone);
-      if (parsed) formattedPhone = parsed.formatInternational();
+      if (parsed) formattedPhone = parsed.number; // E.164, no spaces
     } catch {
       // keep raw
     }
