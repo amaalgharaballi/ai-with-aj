@@ -9,8 +9,8 @@
     {
       "qAr": "متى وأين تُعقد الورشة؟",
       "qEn": "When and where is the workshop held?",
-      "aAr": "٢٦–٢٨ أبريل ٢٠٢٦، من ٦ إلى ٩ مساءً، في فندق أرابيلا البدع — قاعة ليان.",
-      "aEn": "April 26–28, 2026, 6–9 PM, Arabella Beach Hotel · Layan Hall."
+      "aAr": "__DATE_RANGE_AR__، __TIME_RANGE_AR__، في __VENUE_AR__.",
+      "aEn": "__DATE_RANGE_EN__, __META_TIME__, __VENUE_AR__."
     },
     {
       "qAr": "كيف يتم الدفع؟",

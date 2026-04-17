@@ -26,15 +26,15 @@ locale: en
 
 collections:
   # ─────────────────────────────────────────────────────────
-  # 1. COHORT — the next workshop's date + venue. Most-edited.
+  # 1. COHORT — dates, venue, description, per-day schedule. Most-edited.
   # ─────────────────────────────────────────────────────────
   - name: cohort
     label: "Next cohort"
-    description: "Date and venue for the next workshop. Changes here update the homepage countdown."
+    description: "The next workshop. Changing dates, times, or tools here auto-updates the countdown, tool marquee, hours totals, and day cards on the homepage."
     editor: { preview: false }
     files:
       - name: details
-        label: "Date & venue"
+        label: "Workshop details"
         file: src/content/cohort.json
         fields:
           - name: startIso
@@ -42,19 +42,49 @@ collections:
             widget: datetime
             format: "YYYY-MM-DDTHH:mm:ssZ"
             picker_utc: false
-            hint: "Kuwait time. The countdown on the homepage uses this."
-          - name: labelAr
-            label: "Date label (Arabic)"
-            widget: string
-            hint: "Example: ٢٦–٢٨ أبريل ٢٠٢٦"
-          - name: labelEn
-            label: "Date label (English)"
-            widget: string
-            hint: "Example: April 26–28, 2026"
+            hint: "Kuwait time. First day of the workshop."
+          - name: endIso
+            label: "Workshop end (date + time)"
+            widget: datetime
+            format: "YYYY-MM-DDTHH:mm:ssZ"
+            picker_utc: false
+            hint: "Kuwait time. Last day of the workshop. The date label on the homepage is built from start + end automatically."
           - name: venueAr
             label: "Venue (Arabic)"
             widget: string
             hint: "Example: فندق أرابيلا البدع · قاعة ليان"
+          - name: descriptionAr
+            label: "Workshop description (Arabic)"
+            widget: text
+            hint: "Short paragraph shown in the 'About the workshop' section."
+          - name: days
+            label: "Workshop days"
+            widget: list
+            summary: "{{fields.titleAr}}  ·  {{fields.startTime}}–{{fields.endTime}}"
+            hint: "Each day becomes a curriculum card. The tools listed here auto-fill the tool marquee, and the total hours auto-propagate to the hero, stats, and pricing."
+            fields:
+              - name: titleAr
+                label: "Day title (Arabic)"
+                widget: string
+                hint: "Example: اليوم الأول · توليد الصور"
+              - name: bodyAr
+                label: "Day description (Arabic)"
+                widget: text
+              - name: startTime
+                label: "Start time"
+                widget: string
+                pattern: ['^\d{2}:\d{2}$', "Use 24-hour format, e.g. 18:00"]
+                hint: "24-hour format. Example: 18:00"
+              - name: endTime
+                label: "End time"
+                widget: string
+                pattern: ['^\d{2}:\d{2}$', "Use 24-hour format, e.g. 21:00"]
+                hint: "24-hour format. Example: 21:00"
+              - name: tools
+                label: "Tools taught this day"
+                widget: list
+                field: { name: name, label: "Tool name", widget: string }
+                hint: "One tool per entry. Example: Veo 3.1, Sora 2, Kling AI. These auto-populate the tool marquee."
 
   # ─────────────────────────────────────────────────────────
   # 2. PRICING — prices + seats-left counter.

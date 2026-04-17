@@ -48,12 +48,28 @@ The CMS intentionally exposes only three things. Everything else lives in
 
 | Collection | File | Fields |
 |---|---|---|
-| **Next cohort** | `src/content/cohort.json` | start date+time, Arabic date label, English date label, venue |
+| **Next cohort** | `src/content/cohort.json` | start + end date/time, venue, workshop description, per-day schedule (title, description, start/end time, tools) |
 | **Pricing** | `src/content/pricing.json` | early-bird price, standard price, seats left |
 | **FAQ** | `src/content/faq.json` | list of questions + answers (AR/EN) |
 
 Each CMS save touches **only its own file** — no cross-contamination, no data
 wipes. If it's not in one of those three files, the CMS can't touch it.
+
+**The cohort collection is the control panel for the site.** Editing it
+auto-propagates everywhere it matters:
+
+- **Date label** (hero, FAQ, meta) is built from `startIso` + `endIso` — no
+  manual label. Same-month: `٢٦–٢٨ أبريل ٢٠٢٦`; cross-month: `٢٨ أبريل – ١ مايو ٢٠٢٦`.
+- **Total hours** is computed from the sum of per-day `endTime − startTime` and
+  substituted into the hero subtitle, the stats strip, the pricing tier
+  features, and the curriculum headline.
+- **Day count + sections count** in the curriculum headline auto-adjust.
+- **Tool marquee** is the union of `tools` across all days (first-appearance
+  order, deduped) — add a tool to Day 2, it shows in the marquee automatically.
+- **About paragraph 1** reads from `descriptionAr`.
+- **Curriculum day cards** are rendered from the `days` list; the three bonus
+  cards (PDF / live workshop / certificate) are dev-edited in
+  `src/content/site.json` under `curriculumBonus`.
 
 ---
 
@@ -68,15 +84,17 @@ wipes. If it's not in one of those three files, the CMS can't touch it.
 
 ### The most common update: a new cohort
 
-1. `/admin` → **Next cohort** → **Date & venue**
-2. Update **Workshop start** (date + time picker, Kuwait time)
-3. Update **Date label (Arabic)** — e.g. `٢٦–٢٨ أبريل ٢٠٢٦`
-4. Update **Date label (English)** — e.g. `April 26–28, 2026`
-5. If the venue changed, update **Venue (Arabic)**
+1. `/admin` → **Next cohort** → **Workshop details**
+2. Update **Workshop start** and **Workshop end** (date + time pickers, Kuwait time)
+3. If the venue changed, update **Venue (Arabic)**
+4. Update **Workshop description (Arabic)** if the pitch changed
+5. Edit the **Workshop days** list — for each day set title, description, start
+   time (24h), end time (24h), and the tools taught
 6. Save
 
-The countdown on the homepage reads from **Workshop start**. The date shown in
-the hero and FAQ reads from **Date label**.
+Everything on the homepage that depends on dates, hours, day count, or tools
+updates automatically from these fields. No need to touch date labels, the
+tool marquee, or any other string — they're derived.
 
 ### Seats-left counter
 

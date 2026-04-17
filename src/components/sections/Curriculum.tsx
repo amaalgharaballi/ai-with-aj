@@ -4,6 +4,7 @@ import { SITE } from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
 export default function Curriculum() {
+  const c = SITE.copy.curriculumSection;
   return (
     <section
       id="curriculum"
@@ -17,21 +18,21 @@ export default function Curriculum() {
             className="font-mono text-[10px] tracking-[0.28em] uppercase"
             style={{ color: "var(--fg-muted)" }}
           >
-            [02 / 06] المنهج
+            {c.numeral} {c.labelAr}
           </span>
           <h2
             className="mt-3 font-arabic text-4xl sm:text-5xl font-bold leading-tight"
             style={{ color: "var(--fg)" }}
           >
-            ٣ أيام · <span style={{ color: "var(--accent)" }}>٦ محاور</span>
+            {c.headlinePrefixAr}
+            <span style={{ color: "var(--accent)" }}>{c.headlineAccentAr}</span>
           </h2>
         </div>
         <p
           className="max-w-sm text-sm leading-relaxed"
           style={{ color: "var(--fg-muted)" }}
         >
-          كل يوم يفتح لك قدرة جديدة — ومع نهاية الورشة تخرج بمنتج فعلي،
-          ما تخرج بـ&ldquo;شهادة حضور&rdquo; فقط.
+          {c.tagline}
         </p>
       </div>
 
@@ -41,7 +42,7 @@ export default function Curriculum() {
       >
         {SITE.curriculum.map((item, i) => (
           <Reveal key={item.index} delay={i * 60} className="h-full">
-            <CurriculumCard item={item} i={i} />
+            <CurriculumCard item={item} isDay={i < SITE.cohort.dayCount} />
           </Reveal>
         ))}
       </div>
@@ -51,7 +52,7 @@ export default function Curriculum() {
 
 type Item = (typeof SITE.curriculum)[number];
 
-function CurriculumCard({ item, i }: { item: Item; i: number }) {
+function CurriculumCard({ item, isDay }: { item: Item; isDay: boolean }) {
   return (
     <article
       className="group relative flex flex-col justify-between p-7 sm:p-8 min-h-[260px] transition-colors h-full"
@@ -74,7 +75,7 @@ function CurriculumCard({ item, i }: { item: Item; i: number }) {
           className="font-mono text-[10px] tracking-[0.22em] uppercase"
           style={{ color: "var(--fg-muted)" }}
         >
-          {i < 3 ? `DAY 0${i + 1}` : "BONUS"}
+          {isDay ? `DAY ${item.index}` : "BONUS"}
         </span>
       </header>
 
@@ -92,7 +93,7 @@ function CurriculumCard({ item, i }: { item: Item; i: number }) {
           {item.bodyAr}
         </p>
 
-        {"toolNames" in item && item.toolNames && (
+        {item.toolNames.length > 0 && (
           <div className="mt-5 flex flex-wrap gap-1.5">
             {item.toolNames.map((tn) => (
               <span

@@ -12,7 +12,7 @@
 
   "stats": [
     { "valueAr": "+٦٥٠", "valueEn": "650+", "labelAr": "متدرب", "labelEn": "trainees" },
-    { "valueAr": "٩", "valueEn": "9", "labelAr": "ساعات تدريب", "labelEn": "training hours" },
+    { "valueAr": "__TOTAL_HOURS_AR__", "valueEn": "__TOTAL_HOURS_EN__", "labelAr": "ساعات تدريب", "labelEn": "training hours" },
     { "valueAr": "٥", "valueEn": "5", "labelAr": "جهات اعتماد", "labelEn": "accreditations" }
   ],
 
@@ -24,13 +24,13 @@
       "currency": "KWD",
       "isHighlighted": true,
       "featuresAr": [
-        "حضور الورشة الكاملة (٩ ساعات)",
+        "حضور الورشة الكاملة (__TOTAL_HOURS_AR__ ساعات)",
         "دليل PDF شامل بكل الأدوات",
         "شهادة إتمام معتمدة",
         "وصول لمجموعة واتساب خاصة"
       ],
       "featuresEn": [
-        "Full 9-hour workshop access",
+        "Full __TOTAL_HOURS_EN__-hour workshop access",
         "Comprehensive PDF guide (all tools)",
         "Accredited completion certificate",
         "Private WhatsApp community"
@@ -43,14 +43,14 @@
       "currency": "KWD",
       "isHighlighted": false,
       "featuresAr": [
-        "حضور الورشة الكاملة (٩ ساعات)",
+        "حضور الورشة الكاملة (__TOTAL_HOURS_AR__ ساعات)",
         "دليل PDF شامل بكل الأدوات",
         "شهادة إتمام معتمدة",
         "وصول لمجموعة واتساب خاصة",
         "جلسة أسئلة وأجوبة خاصة"
       ],
       "featuresEn": [
-        "Full 9-hour workshop access",
+        "Full __TOTAL_HOURS_EN__-hour workshop access",
         "Comprehensive PDF guide (all tools)",
         "Accredited completion certificate",
         "Private WhatsApp community",
@@ -59,69 +59,18 @@
     }
   ],
 
-  "tools": [
-    { "name": "Gemini", "logo": "/tools/gemini.svg", "day": 1 },
-    { "name": "Veo 3.1", "logo": "/tools/veo.svg", "day": 1 },
-    { "name": "Flow", "logo": "/tools/flow.svg", "day": 1 },
-    { "name": "Higgsfield", "logo": "/tools/higgsfield.svg", "day": 1 },
-    { "name": "Reve AI", "logo": "/tools/reve.svg", "day": 1 },
-    { "name": "Nano Banana", "logo": "/tools/nanobanana.svg", "day": 1 },
-    { "name": "Seedance 2.0", "logo": "/tools/seedance.svg", "day": 2 },
-    { "name": "Kling AI", "logo": "/tools/kling.svg", "day": 2 },
-    { "name": "Sora 2", "logo": "/tools/sora.svg", "day": 2 },
-    { "name": "Suno", "logo": "/tools/suno.svg", "day": 3 },
-    { "name": "Envato", "logo": "/tools/envato.svg", "day": 3 },
-    { "name": "ElevenLabs", "logo": "/tools/elevenlabs.svg", "day": 3 }
-  ],
-
-  "curriculum": [
+  "curriculumBonus": [
     {
-      "index": "01",
-      "titleAr": "اليوم الأول · توليد الصور",
-      "titleEn": "Day 1 · Image Generation",
-      "bodyAr": "تتعلم كيف تنتج صور احترافية من الأوامر، وتتحكم في النمط والإضاءة.",
-      "bodyEn": "Produce professional AI images from prompts, control style and lighting.",
-      "toolNames": ["Gemini", "Veo 3.1", "Higgsfield", "Reve AI", "Nano Banana"]
-    },
-    {
-      "index": "02",
-      "titleAr": "اليوم الثاني · تحويل الصور إلى فيديو",
-      "titleEn": "Day 2 · Image → Video",
-      "bodyAr": "تحرّك صورك وتحولها لفيديوهات قابلة للاستخدام في الإعلانات والأفلام القصيرة.",
-      "bodyEn": "Animate your images into usable clips for ads and short films.",
-      "toolNames": ["Seedance 2.0", "Kling AI", "Sora 2", "Higgsfield"]
-    },
-    {
-      "index": "03",
-      "titleAr": "اليوم الثالث · الصوت والدمج",
-      "titleEn": "Day 3 · Audio & Compositing",
-      "bodyAr": "تركّب الصوت والموسيقى وتدمج تصوير حقيقي مع مولّد بالذكاء الاصطناعي.",
-      "bodyEn": "Compose audio, score, and blend real footage with AI-generated content.",
-      "toolNames": ["Suno", "Envato", "ElevenLabs"]
-    },
-    {
-      "index": "04",
       "titleAr": "دليل PDF شامل",
-      "titleEn": "Comprehensive PDF Guide",
-      "bodyAr": "مرجع دائم بكل الأدوات والخطوات — ترجع له بعد الورشة متى ما احتجت.",
-      "bodyEn": "A lasting reference for every tool and step — return to it anytime after the workshop.",
-      "toolNames": []
+      "bodyAr": "مرجع دائم بكل الأدوات والخطوات — ترجع له بعد الورشة متى ما احتجت."
     },
     {
-      "index": "05",
       "titleAr": "ورشة تطبيقية مباشرة",
-      "titleEn": "Live Hands-On Practice",
-      "bodyAr": "تشتغل على مقطع فعلي خلال الورشة وتخرج بنتيجة حقيقية في يدك.",
-      "bodyEn": "Work on a real clip during the workshop and leave with a finished result.",
-      "toolNames": []
+      "bodyAr": "تشتغل على مقطع فعلي خلال الورشة وتخرج بنتيجة حقيقية في يدك."
     },
     {
-      "index": "06",
       "titleAr": "شهادة إتمام معتمدة",
-      "titleEn": "Accredited Certificate",
-      "bodyAr": "شهادة معتمدة من ٥ جهات رسمية تستلمها في اليوم الأخير.",
-      "bodyEn": "A certificate recognized by 5 official bodies, handed to you on the final day.",
-      "toolNames": []
+      "bodyAr": "شهادة معتمدة من ٥ جهات رسمية تستلمها في اليوم الأخير."
     }
   ],
 
@@ -143,11 +92,11 @@
       "headlineLine1Ar": "صناعة المحتوى",
       "headlineLine2PrefixAr": "بـ",
       "headlineLine2AccentAr": "الذكاء الاصطناعي",
-      "subHeadlineAr": "ورشة مكثّفة ٣ أيام · ٩ ساعات · في قلب الكويت. تخرج منها قادر تصنع صور وفيديوهات ودعايات احترافية بأحدث أدوات الذكاء الاصطناعي — بدون أي خبرة سابقة.",
+      "subHeadlineAr": "ورشة مكثّفة __DAY_COUNT_AR__ أيام · __TOTAL_HOURS_AR__ ساعات · في قلب الكويت. تخرج منها قادر تصنع صور وفيديوهات ودعايات احترافية بأحدث أدوات الذكاء الاصطناعي — بدون أي خبرة سابقة.",
       "ctaPrimaryAr": "احجز مقعدك",
       "ctaSecondaryAr": "استفسار عبر واتساب",
-      "metaDate": "[2026.04.26 — 28]",
-      "metaTime": "6 — 9 PM"
+      "metaDate": "[__META_DATE__]",
+      "metaTime": "__META_TIME__"
     },
 
     "heroTerminal": {
@@ -166,7 +115,7 @@
       "labelAr": "عن الورشة",
       "headlineLine1Ar": "مو كورس تقني",
       "headlineLine2Ar": "ورشة صناعة",
-      "paragraph1Ar": "هذي ورشة يدك بيدك — تطبّق على جهازك من أول دقيقة. كل أداة تشوفها في سوق المحتوى اليوم (Veo, Sora, Kling, Suno, ElevenLabs وغيرها) تتعلم تشغيلها، وتطلع يوم الأحد عندك مشروع حقيقي جاهز للنشر.",
+      "paragraph1Ar": "",
       "paragraph2BeforeAr": "نعلّمك ",
       "paragraph2HighlightAr": "المنهج",
       "paragraph2AfterAr": " لا الأداة. الأدوات تتغير كل شهر — المنهج يبقى. تخرج قادر تتعلم أي أداة جديدة خلال دقائق، لأنك عارف وش تسأل نفسك.",
@@ -175,6 +124,14 @@
         { "k": "B", "v": "مشروع جاهز" },
         { "k": "C", "v": "متابعة بعد الورشة" }
       ]
+    },
+
+    "curriculumSection": {
+      "numeral": "[02 / 06]",
+      "labelAr": "المنهج",
+      "headlinePrefixAr": "__DAY_COUNT_AR__ أيام · ",
+      "headlineAccentAr": "__SECTIONS_COUNT_AR__ محاور",
+      "tagline": "كل يوم يفتح لك قدرة جديدة — ومع نهاية الورشة تخرج بمنتج فعلي، ما تخرج بـ\"شهادة حضور\" فقط."
     },
 
     "instructorSection": {
