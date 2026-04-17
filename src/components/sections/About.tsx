@@ -19,7 +19,7 @@ export default function About() {
             {c.numeral} {c.labelAr}
           </span>
           <h2
-            className="mt-4 font-arabic text-4xl sm:text-5xl font-bold leading-tight"
+            className="mt-4 font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
             style={{ color: "var(--fg)" }}
           >
             {c.headlineLine1Ar}

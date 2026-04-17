@@ -183,19 +183,19 @@ const curriculumBonus = siteData.curriculumBonus.map((b, i) => ({
 
 const curriculum = { days: curriculumDays, bonus: curriculumBonus };
 
-// Tiers: compose static metadata with dynamic price + seats
+// Tiers: compose static metadata with dynamic price + availability
 const tiers = siteData.tiersMeta.map((meta) => {
   if (meta.id === "early-bird") {
     return {
       ...meta,
       price: pricingData.earlyBirdPrice,
-      seatsLeft: pricingData.earlyBirdSeatsLeft as number | null,
+      soldOut: Boolean(pricingData.earlyBirdSoldOut),
     };
   }
   return {
     ...meta,
     price: pricingData.standardPrice,
-    seatsLeft: null as number | null,
+    soldOut: false,
   };
 });
 

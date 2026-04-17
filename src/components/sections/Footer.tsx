@@ -26,7 +26,7 @@ export default function Footer() {
               {c.finalTagAr}
             </p>
             <p
-              className="mt-3 font-arabic text-3xl sm:text-4xl font-bold leading-tight max-w-2xl"
+              className="mt-3 font-arabic-display text-3xl sm:text-4xl font-bold leading-tight max-w-2xl"
               style={{ color: "var(--fg)" }}
             >
               {c.finalBeforeAr}

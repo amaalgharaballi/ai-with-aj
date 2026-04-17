@@ -106,12 +106,11 @@ collections:
             label: "Standard price (KWD)"
             widget: number
             value_type: int
-          - name: earlyBirdSeatsLeft
-            label: "Early bird seats left"
-            widget: number
-            value_type: int
-            required: false
-            hint: "Leave blank to hide the badge. Set to 0 when full."
+          - name: earlyBirdSoldOut
+            label: "Early bird sold out?"
+            widget: boolean
+            default: false
+            hint: "Toggle ON when the early-bird tier is full. A 'مكتمل' badge appears on the pricing card."
 
   # ─────────────────────────────────────────────────────────
   # 3. FAQ — questions and answers.

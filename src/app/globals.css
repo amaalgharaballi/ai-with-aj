@@ -26,7 +26,8 @@
   --color-whatsapp-hover: var(--whatsapp-hover);
   --color-border: var(--border);
 
-  --font-arabic: var(--font-plex-arabic);
+  --font-arabic: var(--font-arabic-body);
+  --font-arabic-display: var(--font-arabic-display);
   --font-mono: var(--font-plex-mono);
   --font-display: var(--font-cormorant);
 }
@@ -61,7 +62,7 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-plex-arabic), system-ui, sans-serif;
+  font-family: var(--font-arabic-body), system-ui, sans-serif;
   font-weight: 500;
   min-height: 100dvh;
 }

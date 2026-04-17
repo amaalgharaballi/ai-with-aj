@@ -84,7 +84,7 @@ export default function Booking() {
             {c.numeral} {c.labelAr}
           </span>
           <h2
-            className="mt-3 font-arabic text-4xl sm:text-5xl font-bold leading-tight"
+            className="mt-3 font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
             style={{ color: "var(--fg)" }}
           >
             {c.headlineLine1Ar}

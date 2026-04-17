@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import {
-  IBM_Plex_Sans_Arabic,
+  Cairo,
+  Tajawal,
   IBM_Plex_Mono,
   Cormorant_Garamond,
 } from "next/font/google";
@@ -8,10 +9,17 @@ import DotGrid from "@/components/texture/DotGrid";
 import FilmGrain from "@/components/texture/FilmGrain";
 import "./globals.css";
 
-const plexArabic = IBM_Plex_Sans_Arabic({
-  variable: "--font-plex-arabic",
+const cairo = Cairo({
+  variable: "--font-arabic-display",
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["600", "700", "800", "900"],
+  display: "swap",
+});
+
+const tajawal = Tajawal({
+  variable: "--font-arabic-body",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 
@@ -61,7 +69,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${plexArabic.variable} ${plexMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${cairo.variable} ${tajawal.variable} ${plexMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <DotGrid />

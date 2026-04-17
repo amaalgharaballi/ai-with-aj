@@ -27,20 +27,13 @@ const QUICK_MESSAGES: Record<Locale, Record<Ctx, string>> = {
   },
 };
 
-/** Append a lightweight tracking line so cousin can see where leads came from. */
-function withContext(message: string, ctx: string, locale: Locale): string {
-  const tag = locale === "ar" ? `\n\n— من الموقع · ${ctx}` : `\n\n— via site · ${ctx}`;
-  return message + tag;
-}
-
 function toWaUrl(number: string, message: string): string {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
 /** Mode A — direct CTA from a section. */
 export function buildQuickUrl(ctx: Ctx, locale: Locale = "ar"): string {
-  const msg = withContext(QUICK_MESSAGES[locale][ctx], ctx, locale);
-  return toWaUrl(SITE.whatsapp, msg);
+  return toWaUrl(SITE.whatsapp, QUICK_MESSAGES[locale][ctx]);
 }
 
 /** Mode B — booking form submission. Composes a full registration request. */

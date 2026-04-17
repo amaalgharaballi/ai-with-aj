@@ -47,7 +47,7 @@ export default function Hero() {
 
             {/* Display headline — ONE word in accent */}
             <h1
-              className="font-arabic font-bold leading-[1.05] tracking-tight"
+              className="font-arabic-display font-bold leading-[1.05] tracking-tight"
               style={{
                 color: "var(--fg)",
                 fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)",

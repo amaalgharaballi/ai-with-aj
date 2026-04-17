@@ -152,60 +152,25 @@ export default function HeroTerminal() {
           </span>
         </div>
 
-        {/* Output frame — instructor photo with duotone */}
+        {/* Output frame — course poster */}
         <div
-          className="mt-3 relative aspect-[16/10] w-full overflow-hidden border"
+          className="mt-3 relative aspect-video w-full overflow-hidden border"
           style={{
             borderColor: "var(--border)",
             background: "var(--bg)",
           }}
         >
-          {/* SVG duotone filter */}
-          <svg aria-hidden className="absolute size-0">
-            <filter id="duotone-hero" colorInterpolationFilters="sRGB">
-              <feColorMatrix
-                type="matrix"
-                values="
-                  0.33 0.33 0.33 0 0
-                  0.33 0.33 0.33 0 0
-                  0.33 0.33 0.33 0 0
-                  0    0    0    1 0
-                "
-              />
-              <feComponentTransfer>
-                <feFuncR tableValues="0.03 0.894" />
-                <feFuncG tableValues="0.05 0.902" />
-                <feFuncB tableValues="0.08 0.921" />
-              </feComponentTransfer>
-            </filter>
-          </svg>
-
           {/* The image itself */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/instructor.jpg"
+            src="/hero-poster.jpg"
             alt=""
             aria-hidden
-            className="absolute inset-0 h-full w-full object-cover object-[center_20%] transition-all duration-700"
+            className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-700"
             style={{
               opacity: phase === "output" ? 1 : 0.2,
               transform: phase === "output" ? "scale(1)" : "scale(1.08)",
-              filter:
-                phase === "output"
-                  ? "url(#duotone-hero) contrast(1.08)"
-                  : "url(#duotone-hero) contrast(1.08) blur(10px)",
-            }}
-          />
-
-          {/* Accent rim-light */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 transition-opacity duration-700"
-            style={{
-              background:
-                "radial-gradient(120% 100% at 85% 25%, color-mix(in oklab, var(--accent) 20%, transparent) 0%, transparent 55%)",
-              mixBlendMode: "screen",
-              opacity: phase === "output" ? 1 : 0,
+              filter: phase === "output" ? "none" : "blur(10px)",
             }}
           />
 

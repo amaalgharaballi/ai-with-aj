@@ -1,5 +1,5 @@
 {
-  "earlyBirdPrice": 75,
-  "standardPrice": 90,
-  "earlyBirdSeatsLeft": 10
+  "earlyBirdPrice": 150,
+  "standardPrice": 200,
+  "earlyBirdSoldOut": false
 }

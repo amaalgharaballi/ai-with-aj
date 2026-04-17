@@ -21,7 +21,7 @@ export default function Pricing() {
           {c.numeral} {c.labelAr}
         </span>
         <h2
-          className="font-arabic text-4xl sm:text-5xl font-bold leading-tight"
+          className="font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
           style={{ color: "var(--fg)" }}
         >
           {c.headlinePrefixAr}
@@ -84,19 +84,15 @@ function TierCard({ tier }: { tier: Tier }) {
           </h3>
         </div>
 
-        {isHL && "seatsLeft" in tier && tier.seatsLeft ? (
+        {isHL && tier.soldOut ? (
           <span
             className="inline-flex items-center gap-2 border px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
             style={{
-              borderColor: "var(--accent)",
-              color: "var(--accent)",
+              borderColor: "var(--fg-muted)",
+              color: "var(--fg-muted)",
             }}
           >
-            <span
-              className="h-1.5 w-1.5 rounded-full animate-pulse-dot"
-              style={{ background: "var(--accent)" }}
-            />
-            {tier.seatsLeft} مقاعد فقط
+            مكتمل
           </span>
         ) : null}
       </header>
