@@ -125,6 +125,16 @@
       ]
     },
 
+    "montage": {
+      "tag": "[ REEL / 2026 ]",
+      "labelAr": "لقطات",
+      "headlineLine1Ar": "شوف الشغل ",
+      "headlineAccentAr": "قبل لا تبدأ",
+      "paragraphAr": "مقاطع أُنتجت بنفس الأدوات اللي تتعلمها خلال الورشة. من الفكرة إلى الفيديو الجاهز — خلال دقائق.",
+      "frameLabel": "[ reel / 01 ]",
+      "liveBadge": "PLAYING"
+    },
+
     "curriculumSection": {
       "numeral": "[02 / 06]",
       "labelAr": "المنهج",
