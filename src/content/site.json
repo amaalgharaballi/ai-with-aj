@@ -1,0 +1,254 @@
+{
+  "instructor": {
+    "nameAr": "م. عبداللطيف الغربللي",
+    "nameEn": "Eng. Abdullatif Al-Gharballi",
+    "titleAr": "مهندس في شركة نفط الكويت · مدرّب معتمد في صناعة المحتوى بالذكاء الاصطناعي",
+    "titleEn": "KOC Engineer · Certified AI Content Creation Trainer",
+    "ig": "ai.with.aj",
+    "igUrl": "https://instagram.com/ai.with.aj"
+  },
+
+  "whatsapp": "96599899499",
+
+  "stats": [
+    { "valueAr": "+٦٥٠", "valueEn": "650+", "labelAr": "متدرب", "labelEn": "trainees" },
+    { "valueAr": "٩", "valueEn": "9", "labelAr": "ساعات تدريب", "labelEn": "training hours" },
+    { "valueAr": "٥", "valueEn": "5", "labelAr": "جهات اعتماد", "labelEn": "accreditations" }
+  ],
+
+  "tiersMeta": [
+    {
+      "id": "early-bird",
+      "nameAr": "الحجز المبكر",
+      "nameEn": "Early Access",
+      "currency": "KWD",
+      "isHighlighted": true,
+      "featuresAr": [
+        "حضور الورشة الكاملة (٩ ساعات)",
+        "دليل PDF شامل بكل الأدوات",
+        "شهادة إتمام معتمدة",
+        "وصول لمجموعة واتساب خاصة"
+      ],
+      "featuresEn": [
+        "Full 9-hour workshop access",
+        "Comprehensive PDF guide (all tools)",
+        "Accredited completion certificate",
+        "Private WhatsApp community"
+      ]
+    },
+    {
+      "id": "standard",
+      "nameAr": "السعر الكامل",
+      "nameEn": "Standard",
+      "currency": "KWD",
+      "isHighlighted": false,
+      "featuresAr": [
+        "حضور الورشة الكاملة (٩ ساعات)",
+        "دليل PDF شامل بكل الأدوات",
+        "شهادة إتمام معتمدة",
+        "وصول لمجموعة واتساب خاصة",
+        "جلسة أسئلة وأجوبة خاصة"
+      ],
+      "featuresEn": [
+        "Full 9-hour workshop access",
+        "Comprehensive PDF guide (all tools)",
+        "Accredited completion certificate",
+        "Private WhatsApp community",
+        "Exclusive Q&A session"
+      ]
+    }
+  ],
+
+  "tools": [
+    { "name": "Gemini", "logo": "/tools/gemini.svg", "day": 1 },
+    { "name": "Veo 3.1", "logo": "/tools/veo.svg", "day": 1 },
+    { "name": "Flow", "logo": "/tools/flow.svg", "day": 1 },
+    { "name": "Higgsfield", "logo": "/tools/higgsfield.svg", "day": 1 },
+    { "name": "Reve AI", "logo": "/tools/reve.svg", "day": 1 },
+    { "name": "Nano Banana", "logo": "/tools/nanobanana.svg", "day": 1 },
+    { "name": "Seedance 2.0", "logo": "/tools/seedance.svg", "day": 2 },
+    { "name": "Kling AI", "logo": "/tools/kling.svg", "day": 2 },
+    { "name": "Sora 2", "logo": "/tools/sora.svg", "day": 2 },
+    { "name": "Suno", "logo": "/tools/suno.svg", "day": 3 },
+    { "name": "Envato", "logo": "/tools/envato.svg", "day": 3 },
+    { "name": "ElevenLabs", "logo": "/tools/elevenlabs.svg", "day": 3 }
+  ],
+
+  "curriculum": [
+    {
+      "index": "01",
+      "titleAr": "اليوم الأول · توليد الصور",
+      "titleEn": "Day 1 · Image Generation",
+      "bodyAr": "تتعلم كيف تنتج صور احترافية من الأوامر، وتتحكم في النمط والإضاءة.",
+      "bodyEn": "Produce professional AI images from prompts, control style and lighting.",
+      "toolNames": ["Gemini", "Veo 3.1", "Higgsfield", "Reve AI", "Nano Banana"]
+    },
+    {
+      "index": "02",
+      "titleAr": "اليوم الثاني · تحويل الصور إلى فيديو",
+      "titleEn": "Day 2 · Image → Video",
+      "bodyAr": "تحرّك صورك وتحولها لفيديوهات قابلة للاستخدام في الإعلانات والأفلام القصيرة.",
+      "bodyEn": "Animate your images into usable clips for ads and short films.",
+      "toolNames": ["Seedance 2.0", "Kling AI", "Sora 2", "Higgsfield"]
+    },
+    {
+      "index": "03",
+      "titleAr": "اليوم الثالث · الصوت والدمج",
+      "titleEn": "Day 3 · Audio & Compositing",
+      "bodyAr": "تركّب الصوت والموسيقى وتدمج تصوير حقيقي مع مولّد بالذكاء الاصطناعي.",
+      "bodyEn": "Compose audio, score, and blend real footage with AI-generated content.",
+      "toolNames": ["Suno", "Envato", "ElevenLabs"]
+    },
+    {
+      "index": "04",
+      "titleAr": "دليل PDF شامل",
+      "titleEn": "Comprehensive PDF Guide",
+      "bodyAr": "مرجع دائم بكل الأدوات والخطوات — ترجع له بعد الورشة متى ما احتجت.",
+      "bodyEn": "A lasting reference for every tool and step — return to it anytime after the workshop.",
+      "toolNames": []
+    },
+    {
+      "index": "05",
+      "titleAr": "ورشة تطبيقية مباشرة",
+      "titleEn": "Live Hands-On Practice",
+      "bodyAr": "تشتغل على مقطع فعلي خلال الورشة وتخرج بنتيجة حقيقية في يدك.",
+      "bodyEn": "Work on a real clip during the workshop and leave with a finished result.",
+      "toolNames": []
+    },
+    {
+      "index": "06",
+      "titleAr": "شهادة إتمام معتمدة",
+      "titleEn": "Accredited Certificate",
+      "bodyAr": "شهادة معتمدة من ٥ جهات رسمية تستلمها في اليوم الأخير.",
+      "bodyEn": "A certificate recognized by 5 official bodies, handed to you on the final day.",
+      "toolNames": []
+    }
+  ],
+
+  "accreditations": [
+    { "nameAr": "التعليم التطبيقي والتدريب", "nameEn": "PAAET", "logo": "/accred/paaet.svg" },
+    { "nameAr": "ديوان الخدمة المدنية", "nameEn": "Civil Service Commission", "logo": "/accred/csc.svg" },
+    { "nameAr": "وزارة التربية", "nameEn": "Ministry of Education", "logo": "/accred/moe.svg" },
+    { "nameAr": "اعتماد أمريكي دولي A.I.A", "nameEn": "A.I.A (USA)", "logo": "/accred/aia.svg" },
+    { "nameAr": "أكاديمية الاعتماد الكندية CAAA", "nameEn": "CAAA (Canada)", "logo": "/accred/caaa.svg" }
+  ],
+
+  "links": {
+    "instagram": "https://instagram.com/ai.with.aj"
+  },
+
+  "copy": {
+    "hero": {
+      "tag": "[ WORKSHOP / KUWAIT / 2026 ]",
+      "headlineLine1Ar": "صناعة المحتوى",
+      "headlineLine2PrefixAr": "بـ",
+      "headlineLine2AccentAr": "الذكاء الاصطناعي",
+      "subHeadlineAr": "ورشة مكثّفة ٣ أيام · ٩ ساعات · في قلب الكويت. تخرج منها قادر تصنع صور وفيديوهات ودعايات احترافية بأحدث أدوات الذكاء الاصطناعي — بدون أي خبرة سابقة.",
+      "ctaPrimaryAr": "احجز مقعدك",
+      "ctaSecondaryAr": "استفسار عبر واتساب",
+      "metaDate": "[2026.04.26 — 28]",
+      "metaTime": "6 — 9 PM"
+    },
+
+    "heroTerminal": {
+      "command": "generate",
+      "tool": "veo-3.1",
+      "arg": "\"portrait — ai content creator, kuwait\"",
+      "sessionLabel": "aj.session",
+      "pathLabel": "~/workshop",
+      "outputLabel": "[out / 01]",
+      "statusGeneratingAr": "generating...",
+      "statusReadyAr": "ready"
+    },
+
+    "about": {
+      "numeral": "[01 / 06]",
+      "labelAr": "عن الورشة",
+      "headlineLine1Ar": "مو كورس تقني",
+      "headlineLine2Ar": "ورشة صناعة",
+      "paragraph1Ar": "هذي ورشة يدك بيدك — تطبّق على جهازك من أول دقيقة. كل أداة تشوفها في سوق المحتوى اليوم (Veo, Sora, Kling, Suno, ElevenLabs وغيرها) تتعلم تشغيلها، وتطلع يوم الأحد عندك مشروع حقيقي جاهز للنشر.",
+      "paragraph2BeforeAr": "نعلّمك ",
+      "paragraph2HighlightAr": "المنهج",
+      "paragraph2AfterAr": " لا الأداة. الأدوات تتغير كل شهر — المنهج يبقى. تخرج قادر تتعلم أي أداة جديدة خلال دقائق، لأنك عارف وش تسأل نفسك.",
+      "badges": [
+        { "k": "A", "v": "تطبيق حيّ" },
+        { "k": "B", "v": "مشروع جاهز" },
+        { "k": "C", "v": "متابعة بعد الورشة" }
+      ]
+    },
+
+    "instructorSection": {
+      "numeral": "[03 / 06]",
+      "labelAr": "المدرّب",
+      "bioParagraphsAr": [
+        "مهندس في شركة نفط الكويت، ومدرّب معتمد في صناعة المحتوى بالذكاء الاصطناعي. درّب أكثر من ٦٥٠ متدرب خلال السنة الماضية، واعتماد تدريبه من ٥ جهات رسمية محلية ودولية.",
+        "اشتغل مع علامات تجارية في الخليج على حملات دعائية بالكامل بأدوات ذكاء اصطناعي — تصوير، مونتاج، صوت، وكلها في أيام بدل أسابيع."
+      ],
+      "orbitalLabel": "INSTRUCTOR · KOC · KUWAIT · EST 2024 ·",
+      "liveBadge": "LIVE"
+    },
+
+    "pricing": {
+      "numeral": "[04 / 06]",
+      "labelAr": "الأسعار",
+      "headlinePrefixAr": "فئتين · ",
+      "headlineAccentAr": "مقعد واحد",
+      "footnoteAr": "الدفع عن طريق واتساب بعد التواصل",
+      "inquireLinkAr": "أو استفسر عبر واتساب ↗",
+      "bookPrefixAr": "احجز "
+    },
+
+    "booking": {
+      "numeral": "[05 / 06]",
+      "labelAr": "التسجيل",
+      "headlineLine1Ar": "احجز مقعدك في",
+      "headlineAccentAr": "دقيقة واحدة",
+      "subHeadlineAr": "املأ النموذج ويفتح واتساب مباشرة بطلب تسجيل جاهز. الفريق يتواصل معك ويرسل تفاصيل الدفع والمقعد.",
+      "bulletsAr": [
+        "بدون حساب · بدون كلمة سر",
+        "الدفع بعد تأكيد المقعد",
+        "معلوماتك ما تروح لأي مكان إلا واتساب المدرّب"
+      ],
+      "tierLegendAr": "اختر الفئة",
+      "totalLabelAr": "المجموع",
+      "submitCtaAr": "أرسل طلب التسجيل عبر واتساب",
+      "fieldLabels": {
+        "nameAr": "الاسم الكامل",
+        "namePlaceholderAr": "مثلاً: عبدالله الكندري",
+        "phoneAr": "رقم الواتساب",
+        "phoneHintAr": "مع رمز الدولة · مثال: +965XXXXXXXX",
+        "emailAr": "الإيميل",
+        "emailHintAr": "اختياري",
+        "workFieldAr": "المجال"
+      },
+      "errors": {
+        "nameAr": "اكتب اسمك الكامل",
+        "phoneAr": "رقم غير صحيح — تأكد من رمز الدولة",
+        "emailAr": "الإيميل غير صحيح"
+      },
+      "workFieldsAr": [
+        { "value": "content-creator", "label": "صانع محتوى" },
+        { "value": "marketer", "label": "مسوّق / وكالة" },
+        { "value": "business-owner", "label": "صاحب عمل" },
+        { "value": "student", "label": "طالب" },
+        { "value": "other", "label": "غير ذلك" }
+      ]
+    },
+
+    "faqSection": {
+      "numeral": "[06 / 06]",
+      "labelAr": "الأسئلة",
+      "headlineAccentAr": "أسئلة",
+      "headlineSuffixAr": "تتكرر"
+    },
+
+    "footer": {
+      "finalTagAr": "آخر نداء",
+      "finalBeforeAr": "المقاعد ",
+      "finalAccentAr": "محدودة",
+      "finalAfterAr": ". التسجيل مفتوح الحين.",
+      "ctaPrimaryAr": "احجز مقعدك",
+      "ctaSecondaryAr": "تواصل مباشر"
+    }
+  }
+}

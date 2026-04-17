@@ -1,0 +1,34 @@
+{
+  "faq": [
+    {
+      "qAr": "هل الورشة مناسبة للمبتدئين؟",
+      "qEn": "Is this workshop suitable for beginners?",
+      "aAr": "نعم. نبدأ من الصفر، ولا تحتاج خلفية تقنية — فقط لابتوب أو آيباد.",
+      "aEn": "Yes. We start from zero. No technical background required — just a laptop or iPad."
+    },
+    {
+      "qAr": "متى وأين تُعقد الورشة؟",
+      "qEn": "When and where is the workshop held?",
+      "aAr": "٢٦–٢٨ أبريل ٢٠٢٦، من ٦ إلى ٩ مساءً، في فندق أرابيلا البدع — قاعة ليان.",
+      "aEn": "April 26–28, 2026, 6–9 PM, Arabella Beach Hotel · Layan Hall."
+    },
+    {
+      "qAr": "كيف يتم الدفع؟",
+      "qEn": "How do I pay?",
+      "aAr": "بعد إرسال طلب التسجيل عبر واتساب، يتواصل معك الفريق ويرسل لك تفاصيل الدفع.",
+      "aEn": "After submitting your WhatsApp request, the team contacts you with payment details."
+    },
+    {
+      "qAr": "هل سأحصل على شهادة؟",
+      "qEn": "Will I get a certificate?",
+      "aAr": "نعم، شهادة إتمام معتمدة من ٥ جهات رسمية تُسلّم في اليوم الأخير.",
+      "aEn": "Yes — a completion certificate recognized by 5 official bodies, handed out on the last day."
+    },
+    {
+      "qAr": "الأدوات اللي تعلمتها تتغير كل شهر — هل الدورة تصلح بعد فترة؟",
+      "qEn": "AI tools change monthly — is the workshop still relevant later?",
+      "aAr": "نعلمك الطريقة والمنهج، مو أداة واحدة. لما تتغير الأداة، المنهج نفسه يشتغل على الجديدة.",
+      "aEn": "We teach the method, not just one tool. When tools change, the same method applies to the new ones."
+    }
+  ]
+}

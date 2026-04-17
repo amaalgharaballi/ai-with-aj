@@ -1,0 +1,106 @@
+# Sveltia CMS schema for ai.with.aj
+#
+# Dumbified on purpose. Three collections, each edits ONE small JSON file with
+# the minimum fields. Changing something here commits to GitHub; Vercel
+# redeploys within ~60 seconds.
+#
+# For anything NOT in this form (bio, curriculum, hero copy, etc.):
+# edit src/content/site.json directly on GitHub.
+
+backend:
+  name: github
+  repo: amaalgharaballi/ai-with-aj
+  branch: main
+
+commit_messages:
+  create: "content: update {{collection}}"
+  update: "content: update {{collection}}"
+  delete: "content: delete {{collection}}"
+  uploadMedia: "content: upload {{path}}"
+  deleteMedia: "content: delete {{path}}"
+
+media_folder: public/uploads
+public_folder: /uploads
+
+locale: en
+
+collections:
+  # ─────────────────────────────────────────────────────────
+  # 1. COHORT — the next workshop's date + venue. Most-edited.
+  # ─────────────────────────────────────────────────────────
+  - name: cohort
+    label: "Next cohort"
+    description: "Date and venue for the next workshop. Changes here update the homepage countdown."
+    editor: { preview: false }
+    files:
+      - name: details
+        label: "Date & venue"
+        file: src/content/cohort.json
+        fields:
+          - name: startIso
+            label: "Workshop start (date + time)"
+            widget: datetime
+            format: "YYYY-MM-DDTHH:mm:ssZ"
+            picker_utc: false
+            hint: "Kuwait time. The countdown on the homepage uses this."
+          - name: labelAr
+            label: "Date label (Arabic)"
+            widget: string
+            hint: "Example: ٢٦–٢٨ أبريل ٢٠٢٦"
+          - name: labelEn
+            label: "Date label (English)"
+            widget: string
+            hint: "Example: April 26–28, 2026"
+          - name: venueAr
+            label: "Venue (Arabic)"
+            widget: string
+            hint: "Example: فندق أرابيلا البدع · قاعة ليان"
+
+  # ─────────────────────────────────────────────────────────
+  # 2. PRICING — prices + seats-left counter.
+  # ─────────────────────────────────────────────────────────
+  - name: pricing
+    label: "Pricing"
+    description: "Tier prices and the early-bird seats-left counter."
+    editor: { preview: false }
+    files:
+      - name: prices
+        label: "Prices & seats"
+        file: src/content/pricing.json
+        fields:
+          - name: earlyBirdPrice
+            label: "Early bird price (KWD)"
+            widget: number
+            value_type: int
+          - name: standardPrice
+            label: "Standard price (KWD)"
+            widget: number
+            value_type: int
+          - name: earlyBirdSeatsLeft
+            label: "Early bird seats left"
+            widget: number
+            value_type: int
+            required: false
+            hint: "Leave blank to hide the badge. Set to 0 when full."
+
+  # ─────────────────────────────────────────────────────────
+  # 3. FAQ — questions and answers.
+  # ─────────────────────────────────────────────────────────
+  - name: faq
+    label: "FAQ"
+    description: "Questions shown in the FAQ accordion at the bottom of the page."
+    editor: { preview: false }
+    files:
+      - name: list
+        label: "Questions"
+        file: src/content/faq.json
+        fields:
+          - name: faq
+            label: "Questions"
+            widget: list
+            summary: "{{fields.qAr}}"
+            fields:
+              - { name: qAr, label: "Question (Arabic)", widget: string }
+              - { name: aAr, label: "Answer (Arabic)", widget: text }
+              - { name: qEn, label: "Question (English)", widget: string, required: false }
+              - { name: aEn, label: "Answer (English)", widget: text, required: false }

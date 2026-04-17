@@ -8,31 +8,22 @@ import { SITE } from "@/lib/site";
 type Locale = "ar" | "en";
 type Ctx =
   | "hero"
-  | "nav"
   | "final"
   | "pricing-early-bird"
-  | "pricing-standard"
-  | "curriculum"
-  | "about";
+  | "pricing-standard";
 
 const QUICK_MESSAGES: Record<Locale, Record<Ctx, string>> = {
   ar: {
     hero: "السلام عليكم، أبغى أستفسر عن دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي.",
-    nav: "السلام عليكم، عندي استفسار عن الدورة.",
     final: "السلام عليكم، جاهز أسجل في الدورة القادمة.",
-    "pricing-early-bird": "السلام عليكم، أبغى أحجز مقعد بسعر الحجز المبكر (Early Bird).",
+    "pricing-early-bird": "السلام عليكم، أبغى أحجز مقعد بسعر الحجز المبكر (Early Access).",
     "pricing-standard": "السلام عليكم، أبغى أحجز مقعد في الدورة.",
-    curriculum: "السلام عليكم، حابب أعرف أكثر عن تفاصيل الورشة والأدوات.",
-    about: "السلام عليكم، عندي سؤال للمدرّب.",
   },
   en: {
     hero: "Hi, I'd like to ask about the AI content & ads workshop.",
-    nav: "Hi, I have a question about the workshop.",
     final: "Hi, I'm ready to register for the next cohort.",
-    "pricing-early-bird": "Hi, I'd like to book an Early Bird seat.",
+    "pricing-early-bird": "Hi, I'd like to book an Early Access seat.",
     "pricing-standard": "Hi, I'd like to book a seat in the workshop.",
-    curriculum: "Hi, I'd like to learn more about the curriculum and tools.",
-    about: "Hi, I have a question for the instructor.",
   },
 };
 
