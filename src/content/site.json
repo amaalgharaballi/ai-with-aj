@@ -12,7 +12,6 @@
 
   "stats": [
     { "valueAr": "+٦٥٠", "valueEn": "650+", "labelAr": "متدرب", "labelEn": "trainees" },
-    { "valueAr": "__TOTAL_HOURS_AR__", "valueEn": "__TOTAL_HOURS_EN__", "labelAr": "ساعات تدريب", "labelEn": "training hours" },
     { "valueAr": "٥", "valueEn": "5", "labelAr": "جهات اعتماد", "labelEn": "accreditations" }
   ],
 
@@ -130,7 +129,7 @@
       "numeral": "[02 / 06]",
       "labelAr": "المنهج",
       "headlinePrefixAr": "__DAY_COUNT_AR__ أيام · ",
-      "headlineAccentAr": "__SECTIONS_COUNT_AR__ محاور",
+      "headlineAccentAr": "__TOOL_COUNT_AR__ أداة",
       "tagline": "كل يوم يفتح لك قدرة جديدة — ومع نهاية الورشة تخرج بمنتج فعلي، ما تخرج بـ\"شهادة حضور\" فقط."
     },
 
@@ -148,8 +147,8 @@
     "pricing": {
       "numeral": "[04 / 06]",
       "labelAr": "الأسعار",
-      "headlinePrefixAr": "فئتين · ",
-      "headlineAccentAr": "مقعد واحد",
+      "headlinePrefixAr": "اختر ",
+      "headlineAccentAr": "باقتك",
       "footnoteAr": "الدفع عن طريق واتساب بعد التواصل",
       "inquireLinkAr": "أو استفسر عبر واتساب ↗",
       "bookPrefixAr": "احجز "

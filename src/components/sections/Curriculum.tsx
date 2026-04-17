@@ -3,6 +3,9 @@
 import { SITE } from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
+type Day = (typeof SITE.curriculum.days)[number];
+type Bonus = (typeof SITE.curriculum.bonus)[number];
+
 export default function Curriculum() {
   const c = SITE.copy.curriculumSection;
   return (
@@ -36,13 +39,28 @@ export default function Curriculum() {
         </p>
       </div>
 
+      <GroupHeading label="WORKSHOP · أيام الورشة" />
       <div
         className="grid gap-px border sm:grid-cols-2 lg:grid-cols-3"
         style={{ borderColor: "var(--border)", background: "var(--border)" }}
       >
-        {SITE.curriculum.map((item, i) => (
-          <Reveal key={item.index} delay={i * 60} className="h-full">
-            <CurriculumCard item={item} isDay={i < SITE.cohort.dayCount} />
+        {SITE.curriculum.days.map((item, i) => (
+          <Reveal key={`day-${item.index}`} delay={i * 60} className="h-full">
+            <DayCard item={item} />
+          </Reveal>
+        ))}
+      </div>
+
+      <div className="h-14" />
+
+      <GroupHeading label="BONUS · مكافآت" />
+      <div
+        className="grid gap-px border sm:grid-cols-2 lg:grid-cols-3"
+        style={{ borderColor: "var(--border)", background: "var(--border)" }}
+      >
+        {SITE.curriculum.bonus.map((item, i) => (
+          <Reveal key={`bonus-${item.index}`} delay={i * 60} className="h-full">
+            <BonusCard item={item} />
           </Reveal>
         ))}
       </div>
@@ -50,9 +68,28 @@ export default function Curriculum() {
   );
 }
 
-type Item = (typeof SITE.curriculum)[number];
+function GroupHeading({ label }: { label: string }) {
+  return (
+    <div className="mb-5 flex items-center gap-3">
+      <span
+        className="h-1.5 w-1.5 rounded-full"
+        style={{ background: "var(--accent)" }}
+      />
+      <span
+        className="font-mono text-[10px] tracking-[0.28em] uppercase"
+        style={{ color: "var(--fg-muted)" }}
+      >
+        {label}
+      </span>
+      <span
+        className="flex-1 h-px"
+        style={{ background: "var(--border)" }}
+      />
+    </div>
+  );
+}
 
-function CurriculumCard({ item, isDay }: { item: Item; isDay: boolean }) {
+function CardShell({ children }: { children: React.ReactNode }) {
   return (
     <article
       className="group relative flex flex-col justify-between p-7 sm:p-8 min-h-[260px] transition-colors h-full"
@@ -64,6 +101,14 @@ function CurriculumCard({ item, isDay }: { item: Item; isDay: boolean }) {
         (e.currentTarget as HTMLElement).style.background = "var(--bg)";
       }}
     >
+      {children}
+    </article>
+  );
+}
+
+function DayCard({ item }: { item: Day }) {
+  return (
+    <CardShell>
       <header className="flex items-start justify-between">
         <span
           className="font-display text-6xl sm:text-7xl font-semibold leading-none"
@@ -75,7 +120,7 @@ function CurriculumCard({ item, isDay }: { item: Item; isDay: boolean }) {
           className="font-mono text-[10px] tracking-[0.22em] uppercase"
           style={{ color: "var(--fg-muted)" }}
         >
-          {isDay ? `DAY ${item.index}` : "BONUS"}
+          DAY {item.index}
         </span>
       </header>
 
@@ -110,6 +155,42 @@ function CurriculumCard({ item, isDay }: { item: Item; isDay: boolean }) {
           </div>
         )}
       </div>
-    </article>
+    </CardShell>
+  );
+}
+
+function BonusCard({ item }: { item: Bonus }) {
+  return (
+    <CardShell>
+      <header className="flex items-start justify-between">
+        <span
+          className="font-mono text-[11px] tracking-[0.28em] uppercase"
+          style={{ color: "var(--accent)" }}
+        >
+          + BONUS
+        </span>
+        <span
+          className="font-mono text-[10px] tracking-[0.22em] uppercase"
+          style={{ color: "var(--fg-muted)" }}
+        >
+          {item.index}
+        </span>
+      </header>
+
+      <div className="mt-8">
+        <h3
+          className="font-arabic text-xl font-semibold leading-snug"
+          style={{ color: "var(--fg)" }}
+        >
+          {item.titleAr}
+        </h3>
+        <p
+          className="mt-3 text-sm leading-relaxed"
+          style={{ color: "var(--fg-muted)" }}
+        >
+          {item.bodyAr}
+        </p>
+      </div>
+    </CardShell>
   );
 }

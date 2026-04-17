@@ -111,7 +111,19 @@ const dayCount = days.length;
 const totalHours = Math.round(
   days.reduce((sum, d) => sum + hoursBetween(d.startTime, d.endTime), 0)
 );
-const sectionsCount = dayCount + 3; // days + 3 fixed bonus cards
+
+// Tools marquee = unique tool names across all workshop days (first-appearance order)
+const toolsSeen = new Set<string>();
+const tools: { name: string }[] = [];
+for (const day of days) {
+  for (const t of day.tools) {
+    if (!toolsSeen.has(t)) {
+      toolsSeen.add(t);
+      tools.push({ name: t });
+    }
+  }
+}
+const toolCount = tools.length;
 
 const labelAr = formatCohortLabelAr(cohortData.startIso, cohortData.endIso);
 const labelEn = formatCohortLabelEn(cohortData.startIso, cohortData.endIso);
@@ -128,7 +140,8 @@ const placeholders: Record<string, string> = {
   __TOTAL_HOURS_EN__: String(totalHours),
   __DAY_COUNT_AR__: toArabicDigits(dayCount),
   __DAY_COUNT_EN__: String(dayCount),
-  __SECTIONS_COUNT_AR__: toArabicDigits(sectionsCount),
+  __TOOL_COUNT_AR__: toArabicDigits(toolCount),
+  __TOOL_COUNT_EN__: String(toolCount),
   __META_DATE__: metaDate,
   __META_TIME__: metaTime,
 };
@@ -152,34 +165,23 @@ function substituteDeep<T>(obj: T): T {
   return obj;
 }
 
-// Curriculum = workshop days (from cohort.json) + fixed bonus cards (from site.json)
-const dayCards = days.map((d, i) => ({
+// Curriculum is split into two groups so the UI can render them as distinct
+// sections. Bonus cards restart their own numbering — they're not a
+// continuation of the workshop-day sequence.
+const curriculumDays = days.map((d, i) => ({
   index: String(i + 1).padStart(2, "0"),
   titleAr: d.titleAr,
   bodyAr: d.bodyAr,
   toolNames: d.tools,
 }));
 
-const bonusCards = siteData.curriculumBonus.map((b, i) => ({
-  index: String(dayCount + i + 1).padStart(2, "0"),
+const curriculumBonus = siteData.curriculumBonus.map((b, i) => ({
+  index: String(i + 1).padStart(2, "0"),
   titleAr: b.titleAr,
   bodyAr: b.bodyAr,
-  toolNames: [] as string[],
 }));
 
-const curriculum = [...dayCards, ...bonusCards];
-
-// Tools marquee = unique tool names across all workshop days (first-appearance order)
-const toolsSeen = new Set<string>();
-const tools: { name: string }[] = [];
-for (const day of days) {
-  for (const t of day.tools) {
-    if (!toolsSeen.has(t)) {
-      toolsSeen.add(t);
-      tools.push({ name: t });
-    }
-  }
-}
+const curriculum = { days: curriculumDays, bonus: curriculumBonus };
 
 // Tiers: compose static metadata with dynamic price + seats
 const tiers = siteData.tiersMeta.map((meta) => {

@@ -21,29 +21,14 @@ export default function StatsCountdown() {
 }
 
 function StatsPanel() {
-  const [mounted, setMounted] = useState(false);
-  const [uptime, setUptime] = useState(0);
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    setMounted(true);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const clockId = window.setInterval(() => {
-      setUptime((s) => s + 1);
-    }, 1000);
-
+    if (reduced) return;
     // Re-animate the count-up every 14s to keep the panel feeling alive.
-    const refreshId = reduced
-      ? undefined
-      : window.setInterval(() => {
-          setRefreshKey((k) => k + 1);
-        }, 14000);
-
-    return () => {
-      window.clearInterval(clockId);
-      if (refreshId) window.clearInterval(refreshId);
-    };
+    const id = window.setInterval(() => setRefreshKey((k) => k + 1), 14000);
+    return () => window.clearInterval(id);
   }, []);
 
   return (
@@ -75,7 +60,7 @@ function StatsPanel() {
       </div>
 
       {/* Stats grid */}
-      <ul className="mt-6 grid grid-cols-3 gap-3 sm:gap-6 flex-1">
+      <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-6 flex-1">
         {SITE.stats.map((s, i) => (
           <Stat
             key={`${i}-${refreshKey}`}
@@ -86,19 +71,6 @@ function StatsPanel() {
           />
         ))}
       </ul>
-
-      {/* Live footer row */}
-      <div
-        className="mt-6 flex items-center border-t pt-3 font-mono text-[10px] tracking-[0.18em] uppercase"
-        style={{
-          borderColor: "var(--border)",
-          color: "var(--fg-muted)",
-        }}
-      >
-        <span dir="ltr">
-          {mounted ? `last_sync · ${String(uptime).padStart(2, "0")}s` : "last_sync · --"}
-        </span>
-      </div>
     </div>
   );
 }
@@ -247,7 +219,7 @@ function CountdownCard() {
         [{SITE.cohort.labelEn.toUpperCase()}]
       </p>
 
-      <div className="mt-6 grid grid-cols-4 gap-2 sm:gap-3">
+      <div dir="ltr" className="mt-6 grid grid-cols-4 gap-2 sm:gap-3">
         <CountUnit n={days} label="يوم" />
         <CountUnit n={hours} label="ساعة" />
         <CountUnit n={mins} label="دقيقة" />

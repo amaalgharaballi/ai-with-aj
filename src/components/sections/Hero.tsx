@@ -54,13 +54,9 @@ export default function Hero() {
               }}
             >
               <span className="block">{SITE.copy.hero.headlineLine1Ar}</span>
-              <span className="block">
-                <span style={{ color: "var(--fg-muted)" }}>
-                  {SITE.copy.hero.headlineLine2PrefixAr}
-                </span>
-                <span style={{ color: "var(--accent)" }}>
-                  {SITE.copy.hero.headlineLine2AccentAr}
-                </span>
+              <span className="block" style={{ color: "var(--accent)" }}>
+                {SITE.copy.hero.headlineLine2PrefixAr}
+                {SITE.copy.hero.headlineLine2AccentAr}
               </span>
             </h1>
 
@@ -119,11 +115,11 @@ export default function Hero() {
               className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-[11px] tracking-[0.2em] uppercase"
               style={{ color: "var(--fg-muted)" }}
             >
-              <span>{SITE.copy.hero.metaDate}</span>
+              <span dir="ltr">{SITE.copy.hero.metaDate}</span>
               <span aria-hidden>•</span>
               <span>{SITE.cohort.venueAr}</span>
               <span aria-hidden>•</span>
-              <span>{SITE.copy.hero.metaTime}</span>
+              <span dir="ltr">{SITE.copy.hero.metaTime}</span>
             </div>
           </div>
 

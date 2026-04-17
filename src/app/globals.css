@@ -41,6 +41,8 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga", "calt";
   scroll-behavior: smooth;
 }
 
@@ -60,6 +62,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-plex-arabic), system-ui, sans-serif;
+  font-weight: 500;
   min-height: 100dvh;
 }
 
