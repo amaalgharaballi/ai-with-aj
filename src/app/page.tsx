@@ -3,6 +3,7 @@ import Hero from "@/components/sections/Hero";
 import ToolMarquee from "@/components/sections/ToolMarquee";
 import StatsCountdown from "@/components/sections/StatsCountdown";
 import About from "@/components/sections/About";
+import Montage from "@/components/sections/Montage";
 import Curriculum from "@/components/sections/Curriculum";
 import Instructor from "@/components/sections/Instructor";
 import Accreditations from "@/components/sections/Accreditations";
@@ -20,6 +21,7 @@ export default function Home() {
         <ToolMarquee />
         <StatsCountdown />
         <About />
+        <Montage />
         <Curriculum />
         <Instructor />
         <Accreditations />
