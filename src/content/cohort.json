@@ -1,6 +1,6 @@
 {
   "startIso": "2026-04-26T18:00:00+03:00",
-  "endIso": "2026-04-28T21:00:00+03:00",
+  "endIso": "2026-04-30T21:00:00+03:00",
   "venueAr": "فندق أرابيلا البدع · قاعة ليان",
   "descriptionAr": "هذي ورشة يدك بيدك — تطبّق على جهازك من أول دقيقة. كل أداة تشوفها في سوق المحتوى اليوم (Veo, Sora, Kling, Suno, ElevenLabs وغيرها) تتعلم تشغيلها، وتطلع يوم الأحد عندك مشروع حقيقي جاهز للنشر.",
   "days": [
@@ -9,21 +9,36 @@
       "bodyAr": "تتعلم كيف تنتج صور احترافية من الأوامر، وتتحكم في النمط والإضاءة.",
       "startTime": "18:00",
       "endTime": "21:00",
-      "tools": ["Gemini", "Veo 3.1", "Higgsfield", "Reve AI", "Nano Banana"]
+      "tools": [
+        "Gemini",
+        "Veo 3.1",
+        "Higgsfield",
+        "Reve AI",
+        "Nano Banana"
+      ]
     },
     {
       "titleAr": "اليوم الثاني · تحويل الصور إلى فيديو",
       "bodyAr": "تحرّك صورك وتحولها لفيديوهات قابلة للاستخدام في الإعلانات والأفلام القصيرة.",
       "startTime": "18:00",
       "endTime": "21:00",
-      "tools": ["Seedance 2.0", "Kling AI", "Sora 2", "Higgsfield"]
+      "tools": [
+        "Seedance 2.0",
+        "Kling AI",
+        "Sora 2",
+        "Higgsfield"
+      ]
     },
     {
       "titleAr": "اليوم الثالث · الصوت والدمج",
       "bodyAr": "تركّب الصوت والموسيقى وتدمج تصوير حقيقي مع مولّد بالذكاء الاصطناعي.",
       "startTime": "18:00",
       "endTime": "21:00",
-      "tools": ["Suno", "Envato", "ElevenLabs"]
+      "tools": [
+        "Suno",
+        "Envato",
+        "ElevenLabs"
+      ]
     }
   ]
 }
