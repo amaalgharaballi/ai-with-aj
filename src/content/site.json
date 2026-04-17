@@ -1,0 +1,13 @@
+{
+  "whatsapp": "96599899499",
+  "cohort": {
+    "startIso": "2026-05-01T14:35:00+03:00",
+    "endIso": "2026-05-10T14:35:00+03:00",
+    "labelAr": "test arabic",
+    "labelEn": "test",
+    "venueAr": "test",
+    "venueEn": "test place",
+    "cityAr": "kuwait city",
+    "cityEn": "kuwait city"
+  }
+}
