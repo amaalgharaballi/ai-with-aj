@@ -11,6 +11,7 @@ backend:
   name: github
   repo: amaalgharaballi/ai-with-aj
   branch: main
+  base_url: https://sveltia-cms-auth.amaalgharaballi.workers.dev
 
 commit_messages:
   create: "content: update {{collection}}"
