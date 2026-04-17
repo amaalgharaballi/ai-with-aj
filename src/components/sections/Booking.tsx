@@ -98,20 +98,6 @@ export default function Booking() {
             {c.subHeadlineAr}
           </p>
 
-          <ul
-            className="mt-8 space-y-3 text-sm"
-            style={{ color: "var(--fg-muted)" }}
-          >
-            {c.bulletsAr.map((x) => (
-              <li key={x} className="flex items-center gap-3">
-                <span
-                  className="h-1 w-6"
-                  style={{ background: "var(--accent)" }}
-                />
-                <span style={{ color: "var(--fg)" }}>{x}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Form */}
