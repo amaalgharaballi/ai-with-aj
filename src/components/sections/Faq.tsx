@@ -8,7 +8,7 @@ interface FaqProps {
 }
 
 export default function Faq({ course }: FaqProps) {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   const c = GLOBAL.copy.faqSection;
   const items = course?.faq ?? GLOBAL.faq;
 
