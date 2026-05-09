@@ -140,9 +140,9 @@ collections:
             summary: "{{fields.nameAr}} · {{fields.price}} {{fields.id}}"
             hint: "Recommended: one early-bird tier and one standard tier. The highlighted tier gets stronger visual emphasis."
             fields:
-              - { name: id, label: "Tier type", widget: select, options: [{ label: "Early bird", value: "early-bird" }, { label: "Standard", value: "standard" }], hint: "This controls booking form options. Do not invent new tier IDs without a developer." }
+              - { name: id, label: "Tier type", widget: select, options: [{ label: "Early bird — discounted opening price", value: "early-bird" }, { label: "Standard — full price after early bird", value: "standard" }], hint: "This controls booking form options. Keep one early-bird tier and one standard tier. Do not change both tiers to the same type." }
               - { name: isHighlighted, label: "Visually highlight this tier?", widget: boolean, default: false, hint: "Use for the tier you want people to choose first." }
-              - { name: price, label: "Price number", widget: number, value_type: int, hint: "Number only, no currency text. Example: 75" }
+              - { name: price, label: "Price number", widget: number, value_type: int, hint: "Number only, no currency text. Early bird is the discounted launch price; Standard is the full price shown after early bird." }
               - { name: soldOut, label: "Mark this tier sold out?", widget: boolean, default: false, hint: "Only turn on when the tier is genuinely unavailable." }
               - { name: nameAr, label: "Tier display name (Arabic)",  widget: string }
               - { name: nameEn, label: "Tier display name (English)", widget: string }
