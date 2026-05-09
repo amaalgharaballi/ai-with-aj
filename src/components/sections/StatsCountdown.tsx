@@ -228,7 +228,7 @@ function TbaCountdownCard() {
         className="mt-2 max-w-xl text-sm sm:text-base leading-relaxed"
         style={{ color: "var(--fg-muted)" }}
       >
-        نجهز تفاصيل الدفعة القادمة. افتح واتساب وسنرسل لك الموعد فور الإعلان.
+        الدفعة القادمة قيد التجهيز. سجّل اهتمامك الآن، ونرسل لك الموعد والتفاصيل فور اعتمادها.
       </p>
       <div
         className="mt-6 h-px w-full"
