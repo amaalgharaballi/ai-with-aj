@@ -79,7 +79,7 @@
       {
         "id": "early-bird",
         "isHighlighted": true,
-        "price": 200,
+        "price": 250,
         "soldOut": false,
         "nameAr": "الحجز المبكر",
         "nameEn": "Early Access",
@@ -99,7 +99,7 @@
       {
         "id": "standard",
         "isHighlighted": false,
-        "price": 250,
+        "price": 300,
         "soldOut": false,
         "nameAr": "السعر الكامل",
         "nameEn": "Standard",
@@ -182,16 +182,16 @@
       "paragraph2AfterAr": "في بوتكامب واحد. تخرج تعرف تبني موقعك أو تطبيقك بنفسك، وتعرف تصور وتنتج محتوى احترافي بالذكاء الاصطناعي.",
       "badges": [
         {
-          "v": "كود + فيلم",
-          "k": "A"
+          "k": "A",
+          "v": "كود + فيلم"
         },
         {
-          "v": "مشروعان جاهزان",
-          "k": "B"
+          "k": "B",
+          "v": "مشروعان جاهزان"
         },
         {
-          "v": "متابعة بعد البوتكامب",
-          "k": "C"
+          "k": "C",
+          "v": "متابعة بعد البوتكامب"
         }
       ]
     }
