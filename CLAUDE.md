@@ -29,6 +29,7 @@ These decisions override older notes in this file when they conflict.
 19. **Footer Instagram approved.** The Instagram handle treatment at the bottom should be a floating card on the normal page background. Do not place it inside a plain grey footer band or full-width elevated background.
 20. **About badges approved.** Do not show bracketed mono badge keys like `[A]`, `[B]`, or `[C]` in the About section.
 21. **Nav handle treatment approved.** Keep `ai.with.aj` centered in the top nav on both the hub and course pages. Do not show a green live dot beside it. Use thin rails that start beside the handle: the hub shows the AI Video blue/teal accent on one side and the Bootcamp orange accent on the other; selected course pages let the active course accent fill both rails dynamically. The handle links to Instagram; any course/back navigation sits on the left.
+22. **Course back arrow approved.** The top-nav back-to-courses arrow should point left. Do not rotate it for RTL.
 
 ---
 
