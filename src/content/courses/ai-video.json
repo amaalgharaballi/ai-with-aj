@@ -7,7 +7,9 @@
   "titleEn": "AI Short Films Course",
   "taglineAr": "ثلاثة أيام · من الأمر إلى الفيلم القصير",
   "taglineEn": "Three days · prompt to short film",
-  "instructorIds": ["aj"],
+  "instructorIds": [
+    "aj"
+  ],
   "cohort": {
     "status": "tba",
     "startIso": "",
@@ -58,7 +60,7 @@
       {
         "id": "early-bird",
         "isHighlighted": true,
-        "price": 150,
+        "price": 250,
         "soldOut": false,
         "nameAr": "الحجز المبكر",
         "nameEn": "Early Access",
@@ -78,7 +80,7 @@
       {
         "id": "standard",
         "isHighlighted": false,
-        "price": 200,
+        "price": 300,
         "soldOut": false,
         "nameAr": "السعر الكامل",
         "nameEn": "Standard",
@@ -101,13 +103,23 @@
   },
   "media": {
     "posterImage": "/courses/ai-video/poster.jpg",
+    "videoTitleAr": "شوف الشغل قبل لا تبدأ",
     "promoVideoUrl": "",
-    "promoVideoFile": "/reel/course-montage.mp4",
-    "videoTitleAr": "شوف الشغل قبل لا تبدأ"
+    "promoVideoFile": "/reel/course-montage.mp4"
   },
   "stats": [
-    { "valueAr": "+٦٥٠", "valueEn": "650+", "labelAr": "متدرب", "labelEn": "trainees" },
-    { "valueAr": "٥", "valueEn": "5", "labelAr": "جهات اعتماد", "labelEn": "accreditations" }
+    {
+      "valueAr": "+٦٥٠",
+      "valueEn": "650+",
+      "labelAr": "متدرب",
+      "labelEn": "trainees"
+    },
+    {
+      "valueAr": "٥",
+      "valueEn": "5",
+      "labelAr": "جهات اعتماد",
+      "labelEn": "accreditations"
+    }
   ],
   "curriculumBonus": [
     {
@@ -123,7 +135,7 @@
       "bodyAr": "شهادة معتمدة من ٥ جهات رسمية تُسلَّم في اليوم الأخير."
     }
   ],
-  "whatsappOverride": null,
+  "whatsappOverride": "",
   "sections": {
     "hero": true,
     "toolMarquee": true,
