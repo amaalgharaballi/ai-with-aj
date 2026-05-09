@@ -257,6 +257,18 @@ type CohortStatus = "scheduled" | "tba";
 
 // ─── Resolution helpers ────────────────────────────────────────────────────
 
+function normalizePublicPath(value: string | undefined): string {
+  const path = (value || "").trim();
+  if (!path) return "";
+  if (/^(https?:)?\/\//.test(path) || path.startsWith("/")) return path;
+
+  const publicPath = path
+    .replace(/^public\//, "")
+    .replace(/^src\/content\/(?:courses|instructors)\/public\//, "");
+
+  return `/${publicPath}`;
+}
+
 function deepMerge<T>(base: T, overrides: unknown): T {
   if (overrides === undefined || overrides === null) return base;
   if (
@@ -288,7 +300,7 @@ function resolveInstructor(id: string): ResolvedInstructor {
     titleAr: raw.titleAr,
     titleEn: raw.titleEn,
     bioParagraphsAr: raw.bioParagraphsAr,
-    photo: raw.photo,
+    photo: normalizePublicPath(raw.photo),
     ig: raw.ig || undefined,
     igUrl: raw.igUrl || undefined,
   };
@@ -480,7 +492,11 @@ function resolveCourse(raw: RawCourse): ResolvedCourse {
     tools: toolsList,
     curriculum: { days: curriculumDays, bonus: curriculumBonus },
     tiers: isTba ? [] : tiers,
-    media: raw.media,
+    media: {
+      ...raw.media,
+      posterImage: normalizePublicPath(raw.media.posterImage),
+      promoVideoFile: normalizePublicPath(raw.media.promoVideoFile),
+    },
     stats: raw.stats,
     descriptionAr: raw.descriptionAr,
     whatsappNumber: raw.whatsappOverride || globalData.whatsapp,

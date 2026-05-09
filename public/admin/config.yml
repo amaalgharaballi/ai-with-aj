@@ -43,7 +43,7 @@ collections:
     identifier_field: slug
     summary: "{{titleAr}} · {{cohort.status}}"
     editor: { preview: false }
-    media_folder: "public/courses/{{fields.slug}}"
+    media_folder: "../../../public/courses/{{fields.slug}}"
     public_folder: "/courses/{{fields.slug}}"
     fields:
       - name: slug
@@ -266,7 +266,7 @@ collections:
     identifier_field: id
     summary: "{{nameAr}}"
     editor: { preview: false }
-    media_folder: "public/instructors"
+    media_folder: "../../../public/instructors"
     public_folder: "/instructors"
     fields:
       - { name: id,      label: "Instructor ID — advanced", widget: string, pattern: ['^[a-z0-9-]+$', "lowercase letters, digits, hyphens"], hint: "Used by courses to find this trainer. Do not change after publishing." }
