@@ -87,7 +87,8 @@
           "حضور البوتكامب الكامل (__TOTAL_HOURS_AR__ ساعة)",
           "دليل PDF شامل بكل الأدوات والأكواد",
           "شهادة إتمام معتمدة",
-          "وصول لمجموعة واتساب خاصة"
+          "وصول لمجموعة واتساب خاصة",
+          "جلسة أسئلة وأجوبة خاصة بعد البوتكامب"
         ],
         "featuresEn": [
           "Full __TOTAL_HOURS_EN__-hour bootcamp access",
@@ -99,7 +100,7 @@
       {
         "id": "standard",
         "isHighlighted": false,
-        "price": 250,
+        "price": 300,
         "soldOut": false,
         "nameAr": "السعر الكامل",
         "nameEn": "Standard",
