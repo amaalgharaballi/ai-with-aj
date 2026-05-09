@@ -389,6 +389,39 @@ function resolveCourse(raw: RawCourse): ResolvedCourse {
     paragraph1Ar: raw.descriptionAr,
   };
 
+  if (isTba) {
+    resolvedCopy.hero = {
+      ...resolvedCopy.hero,
+      ctaPrimaryAr: "سجّل اهتمامك",
+    };
+    resolvedCopy.booking = {
+      ...resolvedCopy.booking,
+      headlineLine1Ar: "سجّل اهتمامك للدفعة القادمة",
+      headlineAccentAr: "",
+      subHeadlineAr:
+        "لا نعرض الأسعار أو نموذج التسجيل قبل اعتماد موعد الدفعة. اترك لنا رسالة عبر واتساب، ونرسل لك التفاصيل فور الإعلان.",
+      tierLegendAr: "",
+      totalLabelAr: "",
+      submitCtaAr: "سجّل اهتمامك عبر واتساب",
+    };
+    resolvedCopy.pricing = {
+      ...resolvedCopy.pricing,
+      headlinePrefixAr: "",
+      headlineAccentAr: "",
+      footnoteAr: "",
+      inquireLinkAr: "",
+      bookPrefixAr: "",
+    };
+    resolvedCopy.footer = {
+      ...resolvedCopy.footer,
+      finalBeforeAr: "التفاصيل ",
+      finalAccentAr: "قريباً",
+      finalAfterAr: ". سجّل اهتمامك الآن.",
+      ctaPrimaryAr: "سجّل اهتمامك",
+      ctaSecondaryAr: "تواصل مباشر",
+    };
+  }
+
   const curriculumDays: CurriculumDay[] = days.map((d, i) => ({
     index: String(i + 1).padStart(2, "0"),
     titleAr: d.titleAr,
@@ -446,7 +479,7 @@ function resolveCourse(raw: RawCourse): ResolvedCourse {
     })),
     tools: toolsList,
     curriculum: { days: curriculumDays, bonus: curriculumBonus },
-    tiers,
+    tiers: isTba ? [] : tiers,
     media: raw.media,
     stats: raw.stats,
     descriptionAr: raw.descriptionAr,

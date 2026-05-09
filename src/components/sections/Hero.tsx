@@ -20,6 +20,11 @@ interface HeroProps {
 
 export default function Hero({ course }: HeroProps) {
   const c = course.copy.hero;
+  const primaryHref = course.cohort.isTba
+    ? buildQuickUrl("interest", "ar", { course })
+    : "#booking";
+  const primaryLabel = course.cohort.isTba ? "سجّل اهتمامك" : c.ctaPrimaryAr;
+
   return (
     <section
       id="top"
@@ -86,7 +91,9 @@ export default function Hero({ course }: HeroProps) {
 
             <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <a
-                href="#booking"
+                href={primaryHref}
+                target={course.cohort.isTba ? "_blank" : undefined}
+                rel={course.cohort.isTba ? "noopener noreferrer" : undefined}
                 className="group inline-flex items-center justify-center gap-3 rounded-md px-6 py-4 sm:py-3.5 text-base font-semibold transition-colors min-h-[52px]"
                 style={{
                   background: "var(--whatsapp)",
@@ -99,7 +106,7 @@ export default function Hero({ course }: HeroProps) {
                   e.currentTarget.style.background = "var(--whatsapp)";
                 }}
               >
-                {c.ctaPrimaryAr}
+                {primaryLabel}
                 <ArrowRtl />
               </a>
 

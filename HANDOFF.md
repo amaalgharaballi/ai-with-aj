@@ -104,7 +104,8 @@ date labels.
 3. Save
 
 The live site will show "Date to be announced", swap the countdown for a
-status card, and hide the venue everywhere for that course.
+status card, hide the venue everywhere, and replace pricing/seat selection
+with a WhatsApp interest-list CTA for that course.
 
 ### Updating the poster image
 

@@ -11,6 +11,7 @@ import { GLOBAL, type ResolvedCourse, type ResolvedTier } from "@/lib/site";
 type Locale = "ar" | "en";
 type Ctx =
   | "hero"
+  | "interest"
   | "final"
   | "pricing-early-bird"
   | "pricing-standard";
@@ -36,6 +37,7 @@ export interface BookingFormData {
 const QUICK_TEMPLATES: Record<Locale, Record<Ctx, string>> = {
   ar: {
     hero: "السلام عليكم، أرغب بالاستفسار عن {course}.",
+    interest: "السلام عليكم، أرغب بتسجيل اهتمامي في {course} وإبلاغي عند إعلان الموعد.",
     final: "السلام عليكم، جاهز أسجل في {course}.",
     "pricing-early-bird":
       "السلام عليكم، أرغب بحجز مقعد بسعر الحجز المبكر (Early Access) في {course}.",
@@ -43,6 +45,7 @@ const QUICK_TEMPLATES: Record<Locale, Record<Ctx, string>> = {
   },
   en: {
     hero: "Hi, I'd like to ask about {course}.",
+    interest: "Hi, I'd like to register my interest in {course} and be notified when the date is announced.",
     final: "Hi, I'm ready to register for {course}.",
     "pricing-early-bird": "Hi, I'd like to book an Early Access seat in {course}.",
     "pricing-standard": "Hi, I'd like to book a seat in {course}.",
