@@ -205,7 +205,10 @@ function InstructorPortrait({
             className="h-full w-full object-cover"
             loading="lazy"
             onError={() => setImgOk(false)}
-            style={{ filter: `url(#${filterId}) contrast(1.05) brightness(1.02)` }}
+            style={{
+              filter: `url(#${filterId}) contrast(1.05) brightness(1.02)`,
+              objectPosition: "center 42%",
+            }}
           />
         ) : (
           <AvatarFallback instructor={instructor} />
