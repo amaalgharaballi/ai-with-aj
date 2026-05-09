@@ -1,30 +1,28 @@
-import { SITE } from "@/lib/site";
+import type { ResolvedCourse } from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
-export default function About() {
-  const c = SITE.copy.about;
+interface AboutProps {
+  course: ResolvedCourse;
+}
+
+export default function About({ course }: AboutProps) {
+  const c = course.copy.about;
 
   return (
     <section
       id="about"
       aria-label={c.labelAr}
-      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-24 sm:py-32"
+      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-12 sm:py-16"
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:items-start">
         <Reveal>
-          <span
-            className="font-mono text-[10px] tracking-[0.28em] uppercase"
-            style={{ color: "var(--fg-muted)" }}
-          >
-            {c.numeral} {c.labelAr}
-          </span>
           <h2
-            className="mt-4 font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
+            className="font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
             style={{ color: "var(--fg)" }}
           >
             {c.headlineLine1Ar}
             <br />
-            <span style={{ color: "var(--accent)" }}>{c.headlineLine2Ar}</span>
+            <span style={{ color: "var(--course-accent)" }}>{c.headlineLine2Ar}</span>
           </h2>
         </Reveal>
 
@@ -50,15 +48,9 @@ export default function About() {
               {c.badges.map((b) => (
                 <li
                   key={b.k}
-                  className="border px-4 py-3 flex items-center justify-between"
+                  className="border px-4 py-3"
                   style={{ borderColor: "var(--border)" }}
                 >
-                  <span
-                    className="font-mono text-[10px] tracking-[0.22em]"
-                    style={{ color: "var(--accent)" }}
-                  >
-                    [{b.k}]
-                  </span>
                   <span
                     className="font-arabic text-sm"
                     style={{ color: "var(--fg)" }}

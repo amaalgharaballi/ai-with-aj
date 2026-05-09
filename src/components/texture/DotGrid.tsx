@@ -2,7 +2,7 @@ export default function DotGrid() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0"
+      className="dot-grid-field pointer-events-none fixed inset-0 z-0"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

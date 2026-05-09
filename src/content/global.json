@@ -1,0 +1,20 @@
+{
+  "whatsapp": "96565524555",
+  "brand": {
+    "nameAr": "AI with AJ",
+    "nameEn": "AI with AJ",
+    "handle": "ai.with.aj",
+    "taglineAr": "مدرسة صناعة المحتوى والبرمجة بالذكاء الاصطناعي",
+    "taglineEn": "School of AI content & code"
+  },
+  "links": {
+    "instagram": "https://instagram.com/ai.with.aj"
+  },
+  "accreditations": [
+    { "nameAr": "التعليم التطبيقي والتدريب", "nameEn": "PAAET", "logo": "/accred/paaet.svg" },
+    { "nameAr": "ديوان الخدمة المدنية", "nameEn": "Civil Service Commission", "logo": "/accred/csc.svg" },
+    { "nameAr": "وزارة التربية", "nameEn": "Ministry of Education", "logo": "/accred/moe.svg" },
+    { "nameAr": "اعتماد أمريكي دولي A.I.A", "nameEn": "A.I.A (USA)", "logo": "/accred/aia.svg" },
+    { "nameAr": "أكاديمية الاعتماد الكندية CAAA", "nameEn": "CAAA (Canada)", "logo": "/accred/caaa.svg" }
+  ]
+}

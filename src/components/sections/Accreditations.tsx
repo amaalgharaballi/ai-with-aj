@@ -1,4 +1,4 @@
-import { SITE } from "@/lib/site";
+import { GLOBAL } from "@/lib/site";
 
 export default function Accreditations() {
   return (
@@ -11,17 +11,19 @@ export default function Accreditations() {
       }}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.28em] uppercase" style={{ color: "var(--fg-muted)" }}>
+        <div className="mb-6 flex items-center gap-3" style={{ color: "var(--fg-muted)" }}>
           <span
-            className="h-1 w-6"
-            style={{ background: "var(--accent)" }}
+            className="h-1 w-6 shrink-0"
+            style={{ background: "var(--course-accent)" }}
           />
-          <span>معتمدة من</span>
-          <span className="opacity-60">/ ACCREDITED BY</span>
+          <span className="text-sm font-medium">معتمدة من</span>
+          <span className="font-mono text-[10px] tracking-[0.22em] uppercase opacity-60" dir="ltr">
+            ACCREDITED BY
+          </span>
         </div>
 
         <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
-          {SITE.accreditations.map((a) => (
+          {GLOBAL.accreditations.map((a) => (
             <li
               key={a.nameEn}
               className="flex flex-col items-start gap-1 border-t pt-4"

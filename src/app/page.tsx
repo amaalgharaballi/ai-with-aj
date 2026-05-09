@@ -1,32 +1,27 @@
-import Nav from "@/components/sections/Nav";
-import Hero from "@/components/sections/Hero";
-import ToolMarquee from "@/components/sections/ToolMarquee";
-import StatsCountdown from "@/components/sections/StatsCountdown";
-import About from "@/components/sections/About";
-import Montage from "@/components/sections/Montage";
-import Curriculum from "@/components/sections/Curriculum";
-import Instructor from "@/components/sections/Instructor";
-import Accreditations from "@/components/sections/Accreditations";
-import Pricing from "@/components/sections/Pricing";
-import Booking from "@/components/sections/Booking";
-import Faq from "@/components/sections/Faq";
 import Footer from "@/components/sections/Footer";
+import Accreditations from "@/components/sections/Accreditations";
+import Faq from "@/components/sections/Faq";
+import HubNav from "@/components/hub/HubNav";
+import CourseCardGrid from "@/components/hub/CourseCardGrid";
+import CoursePage from "@/components/CoursePage";
+import { getAllCourses } from "@/lib/site";
 
+// If exactly one course is active, the root /  acts as that course's deep
+// dive — so the site stays viable for a single-course deployment without
+// needing the hub. Two or more courses → render the hub.
 export default function Home() {
+  const courses = getAllCourses();
+
+  if (courses.length === 1) {
+    return <CoursePage course={courses[0]} />;
+  }
+
   return (
     <>
-      <Nav />
+      <HubNav />
       <main className="relative">
-        <Hero />
-        <ToolMarquee />
-        <StatsCountdown />
-        <About />
-        <Montage />
-        <Curriculum />
-        <Instructor />
+        <CourseCardGrid />
         <Accreditations />
-        <Pricing />
-        <Booking />
         <Faq />
       </main>
       <Footer />

@@ -1,0 +1,151 @@
+{
+  "slug": "ai-video",
+  "order": 2,
+  "active": true,
+  "accentColor": "#5FAEC0",
+  "titleAr": "دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي",
+  "titleEn": "AI Short Films Course",
+  "taglineAr": "ثلاثة أيام · من الأمر إلى الفيلم القصير",
+  "taglineEn": "Three days · prompt to short film",
+  "instructorIds": ["aj"],
+  "cohort": {
+    "status": "tba",
+    "startIso": "",
+    "endIso": "",
+    "venueAr": "",
+    "venueEn": ""
+  },
+  "descriptionAr": "تعلم إنتاج الصور بأفضل طريقة احترافية من خلال الأوامر، وتحويلها إلى فيديو حركي تقدر تستخدمه لإنتاج الإعلانات أو الأفلام القصيرة. ٣ أيام · ٩ ساعات تدريب وتطبيق على أحدث أدوات Google AI وKling وHiggsfield.",
+  "days": [
+    {
+      "titleAr": "اليوم الأول · توليد الصور",
+      "bodyAr": "٣ ساعات تدريب على إنتاج الصور والتدرّب عليها بأحدث أدوات Google AI — كتابة البرومبت، التحكم في الإضاءة والزوايا، توليد سيناريو بصري متكامل.",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "tools": [
+        "Gemini",
+        "Veo 3.1",
+        "Flow",
+        "Google Music",
+        "Nano Banana",
+        "Google Labs"
+      ]
+    },
+    {
+      "titleAr": "اليوم الثاني · تحويل الصور إلى فيديو",
+      "bodyAr": "٣ ساعات تدريب على تحويل الصور إلى فيديو حركي والصوت — جاهزة للاستخدام في الإعلانات والأفلام القصيرة والفيديوكليب.",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "tools": [
+        "Kling AI",
+        "ElevenLabs"
+      ]
+    },
+    {
+      "titleAr": "اليوم الثالث · Higgsfield الشامل",
+      "bodyAr": "التدرّب على برنامج Higgsfield الشامل وSeedance 2.0 — توليد فيديو احترافي بأسلوب سينمائي من الفكرة إلى المشهد النهائي.",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "tools": [
+        "Higgsfield",
+        "Seedance 2.0"
+      ]
+    }
+  ],
+  "pricing": {
+    "currency": "KWD",
+    "tiers": [
+      {
+        "id": "early-bird",
+        "isHighlighted": true,
+        "price": 150,
+        "soldOut": false,
+        "nameAr": "الحجز المبكر",
+        "nameEn": "Early Access",
+        "featuresAr": [
+          "حضور الورشة الكاملة (__TOTAL_HOURS_AR__ ساعات)",
+          "دليل PDF شامل بكل الأدوات",
+          "شهادة إتمام معتمدة",
+          "وصول لمجموعة واتساب خاصة"
+        ],
+        "featuresEn": [
+          "Full __TOTAL_HOURS_EN__-hour workshop access",
+          "Comprehensive PDF guide (all tools)",
+          "Accredited completion certificate",
+          "Private WhatsApp community"
+        ]
+      },
+      {
+        "id": "standard",
+        "isHighlighted": false,
+        "price": 200,
+        "soldOut": false,
+        "nameAr": "السعر الكامل",
+        "nameEn": "Standard",
+        "featuresAr": [
+          "حضور الورشة الكاملة (__TOTAL_HOURS_AR__ ساعات)",
+          "دليل PDF شامل بكل الأدوات",
+          "شهادة إتمام معتمدة",
+          "وصول لمجموعة واتساب خاصة",
+          "جلسة أسئلة وأجوبة خاصة"
+        ],
+        "featuresEn": [
+          "Full __TOTAL_HOURS_EN__-hour workshop access",
+          "Comprehensive PDF guide (all tools)",
+          "Accredited completion certificate",
+          "Private WhatsApp community",
+          "Exclusive Q&A session"
+        ]
+      }
+    ]
+  },
+  "media": {
+    "posterImage": "/courses/ai-video/poster.jpg",
+    "promoVideoUrl": "",
+    "promoVideoFile": "/reel/course-montage.mp4",
+    "videoTitleAr": "شوف الشغل قبل لا تبدأ"
+  },
+  "stats": [
+    { "valueAr": "+٦٥٠", "valueEn": "650+", "labelAr": "متدرب", "labelEn": "trainees" },
+    { "valueAr": "٥", "valueEn": "5", "labelAr": "جهات اعتماد", "labelEn": "accreditations" }
+  ],
+  "curriculumBonus": [
+    {
+      "titleAr": "دليل PDF شامل",
+      "bodyAr": "مرجع دائم بكل الأدوات والخطوات — ترجع له بعد الورشة متى ما احتجت."
+    },
+    {
+      "titleAr": "ورشة تطبيقية مباشرة",
+      "bodyAr": "تشتغل على مقطع فعلي خلال الورشة وتخرج بنتيجة حقيقية في يدك."
+    },
+    {
+      "titleAr": "شهادة إتمام معتمدة",
+      "bodyAr": "شهادة معتمدة من ٥ جهات رسمية تُسلَّم في اليوم الأخير."
+    }
+  ],
+  "whatsappOverride": null,
+  "sections": {
+    "hero": true,
+    "toolMarquee": true,
+    "stats": true,
+    "about": true,
+    "montage": true,
+    "curriculum": true,
+    "instructor": true,
+    "accreditations": true,
+    "booking": true,
+    "faq": true
+  },
+  "copyOverrides": {
+    "hero": {
+      "headlineLine1Ar": "دورة صناعة المحتوى",
+      "headlineLine2PrefixAr": "بـ",
+      "headlineLine2AccentAr": "الذكاء الاصطناعي",
+      "subHeadlineAr": "ورشة مكثّفة __DAY_COUNT_AR__ أيام · __TOTAL_HOURS_AR__ ساعات في الكويت. تتعلم تنتج الصور بالأوامر، وتحوّلها إلى فيديو حركي للإعلانات والأفلام القصيرة — بدون أي خبرة سابقة."
+    },
+    "about": {
+      "headlineLine1Ar": "من الأمر",
+      "headlineLine2Ar": "إلى الفيلم"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "hero": {
+    "headlineLine1Ar": "صناعة المحتوى",
+    "headlineLine2PrefixAr": "بـ",
+    "headlineLine2AccentAr": "الذكاء الاصطناعي",
+    "subHeadlineAr": "ورشة مكثّفة __DAY_COUNT_AR__ أيام · __TOTAL_HOURS_AR__ ساعات · في قلب الكويت. تخرج منها قادر تصنع صور وفيديوهات ودعايات احترافية بأحدث أدوات الذكاء الاصطناعي — بدون أي خبرة سابقة.",
+    "ctaPrimaryAr": "احجز مقعدك",
+    "ctaSecondaryAr": "استفسار عبر واتساب"
+  },
+
+  "about": {
+    "labelAr": "عن الورشة",
+    "headlineLine1Ar": "مو كورس تقني",
+    "headlineLine2Ar": "ورشة صناعة",
+    "paragraph1Ar": "",
+    "paragraph2BeforeAr": "نعلّمك ",
+    "paragraph2HighlightAr": "المنهج",
+    "paragraph2AfterAr": " لا الأداة. الأدوات تتغير كل شهر — المنهج يبقى. تخرج قادر تتعلم أي أداة جديدة خلال دقائق، لأنك عارف وش تسأل نفسك.",
+    "badges": [
+      { "k": "A", "v": "تطبيق حيّ" },
+      { "k": "B", "v": "مشروع جاهز" },
+      { "k": "C", "v": "متابعة بعد الورشة" }
+    ]
+  },
+
+  "montage": {
+    "labelAr": "لقطات",
+    "headlineLine1Ar": "شوف الشغل ",
+    "headlineAccentAr": "قبل لا تبدأ"
+  },
+
+  "curriculumSection": {
+    "labelAr": "المنهج",
+    "headlinePrefixAr": "__DAY_COUNT_AR__ أيام · ",
+    "headlineAccentAr": "__TOOL_COUNT_AR__ أداة",
+    "tagline": ""
+  },
+
+  "instructorSection": {
+    "labelAr": "المدرّب",
+    "orbitalLabel": "INSTRUCTOR · KUWAIT · EST 2024 ·"
+  },
+
+  "pricing": {
+    "labelAr": "الأسعار",
+    "headlinePrefixAr": "اختر ",
+    "headlineAccentAr": "باقتك",
+    "footnoteAr": "الدفع عن طريق واتساب بعد التواصل",
+    "inquireLinkAr": "أو استفسر عبر واتساب ↗",
+    "bookPrefixAr": "احجز "
+  },
+
+  "booking": {
+    "labelAr": "التسجيل",
+    "headlineLine1Ar": "احجز مقعدك في",
+    "headlineAccentAr": "دقيقة واحدة",
+    "subHeadlineAr": "املأ النموذج ويفتح واتساب مباشرة بطلب تسجيل جاهز. الفريق يتواصل معك ويرسل تفاصيل الدفع والمقعد.",
+    "tierLegendAr": "اختر الفئة",
+    "totalLabelAr": "المجموع",
+    "submitCtaAr": "أرسل طلب التسجيل عبر واتساب",
+    "fieldLabels": {
+      "nameAr": "الاسم الكامل",
+      "namePlaceholderAr": "",
+      "phoneAr": "رقم الواتساب",
+      "phoneHintAr": "مع رمز الدولة",
+      "emailAr": "الإيميل",
+      "emailHintAr": "اختياري",
+      "workFieldAr": "المجال"
+    },
+    "errors": {
+      "nameAr": "اكتب اسمك الكامل",
+      "phoneAr": "رقم غير صحيح — تأكد من رمز الدولة",
+      "emailAr": "الإيميل غير صحيح"
+    },
+    "workFieldsAr": [
+      { "value": "content-creator", "label": "صانع محتوى" },
+      { "value": "marketer", "label": "مسوّق / وكالة" },
+      { "value": "business-owner", "label": "صاحب عمل" },
+      { "value": "student", "label": "طالب" },
+      { "value": "other", "label": "غير ذلك" }
+    ]
+  },
+
+  "faqSection": {
+    "labelAr": "الأسئلة",
+    "headlineAccentAr": "أسئلة",
+    "headlineSuffixAr": "تتكرر"
+  },
+
+  "footer": {
+    "finalTagAr": "آخر نداء",
+    "finalBeforeAr": "المقاعد ",
+    "finalAccentAr": "محدودة",
+    "finalAfterAr": ". التسجيل مفتوح الحين.",
+    "ctaPrimaryAr": "احجز مقعدك",
+    "ctaSecondaryAr": "تواصل مباشر"
+  }
+}

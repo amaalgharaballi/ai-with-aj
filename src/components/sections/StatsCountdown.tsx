@@ -1,73 +1,53 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SITE } from "@/lib/site";
+import type { ResolvedCourse } from "@/lib/site";
 
-export default function StatsCountdown() {
+interface StatsCountdownProps {
+  course: ResolvedCourse;
+}
+
+// Countdown is rendered first (top), then the stats panel below.
+export default function StatsCountdown({ course }: StatsCountdownProps) {
   return (
     <section
-      aria-label="إحصاءات والعدّ التنازلي للدورة"
-      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-28"
+      aria-label="العدّ التنازلي والإحصاءات"
+      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-12 sm:py-16 space-y-8 sm:space-y-10"
     >
-      <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-stretch">
-        {/* Stats — live panel */}
-        <StatsPanel />
-
-        {/* Countdown */}
-        <CountdownCard />
-      </div>
+      <CountdownCard course={course} />
+      <StatsPanel course={course} />
     </section>
   );
 }
 
-function StatsPanel() {
+function StatsPanel({ course }: StatsCountdownProps) {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
-    // Re-animate the count-up every 14s to keep the panel feeling alive.
     const id = window.setInterval(() => setRefreshKey((k) => k + 1), 14000);
     return () => window.clearInterval(id);
   }, []);
 
   return (
     <div
-      className="relative flex flex-col rounded-md border p-5 sm:p-7"
+      className="relative flex flex-col overflow-hidden rounded-md border p-5 sm:p-7"
       style={{
         borderColor: "var(--border)",
-        background: "var(--bg-elevated)",
+        background:
+          "linear-gradient(135deg, color-mix(in oklab, var(--bg-elevated) 90%, var(--course-accent) 10%), var(--bg-elevated))",
       }}
     >
-      {/* Header row — mirrors the countdown card */}
-      <div className="flex items-center justify-between">
-        <span
-          className="font-mono text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          [ TRAINING / STATS ]
-        </span>
-        <span
-          className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          <span
-            className="h-1.5 w-1.5 rounded-full animate-pulse-dot"
-            style={{ background: "var(--accent)" }}
-          />
-          LIVE
-        </span>
-      </div>
+      <CardKicker label="TRAINING DETAILS" />
 
-      {/* Stats grid */}
       <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-6 flex-1">
-        {SITE.stats.map((s, i) => (
+        {course.stats.map((s, i) => (
           <Stat
             key={`${i}-${refreshKey}`}
             valueAr={s.valueAr}
             valueEn={s.valueEn}
             labelAr={s.labelAr}
-            idx={i}
           />
         ))}
       </ul>
@@ -79,12 +59,10 @@ function Stat({
   valueAr,
   valueEn,
   labelAr,
-  idx,
 }: {
   valueAr: string;
   valueEn: string;
   labelAr: string;
-  idx: number;
 }) {
   const numeric = parseInt(valueEn.replace(/\D/g, ""), 10) || 0;
   const [n, setN] = useState(0);
@@ -94,8 +72,8 @@ function Stat({
     if (!ref.current) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
-      setN(numeric);
-      return;
+      const raf = window.requestAnimationFrame(() => setN(numeric));
+      return () => window.cancelAnimationFrame(raf);
     }
     const io = new IntersectionObserver(
       (entries) => {
@@ -128,49 +106,55 @@ function Stat({
     >
       <div
         className="absolute top-0 right-0 h-[2px] w-8"
-        style={{ background: "var(--accent)" }}
+        style={{ background: "var(--course-accent)" }}
       />
       <div className="flex items-baseline gap-1">
         <span
-          className="font-display text-5xl sm:text-7xl font-semibold leading-none tabular-nums"
+          className="font-arabic-display text-5xl sm:text-7xl font-bold leading-none tabular-nums"
           style={{ color: "var(--fg)" }}
         >
           {n}
         </span>
         {hasPlus && (
           <span
-            className="font-display text-3xl sm:text-5xl font-semibold"
-            style={{ color: "var(--accent)" }}
+            className="font-arabic-display text-3xl sm:text-5xl font-bold"
+            style={{ color: "var(--course-accent)" }}
           >
             +
           </span>
         )}
       </div>
       <p
-        className="mt-3 font-mono text-[10px] sm:text-xs tracking-[0.22em] uppercase"
+        className="mt-3 text-sm sm:text-base font-medium"
         style={{ color: "var(--fg-muted)" }}
       >
         <span className="sr-only">{valueAr} </span>
         {labelAr}
       </p>
-      <span
-        className="absolute -top-4 left-0 font-mono text-[10px] tracking-[0.2em]"
-        style={{ color: "var(--fg-muted)" }}
-      >
-        [0{idx + 1}]
-      </span>
     </li>
   );
 }
 
-function CountdownCard() {
-  const target = new Date(SITE.cohort.startIso).getTime();
+function CountdownCard({ course }: StatsCountdownProps) {
+  if (course.cohort.isTba) {
+    return <TbaCountdownCard />;
+  }
+
+  return <ScheduledCountdownCard course={course} />;
+}
+
+function ScheduledCountdownCard({ course }: StatsCountdownProps) {
+  const target = new Date(course.cohort.startIso).getTime();
   const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
-    setNow(Date.now());
-    const id = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(id);
+    const update = () => setNow(Date.now());
+    const raf = window.requestAnimationFrame(update);
+    const id = window.setInterval(update, 1000);
+    return () => {
+      window.cancelAnimationFrame(raf);
+      window.clearInterval(id);
+    };
   }, []);
 
   const diff = Math.max(0, (now ?? target) - 0 === 0 ? 0 : target - (now ?? target));
@@ -181,42 +165,28 @@ function CountdownCard() {
 
   return (
     <div
-      className="relative rounded-md border p-6 sm:p-8"
+      className="relative overflow-hidden rounded-md border p-6 sm:p-8"
       style={{
         borderColor: "var(--border)",
-        background: "var(--bg-elevated)",
+        background:
+          "linear-gradient(135deg, color-mix(in oklab, var(--bg-elevated) 90%, var(--course-accent) 10%), var(--bg-elevated))",
       }}
     >
-      <div className="flex items-center justify-between">
-        <span
-          className="font-mono text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          [ NEXT COHORT ]
-        </span>
-        <span
-          className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          <span
-            className="h-1.5 w-1.5 rounded-full animate-pulse-dot"
-            style={{ background: "var(--accent)" }}
-          />
-          LIVE
-        </span>
-      </div>
+      <CardKicker label="COHORT / STATUS" />
 
       <p
-        className="mt-4 font-arabic text-xl sm:text-2xl"
+        className="mt-4 font-mono text-lg sm:text-xl font-semibold tracking-[0.08em] uppercase"
         style={{ color: "var(--fg)" }}
+        dir="ltr"
       >
-        {SITE.cohort.labelAr}
+        {course.cohort.labelEn}
       </p>
       <p
-        className="mt-1 font-mono text-[11px] tracking-[0.18em]"
+        className="mt-1 font-mono text-[11px] tracking-[0.18em] uppercase"
         style={{ color: "var(--fg-muted)" }}
+        dir="ltr"
       >
-        [{SITE.cohort.labelEn.toUpperCase()}]
+        {course.cohort.metaTime} · KUWAIT
       </p>
 
       <div dir="ltr" className="mt-6 grid grid-cols-4 gap-2 sm:gap-3">
@@ -227,11 +197,83 @@ function CountdownCard() {
       </div>
 
       <p
-        className="mt-6 text-sm"
+        className="mt-6 text-sm sm:text-base"
         style={{ color: "var(--fg-muted)" }}
       >
-        {SITE.cohort.venueAr}
+        {course.cohort.venueAr}
       </p>
+    </div>
+  );
+}
+
+function TbaCountdownCard() {
+  return (
+    <div
+      className="relative overflow-hidden rounded-md border p-6 sm:p-8"
+      style={{
+        borderColor: "var(--border)",
+        background:
+          "linear-gradient(135deg, color-mix(in oklab, var(--bg-elevated) 90%, var(--course-accent) 10%), var(--bg-elevated))",
+      }}
+    >
+      <CardKicker label="COHORT / STATUS" />
+      <p
+        className="mt-4 font-mono text-lg sm:text-xl font-semibold tracking-[0.08em] uppercase"
+        style={{ color: "var(--fg)" }}
+        dir="ltr"
+      >
+        DATE TO BE ANNOUNCED
+      </p>
+      <p
+        className="mt-2 max-w-xl text-sm sm:text-base leading-relaxed"
+        style={{ color: "var(--fg-muted)" }}
+      >
+        نجهز تفاصيل الدفعة القادمة. افتح واتساب وسنرسل لك الموعد فور الإعلان.
+      </p>
+      <div
+        className="mt-6 h-px w-full"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, var(--course-accent), transparent)",
+        }}
+        aria-hidden
+      />
+    </div>
+  );
+}
+
+function CardKicker({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3" dir="ltr">
+      <div
+        className="inline-flex shrink-0 items-center gap-2 rounded-sm border px-2.5 py-1.5"
+        style={{
+          borderColor: "color-mix(in oklab, var(--course-accent) 34%, var(--border))",
+          background: "color-mix(in oklab, var(--course-accent) 9%, transparent)",
+          color: "var(--fg)",
+        }}
+      >
+        <span
+          aria-hidden
+          className="h-1.5 w-1.5 rounded-full"
+          style={{
+            background: "var(--course-accent)",
+            boxShadow:
+              "0 0 12px color-mix(in oklab, var(--course-accent) 70%, transparent)",
+          }}
+        />
+        <span className="font-mono text-[10px] font-medium tracking-[0.18em] uppercase">
+          {label}
+        </span>
+      </div>
+      <span
+        aria-hidden
+        className="h-px flex-1"
+        style={{
+          background:
+            "linear-gradient(90deg, color-mix(in oklab, var(--course-accent) 46%, transparent), transparent)",
+        }}
+      />
     </div>
   );
 }
@@ -247,13 +289,13 @@ function CountUnit({ n, label }: { n: number; label: string }) {
       }}
     >
       <div
-        className="font-mono text-2xl sm:text-3xl tabular-nums"
+        className="font-arabic-display text-2xl sm:text-3xl font-bold tabular-nums"
         style={{ color: "var(--fg)" }}
       >
         {str}
       </div>
       <div
-        className="mt-1 font-mono text-[9px] tracking-[0.2em] uppercase"
+        className="mt-1.5 text-[11px] sm:text-xs font-medium"
         style={{ color: "var(--fg-muted)" }}
       >
         {label}

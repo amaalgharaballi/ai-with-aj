@@ -1,25 +1,24 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Cairo,
-  Tajawal,
+  IBM_Plex_Sans_Arabic,
   IBM_Plex_Mono,
-  Cormorant_Garamond,
+  Noto_Kufi_Arabic,
 } from "next/font/google";
 import DotGrid from "@/components/texture/DotGrid";
 import FilmGrain from "@/components/texture/FilmGrain";
 import "./globals.css";
 
-const cairo = Cairo({
-  variable: "--font-arabic-display",
+const plexArabicBody = IBM_Plex_Sans_Arabic({
+  variable: "--font-arabic-body",
   subsets: ["arabic", "latin"],
-  weight: ["600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const tajawal = Tajawal({
-  variable: "--font-arabic-body",
+const kufiArabicDisplay = Noto_Kufi_Arabic({
+  variable: "--font-arabic-display",
   subsets: ["arabic", "latin"],
-  weight: ["400", "500", "700"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -27,13 +26,6 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["500", "600"],
   display: "swap",
 });
 
@@ -45,13 +37,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ai.with.aj"),
-  title: "AI with AJ — دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي",
+  title: "AI with AJ — مدرسة صناعة المحتوى والبرمجة بالذكاء الاصطناعي",
   description:
-    "ورشة ٣ أيام في الكويت مع م. عبداللطيف الغربللي — تعلم تصنع صور وفيديوهات ودعايات بأحدث أدوات الذكاء الاصطناعي.",
+    "AI with AJ workshops in Kuwait 2026: Claude Code & Film Making Bootcamp, and AI Content & Ads Workshop.",
   openGraph: {
-    title: "AI with AJ — الورشة",
-    description:
-      "٣ أيام. ٩ ساعات. ١٢ أداة ذكاء اصطناعي. شهادة معتمدة من ٥ جهات.",
+    title: "AI with AJ — الورش",
+    description: "بوتكامب Claude Code وصناعة الأفلام · دورة صناعة المحتوى بالذكاء الاصطناعي.",
     locale: "ar_KW",
     type: "website",
   },
@@ -69,7 +60,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${cairo.variable} ${tajawal.variable} ${plexMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${plexArabicBody.variable} ${kufiArabicDisplay.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <DotGrid />

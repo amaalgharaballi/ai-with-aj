@@ -1,66 +1,66 @@
 "use client";
 
-import { SITE } from "@/lib/site";
+import type {
+  CurriculumDay as Day,
+  CurriculumBonus as Bonus,
+  ResolvedCourse,
+} from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
-type Day = (typeof SITE.curriculum.days)[number];
-type Bonus = (typeof SITE.curriculum.bonus)[number];
+interface CurriculumProps {
+  course: ResolvedCourse;
+}
 
-export default function Curriculum() {
-  const c = SITE.copy.curriculumSection;
+export default function Curriculum({ course }: CurriculumProps) {
+  const c = course.copy.curriculumSection;
+  const accentBorder =
+    "color-mix(in oklab, var(--course-accent) 42%, var(--border))";
+  const toolBorder =
+    "color-mix(in oklab, var(--course-accent) 34%, var(--border))";
+
   return (
     <section
       id="curriculum"
       aria-label="المنهج"
-      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-24 sm:py-32 border-t"
-      style={{ borderColor: "var(--border)" }}
+      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-12 sm:py-16 border-t"
+      style={{ borderColor: accentBorder }}
     >
-      <div className="mb-14 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <span
-            className="font-mono text-[10px] tracking-[0.28em] uppercase"
+      <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <h2
+          className="font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
+          style={{ color: "var(--fg)" }}
+        >
+          {c.headlinePrefixAr}
+          <span style={{ color: "var(--course-accent)" }}>{c.headlineAccentAr}</span>
+        </h2>
+        {c.tagline.trim() && (
+          <p
+            className="max-w-sm text-sm sm:text-base leading-relaxed"
             style={{ color: "var(--fg-muted)" }}
           >
-            {c.numeral} {c.labelAr}
-          </span>
-          <h2
-            className="mt-3 font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
-            style={{ color: "var(--fg)" }}
-          >
-            {c.headlinePrefixAr}
-            <span style={{ color: "var(--accent)" }}>{c.headlineAccentAr}</span>
-          </h2>
-        </div>
-        <p
-          className="max-w-sm text-sm leading-relaxed"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          {c.tagline}
-        </p>
+            {c.tagline}
+          </p>
+        )}
       </div>
 
-      <GroupHeading label="WORKSHOP · أيام الورشة" />
-      <div
-        className="grid gap-px border sm:grid-cols-2 lg:grid-cols-3"
-        style={{ borderColor: "var(--border)", background: "var(--border)" }}
-      >
-        {SITE.curriculum.days.map((item, i) => (
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        {course.curriculum.days.map((item, i) => (
           <Reveal key={`day-${item.index}`} delay={i * 60} className="h-full">
-            <DayCard item={item} />
+            <DayCard
+              item={item}
+              cardBorder={accentBorder}
+              toolBorder={toolBorder}
+            />
           </Reveal>
         ))}
       </div>
 
       <div className="h-14" />
 
-      <GroupHeading label="BONUS · مكافآت" />
-      <div
-        className="grid gap-px border sm:grid-cols-2 lg:grid-cols-3"
-        style={{ borderColor: "var(--border)", background: "var(--border)" }}
-      >
-        {SITE.curriculum.bonus.map((item, i) => (
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        {course.curriculum.bonus.map((item, i) => (
           <Reveal key={`bonus-${item.index}`} delay={i * 60} className="h-full">
-            <BonusCard item={item} />
+            <BonusCard item={item} cardBorder={accentBorder} />
           </Reveal>
         ))}
       </div>
@@ -68,32 +68,17 @@ export default function Curriculum() {
   );
 }
 
-function GroupHeading({ label }: { label: string }) {
-  return (
-    <div className="mb-5 flex items-center gap-3">
-      <span
-        className="h-1.5 w-1.5 rounded-full"
-        style={{ background: "var(--accent)" }}
-      />
-      <span
-        className="font-mono text-[10px] tracking-[0.28em] uppercase"
-        style={{ color: "var(--fg-muted)" }}
-      >
-        {label}
-      </span>
-      <span
-        className="flex-1 h-px"
-        style={{ background: "var(--border)" }}
-      />
-    </div>
-  );
-}
-
-function CardShell({ children }: { children: React.ReactNode }) {
+function CardShell({
+  children,
+  borderColor,
+}: {
+  children: React.ReactNode;
+  borderColor: string;
+}) {
   return (
     <article
-      className="group relative flex flex-col justify-between p-7 sm:p-8 min-h-[260px] transition-colors h-full"
-      style={{ background: "var(--bg)" }}
+      className="group relative flex h-full min-h-[260px] flex-col justify-between border p-7 transition-colors sm:p-8"
+      style={{ background: "var(--bg)", borderColor }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.background = "var(--bg-elevated)";
       }}
@@ -106,25 +91,24 @@ function CardShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function DayCard({ item }: { item: Day }) {
+function DayCard({
+  item,
+  cardBorder,
+  toolBorder,
+}: {
+  item: Day;
+  cardBorder: string;
+  toolBorder: string;
+}) {
   return (
-    <CardShell>
-      <header className="flex items-start justify-between">
+    <CardShell borderColor={cardBorder}>
+      <div>
         <span
-          className="font-display text-6xl sm:text-7xl font-semibold leading-none"
-          style={{ color: "var(--accent)" }}
+          className="mb-8 block font-arabic-display text-6xl sm:text-7xl font-semibold leading-none"
+          style={{ color: "var(--course-accent)" }}
         >
           {item.index}
         </span>
-        <span
-          className="font-mono text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          DAY {item.index}
-        </span>
-      </header>
-
-      <div className="mt-8">
         <h3
           className="font-arabic text-xl font-semibold leading-snug"
           style={{ color: "var(--fg)" }}
@@ -145,7 +129,7 @@ function DayCard({ item }: { item: Day }) {
                 key={tn}
                 className="font-mono text-[10px] tracking-wider uppercase px-2 py-1 border"
                 style={{
-                  borderColor: "var(--border)",
+                  borderColor: toolBorder,
                   color: "var(--fg-muted)",
                 }}
               >
@@ -159,25 +143,16 @@ function DayCard({ item }: { item: Day }) {
   );
 }
 
-function BonusCard({ item }: { item: Bonus }) {
+function BonusCard({
+  item,
+  cardBorder,
+}: {
+  item: Bonus;
+  cardBorder: string;
+}) {
   return (
-    <CardShell>
-      <header className="flex items-start justify-between">
-        <span
-          className="font-mono text-[11px] tracking-[0.28em] uppercase"
-          style={{ color: "var(--accent)" }}
-        >
-          + BONUS
-        </span>
-        <span
-          className="font-mono text-[10px] tracking-[0.22em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          {item.index}
-        </span>
-      </header>
-
-      <div className="mt-8">
+    <CardShell borderColor={cardBorder}>
+      <div>
         <h3
           className="font-arabic text-xl font-semibold leading-snug"
           style={{ color: "var(--fg)" }}

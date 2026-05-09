@@ -1,18 +1,25 @@
 @import "tailwindcss";
 
-/* ─── Design tokens — terminal / AI-lab palette ──────────────── */
+/* ─── Design tokens ─────────────────────────────────────────── */
 :root {
   --bg: #08090f;
   --bg-elevated: #10121a;
   --fg: #e4e6eb;
   --fg-muted: #8b92a3;
-  --accent: #00ffa3;
-  --electric: #60a5fa;
+  --accent: #b6f7c8;
   --whatsapp: #25d366;
   --whatsapp-hover: #1da851;
   --border: #1f2937;
   --grid: rgba(228, 230, 235, 0.04);
+
+  /* Per-course accent. CoursePage sets this inline on its wrapper from
+     course.accentColor; on the hub (no wrapper) it falls back to --accent. */
+  --course-accent: var(--accent);
 }
+
+/* CSS-level fallbacks in case JS-rendered inline style isn't applied yet. */
+[data-course="bootcamp"] { --course-accent: #ff8a4c; }
+[data-course="ai-video"] { --course-accent: #5faec0; }
 
 /* ─── Tailwind v4 theme mapping ──────────────────────────────── */
 @theme inline {
@@ -21,7 +28,7 @@
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
   --color-accent: var(--accent);
-  --color-electric: var(--electric);
+  --color-course-accent: var(--course-accent);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-hover: var(--whatsapp-hover);
   --color-border: var(--border);
@@ -29,7 +36,6 @@
   --font-arabic: var(--font-arabic-body);
   --font-arabic-display: var(--font-arabic-display);
   --font-mono: var(--font-plex-mono);
-  --font-display: var(--font-cormorant);
 }
 
 /* ─── Base reset ─────────────────────────────────────────────── */
@@ -62,9 +68,23 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-arabic-body), system-ui, sans-serif;
+  font-family: var(--font-arabic-body), "IBM Plex Sans Arabic", system-ui, sans-serif;
   font-weight: 500;
   min-height: 100dvh;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Arabic legibility — letterspacing breaks the connected script. */
+html[dir="rtl"] {
+  letter-spacing: 0;
+}
+
+/* Mono labels are Latin-only by design; if Arabic appears inside a .font-mono
+   block, swap it back to the Arabic family for readability. */
+.arabic-label {
+  font-family: var(--font-arabic-body), "IBM Plex Sans Arabic", system-ui, sans-serif;
+  letter-spacing: 0;
 }
 
 /* ─── Selection ──────────────────────────────────────────────── */
@@ -117,12 +137,59 @@ body {
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
+.nav-brand-rail {
+  position: relative;
+  display: block;
+  height: 1px;
+  min-width: 24px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--fg-muted) 18%, transparent);
+}
+
+.nav-brand-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  animation: nav-rail-fill 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nav-brand-rail-left::after {
+  transform-origin: right center;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--rail-color) 62%, transparent) 45%,
+    var(--rail-color) 100%
+  );
+}
+
+.nav-brand-rail-right::after {
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    var(--rail-color) 0%,
+    color-mix(in oklab, var(--rail-color) 62%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+@keyframes nav-rail-fill {
+  from {
+    opacity: 0.35;
+    transform: scaleX(0.08);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
 /* ─── Interactive element defaults ───────────────────────────── */
 a, button {
-  outline-color: var(--electric);
+  outline-color: var(--course-accent);
 }
 a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--electric);
+  outline: 2px solid var(--course-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }

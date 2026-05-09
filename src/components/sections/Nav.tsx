@@ -1,11 +1,20 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { SITE } from "@/lib/site";
+import BrandNavMark from "@/components/BrandNavMark";
+import { getAllCourses, type ResolvedCourse } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
-export default function Nav() {
+interface NavProps {
+  course?: ResolvedCourse;
+}
+
+export default function Nav({ course }: NavProps = {}) {
   const [scrolled, setScrolled] = useState(false);
+
+  // Show the back link only when there's a hub to go back to (≥2 courses).
+  const showBack = Boolean(course) && getAllCourses().length > 1;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -27,34 +36,39 @@ export default function Nav() {
         borderColor: scrolled ? "var(--border)" : "transparent",
       }}
     >
-      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a
-          href="#top"
-          className="group flex items-center gap-3"
-          aria-label={SITE.instructor.nameAr}
-        >
-          <span
-            className="h-2 w-2 rounded-full animate-pulse-dot"
-            style={{ background: "var(--accent)" }}
-          />
-          <span
-            className="font-arabic text-[13px] sm:text-sm font-semibold whitespace-nowrap"
-            style={{ color: "var(--fg)" }}
-          >
-            {SITE.instructor.nameAr}
-          </span>
-          <span
-            aria-hidden
-            className="hidden sm:inline-block h-3 w-px"
-            style={{ background: "var(--border)" }}
-          />
-          <span
-            className="hidden sm:inline font-mono text-[10px] tracking-[0.22em] uppercase"
+      <nav className="relative mx-auto flex h-14 max-w-7xl items-center justify-center px-5 sm:px-8">
+        {showBack && (
+          <Link
+            href="/"
+            className="absolute left-5 inline-flex items-center gap-2 text-sm font-medium transition-colors sm:left-8"
             style={{ color: "var(--fg-muted)" }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLElement).style.color = "var(--course-accent)")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLElement).style.color = "var(--fg-muted)")
+            }
           >
-            ai.with.aj
-          </span>
-        </a>
+            <span>الورش</span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+              className="rtl:rotate-180"
+            >
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+          </Link>
+        )}
+
+        <BrandNavMark course={course} compact={showBack} />
       </nav>
     </header>
   );

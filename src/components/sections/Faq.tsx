@@ -1,37 +1,36 @@
 "use client";
 
 import { useState } from "react";
-import { SITE } from "@/lib/site";
+import { GLOBAL, type ResolvedCourse } from "@/lib/site";
 
-export default function Faq() {
+interface FaqProps {
+  course?: ResolvedCourse;
+}
+
+export default function Faq({ course }: FaqProps) {
   const [open, setOpen] = useState<number | null>(0);
-  const c = SITE.copy.faqSection;
+  const c = GLOBAL.copy.faqSection;
+  const items = course?.faq ?? GLOBAL.faq;
 
   return (
     <section
       id="faq"
       aria-label={c.labelAr}
-      className="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 py-24 sm:py-32 border-t"
+      className="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 py-12 sm:py-16 border-t"
       style={{ borderColor: "var(--border)" }}
     >
       <div className="mb-12">
-        <span
-          className="font-mono text-[10px] tracking-[0.28em] uppercase"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          {c.numeral} {c.labelAr}
-        </span>
         <h2
-          className="mt-3 font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
+          className="font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
           style={{ color: "var(--fg)" }}
         >
-          <span style={{ color: "var(--accent)" }}>{c.headlineAccentAr}</span>{" "}
+          <span style={{ color: "var(--course-accent)" }}>{c.headlineAccentAr}</span>{" "}
           {c.headlineSuffixAr}
         </h2>
       </div>
 
       <ul className="divide-y border-y" style={{ borderColor: "var(--border)" }}>
-        {SITE.faq.map((item, i) => {
+        {items.map((item, i) => {
           const isOpen = open === i;
           return (
             <li key={item.qAr} style={{ borderColor: "var(--border)" }}>
@@ -56,7 +55,7 @@ export default function Faq() {
                 <span
                   className="shrink-0 font-mono text-lg select-none transition-transform"
                   style={{
-                    color: isOpen ? "var(--accent)" : "var(--fg-muted)",
+                    color: isOpen ? "var(--course-accent)" : "var(--fg-muted)",
                     transform: isOpen ? "rotate(45deg)" : "rotate(0)",
                   }}
                   aria-hidden

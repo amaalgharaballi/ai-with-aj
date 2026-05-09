@@ -1,78 +1,93 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { SITE } from "@/lib/site";
+import { useState } from "react";
+import type { ResolvedCourse } from "@/lib/site";
 import { buildQuickUrl } from "@/lib/whatsapp";
-import HeroTerminal from "@/components/hero/HeroTerminal";
 
 /**
- * Hero — AI output mosaic as a *generated* background (no real assets yet),
- * so it renders without any external files. Replace `MosaicTile` bg with
- * real images under /public/hero/*.jpg when the cousin ships them.
+ * Hero — poster-first layout for course deep-dives.
+ *
+ * Mobile: landscape poster on top, then tag → headline → sub → meta strip → CTAs.
+ * Desktop (lg+): two columns. Left has copy + meta + CTAs, right has a
+ * cinematic landscape poster frame.
+ *
+ * The poster comes from course.media.posterImage (CMS-uploaded). Falls back
+ * gracefully to a simple placeholder when missing.
  */
-export default function Hero() {
+interface HeroProps {
+  course: ResolvedCourse;
+}
+
+export default function Hero({ course }: HeroProps) {
+  const c = course.copy.hero;
   return (
     <section
       id="top"
-      className="relative overflow-hidden min-h-[100dvh] w-full flex items-end pb-20 pt-28 sm:pt-32"
+      className="relative w-full pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-12 lg:pb-16"
     >
-      {/* Animated mosaic background */}
-      <MosaicBackground />
-
-      {/* Gradient veil for legibility */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-10"
-        style={{
-          background:
-            "linear-gradient(180deg, color-mix(in oklab, var(--bg) 40%, transparent) 0%, color-mix(in oklab, var(--bg) 75%, transparent) 55%, var(--bg) 100%)",
-        }}
-      />
-
       <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-          {/* Left — copy + CTAs */}
-          <div>
-            {/* Tag line */}
-            <div
-              className="mb-6 inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.28em] uppercase"
-              style={{ color: "var(--fg-muted)" }}
-            >
-              <span
-                className="inline-block h-1.5 w-1.5 rounded-full animate-pulse-dot"
-                style={{ background: "var(--accent)" }}
-              />
-              <span>{SITE.copy.hero.tag}</span>
-            </div>
+        <div className="grid gap-7 sm:gap-10 lg:gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+          {/* Poster — first on mobile, right column on desktop */}
+          <div className="order-1 lg:order-2 w-full min-w-0">
+            <PosterFrame
+              src={course.media.posterImage}
+              alt={course.titleAr}
+              accentColor={course.accentColor}
+            />
+          </div>
 
-            {/* Display headline — ONE word in accent */}
+          {/* Copy + CTAs */}
+          <div className="order-2 lg:order-1 flex min-w-0 flex-col text-center lg:text-right">
+            <BigDate course={course} />
+
             <h1
-              className="font-arabic-display font-bold leading-[1.05] tracking-tight"
+              className="w-full min-w-0 max-w-full font-arabic-display font-bold leading-[1.1] tracking-tight"
               style={{
                 color: "var(--fg)",
-                fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)",
+                fontSize: "clamp(1.55rem, 6.8vw, 4.75rem)",
+                overflowWrap: "anywhere",
+                wordBreak: "break-word",
               }}
             >
-              <span className="block">{SITE.copy.hero.headlineLine1Ar}</span>
-              <span className="block" style={{ color: "var(--accent)" }}>
-                {SITE.copy.hero.headlineLine2PrefixAr}
-                {SITE.copy.hero.headlineLine2AccentAr}
+              <span
+                className="block min-w-0 max-w-full"
+                style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+              >
+                {c.headlineLine1Ar}
+              </span>
+              <span
+                className="block min-w-0 max-w-full"
+                style={{
+                  color: "var(--course-accent)",
+                  overflowWrap: "anywhere",
+                  wordBreak: "break-word",
+                }}
+              >
+                {c.headlineLine2PrefixAr}
+                {c.headlineLine2AccentAr}
               </span>
             </h1>
 
-            {/* Sub-headline */}
             <p
-              className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed"
+              className="mt-5 sm:mt-6 max-w-xl text-base sm:text-lg leading-[1.85]"
               style={{ color: "var(--fg-muted)" }}
             >
-              {SITE.copy.hero.subHeadlineAr}
+              {c.subHeadlineAr}
             </p>
 
-            {/* CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            {!course.cohort.isTba && course.cohort.venueAr && (
+              <p
+                className="mt-5 text-sm sm:text-base font-medium"
+                style={{ color: "var(--fg-muted)" }}
+              >
+                {course.cohort.venueAr}
+              </p>
+            )}
+
+            <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <a
                 href="#booking"
-                className="group inline-flex items-center justify-center gap-3 rounded-md px-6 py-3.5 font-arabic text-base font-semibold transition-transform"
+                className="group inline-flex items-center justify-center gap-3 rounded-md px-6 py-4 sm:py-3.5 text-base font-semibold transition-colors min-h-[52px]"
                 style={{
                   background: "var(--whatsapp)",
                   color: "#04140B",
@@ -84,52 +99,66 @@ export default function Hero() {
                   e.currentTarget.style.background = "var(--whatsapp)";
                 }}
               >
-                {SITE.copy.hero.ctaPrimaryAr}
+                {c.ctaPrimaryAr}
                 <ArrowRtl />
               </a>
 
               <a
-                href={buildQuickUrl("hero", "ar")}
+                href={buildQuickUrl("hero", "ar", { course })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-md border px-6 py-3.5 font-arabic text-base transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-md border px-6 py-4 sm:py-3.5 text-base transition-colors min-h-[52px]"
                 style={{
                   borderColor: "var(--border)",
                   color: "var(--fg)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "var(--electric)";
-                  e.currentTarget.style.color = "var(--electric)";
+                  e.currentTarget.style.borderColor = "var(--course-accent)";
+                  e.currentTarget.style.color = "var(--course-accent)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "var(--border)";
                   e.currentTarget.style.color = "var(--fg)";
                 }}
               >
-                {SITE.copy.hero.ctaSecondaryAr}
+                {c.ctaSecondaryAr}
               </a>
             </div>
-
-            {/* Meta strip */}
-            <div
-              className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-[11px] tracking-[0.2em] uppercase"
-              style={{ color: "var(--fg-muted)" }}
-            >
-              <span dir="ltr">{SITE.copy.hero.metaDate}</span>
-              <span aria-hidden>•</span>
-              <span>{SITE.cohort.venueAr}</span>
-              <span aria-hidden>•</span>
-              <span dir="ltr">{SITE.copy.hero.metaTime}</span>
-            </div>
-          </div>
-
-          {/* Right — live terminal showing the prompt → output loop */}
-          <div className="lg:justify-self-end w-full flex lg:block justify-start" dir="ltr">
-            <HeroTerminal />
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function BigDate({ course }: { course: ResolvedCourse }) {
+  return (
+    <div
+      className="mb-5 inline-flex max-w-full items-center gap-3 self-center border-r-4 py-1 pr-4 sm:mb-6 lg:self-start"
+      style={{ borderColor: "var(--course-accent)" }}
+    >
+      <div className="min-w-0">
+        <p
+          className="font-mono font-semibold leading-tight tracking-[0.08em] uppercase"
+          style={{
+            color: "var(--course-accent)",
+            fontSize: "clamp(1rem, 2.2vw, 1.35rem)",
+            overflowWrap: "anywhere",
+            wordBreak: "break-word",
+          }}
+          dir="ltr"
+        >
+          {course.cohort.labelEn}
+        </p>
+        <p
+          className="mt-0.5 font-mono text-[11px] sm:text-xs tracking-[0.18em] uppercase"
+          style={{ color: "var(--fg-muted)" }}
+          dir="ltr"
+        >
+          {course.cohort.isTba ? "DETAILS TBA" : `${course.cohort.metaTime} · KUWAIT`}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -153,59 +182,75 @@ function ArrowRtl() {
   );
 }
 
-/* ───────────────────────────────────────────────────────────── *
- * Mosaic — 5x3 grid of gradient "tiles" that crossfade between  *
- * three color palettes. Drop real images here later by passing  *
- * a src prop instead of `shade`.                                *
- * ───────────────────────────────────────────────────────────── */
-const PALETTES = [
-  ["#0a1a14", "#0e3b2d", "#103a4d", "#1b1a2e", "#221628"],
-  ["#0c1a2a", "#141730", "#21152a", "#2a1b14", "#0f2a27"],
-  ["#071a1a", "#12273a", "#2a1830", "#181c33", "#0a2b22"],
-];
-
-function MosaicBackground() {
-  const [phase, setPhase] = useState(0);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-    const id = window.setInterval(
-      () => setPhase((p) => (p + 1) % PALETTES.length),
-      4200
-    );
-    return () => window.clearInterval(id);
-  }, []);
-
-  const colors = PALETTES[phase];
+function PosterFrame({
+  src,
+  alt,
+  accentColor,
+}: {
+  src: string;
+  alt: string;
+  accentColor: string;
+}) {
+  const [imgOk, setImgOk] = useState(true);
 
   return (
-    <div aria-hidden className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 gap-[2px]">
-      {Array.from({ length: 15 }).map((_, i) => {
-        const c = colors[i % colors.length];
-        const delay = (i * 90) % 1400;
-        return (
-          <div
-            key={i}
-            className="relative overflow-hidden"
-            style={{
-              background: `radial-gradient(120% 120% at ${i % 2 ? "30%" : "70%"} ${
-                i % 3 ? "40%" : "70%"
-              }, ${c} 0%, #08090F 90%)`,
-              transition: `background 1.6s cubic-bezier(.2,.7,.2,1) ${delay}ms`,
-            }}
-          >
-            {/* faint scan-line */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px)",
-              }}
-            />
-          </div>
-        );
-      })}
+    <div
+      className="relative mx-auto lg:mx-0 w-full max-w-3xl lg:max-w-none overflow-hidden border rounded-md"
+      style={{
+        borderColor: "var(--border)",
+        background:
+          "linear-gradient(135deg, color-mix(in oklab, var(--bg-elevated) 86%, var(--course-accent) 14%), var(--bg))",
+        aspectRatio: "16 / 9",
+        boxShadow: "0 28px 80px color-mix(in oklab, var(--bg) 72%, transparent)",
+      }}
+    >
+      {imgOk ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt={alt}
+          className="absolute inset-0 h-full w-full object-contain object-center"
+          style={{ color: "transparent" }}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          onError={() => setImgOk(false)}
+        />
+      ) : (
+        <PosterFallback accentColor={accentColor} />
+      )}
+
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-[3px]"
+        style={{ background: accentColor }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          boxShadow:
+            "inset 0 0 0 1px color-mix(in oklab, var(--fg) 7%, transparent), inset 0 -32px 64px color-mix(in oklab, var(--bg) 35%, transparent)",
+        }}
+      />
+    </div>
+  );
+}
+
+function PosterFallback({ accentColor }: { accentColor: string }) {
+  return (
+    <div
+      className="absolute inset-0 flex flex-col items-center justify-center gap-3"
+      style={{
+        background: `radial-gradient(ellipse at center, ${accentColor}22 0%, var(--bg) 75%)`,
+      }}
+    >
+      <span
+        className="font-mono text-[10px] tracking-[0.28em] uppercase"
+        style={{ color: "var(--fg-muted)" }}
+      >
+        POSTER · UPLOAD VIA /admin
+      </span>
     </div>
   );
 }

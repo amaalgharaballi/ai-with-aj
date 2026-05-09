@@ -1,63 +1,90 @@
 "use client";
 
 import { useState } from "react";
-import { SITE } from "@/lib/site";
+import type { ResolvedCourse, ResolvedInstructor } from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
-export default function Instructor() {
-  const c = SITE.copy.instructorSection;
+interface InstructorProps {
+  course: ResolvedCourse;
+}
+
+export default function Instructor({ course }: InstructorProps) {
+  const c = course.copy.instructorSection;
+  const instructors = course.instructors;
 
   return (
     <section
       id="instructor"
       aria-label={c.labelAr}
-      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-24 sm:py-32"
+      className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 py-12 sm:py-16"
     >
-      <div className="grid gap-14 lg:grid-cols-[auto_1fr] lg:items-center">
-        {/* Portrait */}
-        <Reveal className="flex justify-center lg:justify-start">
-          <InstructorPortrait />
-        </Reveal>
+      <div className="space-y-20">
+        {instructors.map((instructor) => (
+          <InstructorRow
+            key={instructor.id}
+            instructor={instructor}
+            orbitalLabel={c.orbitalLabel}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        {/* Bio */}
-        <Reveal delay={120}>
-          <div>
-            <span
-              className="font-mono text-[10px] tracking-[0.28em] uppercase"
-              style={{ color: "var(--fg-muted)" }}
-            >
-              {c.numeral} {c.labelAr}
-            </span>
-            <h2
-              className="mt-3 font-arabic-display text-4xl sm:text-5xl font-bold leading-tight"
-              style={{ color: "var(--fg)" }}
-            >
-              {SITE.instructor.nameAr}
-            </h2>
-            <p
-              className="mt-4 font-mono text-xs tracking-[0.18em] uppercase"
-              style={{ color: "var(--accent)" }}
-            >
-              {SITE.instructor.titleEn}
-            </p>
+interface InstructorRowProps {
+  instructor: ResolvedInstructor;
+  orbitalLabel: string;
+}
 
-            <div
-              className="mt-8 space-y-4 text-base leading-[1.9]"
-              style={{ color: "var(--fg)" }}
-            >
-              {c.bioParagraphsAr.map((p, i) => (
-                <p
-                  key={i}
-                  style={i > 0 ? { color: "var(--fg-muted)" } : undefined}
-                >
-                  {p}
-                </p>
-              ))}
-            </div>
+function InstructorRow({
+  instructor,
+  orbitalLabel,
+}: InstructorRowProps) {
+  return (
+    <div className="grid gap-14 lg:grid-cols-[auto_1fr] lg:items-center">
+      {/* Portrait */}
+      <Reveal className="flex justify-center lg:justify-start">
+        <InstructorPortrait
+          instructor={instructor}
+          orbitalLabel={orbitalLabel}
+          filterId={`duotone-${instructor.id}`}
+        />
+      </Reveal>
 
+      {/* Bio */}
+      <Reveal delay={120}>
+        <div>
+          <h3
+            className="font-arabic-display text-3xl sm:text-4xl font-bold leading-tight"
+            style={{ color: "var(--fg)" }}
+          >
+            {instructor.nameAr}
+          </h3>
+          <p
+            className="mt-4 font-mono text-xs tracking-[0.18em] uppercase"
+            style={{ color: "var(--course-accent)" }}
+          >
+            {instructor.titleEn}
+          </p>
+
+          <div
+            className="mt-8 space-y-4 text-base leading-[1.9]"
+            style={{ color: "var(--fg)" }}
+          >
+            {instructor.bioParagraphsAr.map((p, i) => (
+              <p
+                key={i}
+                style={i > 0 ? { color: "var(--fg-muted)" } : undefined}
+              >
+                {p}
+              </p>
+            ))}
+          </div>
+
+          {instructor.igUrl && instructor.ig && (
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href={SITE.instructor.igUrl}
+                href={instructor.igUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 border px-5 py-2.5 font-mono text-xs tracking-[0.2em] uppercase transition-colors"
@@ -66,15 +93,15 @@ export default function Instructor() {
                   color: "var(--fg)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "var(--electric)";
-                  e.currentTarget.style.color = "var(--electric)";
+                  e.currentTarget.style.borderColor = "var(--course-accent)";
+                  e.currentTarget.style.color = "var(--course-accent)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "var(--border)";
                   e.currentTarget.style.color = "var(--fg)";
                 }}
               >
-                @{SITE.instructor.ig}
+                @{instructor.ig}
                 <svg
                   width="12"
                   height="12"
@@ -90,22 +117,32 @@ export default function Instructor() {
                 </svg>
               </a>
             </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
+          )}
+        </div>
+      </Reveal>
+    </div>
   );
 }
 
-/* ───────────────────────────── Avatar ────────────────────────────── */
+/* ───────────────────────────── Portrait ────────────────────────────── */
 
-function InstructorPortrait() {
-  const [imgOk, setImgOk] = useState(true);
+interface InstructorPortraitProps {
+  instructor: ResolvedInstructor;
+  orbitalLabel: string;
+  filterId: string;
+}
+
+function InstructorPortrait({
+  instructor,
+  orbitalLabel,
+  filterId,
+}: InstructorPortraitProps) {
+  const [imgOk, setImgOk] = useState(Boolean(instructor.photo));
 
   return (
     <div className="relative size-[280px] sm:size-[340px]">
       {/* Orbital mono labels */}
-      <OrbitalLabel text={SITE.copy.instructorSection.orbitalLabel} />
+      <OrbitalLabel text={orbitalLabel} />
 
       {/* Pulsing halo */}
       <div
@@ -113,7 +150,7 @@ function InstructorPortrait() {
         className="absolute inset-6 rounded-full blur-2xl opacity-40 animate-pulse-dot"
         style={{
           background:
-            "radial-gradient(circle, var(--accent) 0%, transparent 65%)",
+            "radial-gradient(circle, var(--course-accent) 0%, transparent 65%)",
         }}
       />
 
@@ -122,7 +159,7 @@ function InstructorPortrait() {
         aria-hidden
         className="absolute inset-2 rounded-full rotate-slow"
         style={{
-          border: "1px dashed var(--accent)",
+          border: "1px dashed var(--course-accent)",
           opacity: 0.55,
         }}
       />
@@ -130,10 +167,10 @@ function InstructorPortrait() {
       {/* Corner crop-marks */}
       <CornerMarks />
 
-      {/* SVG duotone filter — maps shadows → deep bg, highlights → fg,
-          and kills the warm orange entirely. */}
+      {/* SVG duotone filter — shadows → deep bg, highlights → fg.
+          Each instructor needs its own filter id since they coexist on bootcamp. */}
       <svg aria-hidden className="absolute size-0">
-        <filter id="duotone-aj" colorInterpolationFilters="sRGB">
+        <filter id={filterId} colorInterpolationFilters="sRGB">
           <feColorMatrix
             type="matrix"
             values="
@@ -159,47 +196,31 @@ function InstructorPortrait() {
           background: "var(--bg-elevated)",
         }}
       >
-        {imgOk ? (
+        {imgOk && instructor.photo ? (
           // Plain <img> so a missing file gracefully shows the fallback.
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src="/instructor.jpg"
-            alt={SITE.instructor.nameAr}
+            src={instructor.photo}
+            alt={instructor.nameAr}
             className="h-full w-full object-cover"
             loading="lazy"
             onError={() => setImgOk(false)}
-            style={{ filter: "url(#duotone-aj) contrast(1.05) brightness(1.02)" }}
+            style={{ filter: `url(#${filterId}) contrast(1.05) brightness(1.02)` }}
           />
         ) : (
-          <AvatarFallback />
+          <AvatarFallback instructor={instructor} />
         )}
 
-        {/* accent rim-light — a faint green cast on the right edge */}
+        {/* accent rim-light */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(130% 110% at 85% 25%, color-mix(in oklab, var(--accent) 18%, transparent) 0%, transparent 55%)",
+              "radial-gradient(130% 110% at 85% 25%, color-mix(in oklab, var(--course-accent) 18%, transparent) 0%, transparent 55%)",
             mixBlendMode: "screen",
           }}
         />
-      </div>
-
-      {/* Live dot */}
-      <div
-        className="absolute bottom-6 right-6 flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[9px] tracking-[0.22em] uppercase"
-        style={{
-          borderColor: "var(--border)",
-          background: "color-mix(in oklab, var(--bg) 80%, transparent)",
-          color: "var(--fg-muted)",
-        }}
-      >
-        <span
-          className="h-1.5 w-1.5 rounded-full animate-pulse-dot"
-          style={{ background: "var(--accent)" }}
-        />
-        {SITE.copy.instructorSection.liveBadge}
       </div>
 
       <style jsx>{`
@@ -208,16 +229,8 @@ function InstructorPortrait() {
           to   { transform: rotate(360deg); }
         }
         .rotate-slow { animation: rotate-slow 40s linear infinite; }
-        @keyframes scan-bar {
-          0%   { transform: translateY(-120%); opacity: 0; }
-          10%  { opacity: 1; }
-          50%  { opacity: 0.6; }
-          90%  { opacity: 0.8; }
-          100% { transform: translateY(520%); opacity: 0; }
-        }
-        .scan-bar { animation: scan-bar 5.5s cubic-bezier(.4,.1,.6,.9) infinite; }
         @media (prefers-reduced-motion: reduce) {
-          .rotate-slow, .scan-bar { animation: none; }
+          .rotate-slow { animation: none; }
         }
       `}</style>
     </div>
@@ -225,26 +238,18 @@ function InstructorPortrait() {
 }
 
 function CornerMarks() {
-  const base =
-    "absolute size-6 border-[var(--fg-muted)]";
+  const base = "absolute size-6 border-[var(--fg-muted)]";
   return (
     <>
       <span aria-hidden className={`${base} top-0 left-0 border-t border-l`} />
       <span aria-hidden className={`${base} top-0 right-0 border-t border-r`} />
-      <span
-        aria-hidden
-        className={`${base} bottom-0 left-0 border-b border-l`}
-      />
-      <span
-        aria-hidden
-        className={`${base} bottom-0 right-0 border-b border-r`}
-      />
+      <span aria-hidden className={`${base} bottom-0 left-0 border-b border-l`} />
+      <span aria-hidden className={`${base} bottom-0 right-0 border-b border-r`} />
     </>
   );
 }
 
 function OrbitalLabel({ text }: { text: string }) {
-  // SVG text on a circular path — rotates slowly around the portrait
   return (
     <svg
       aria-hidden
@@ -285,26 +290,37 @@ function OrbitalLabel({ text }: { text: string }) {
   );
 }
 
-function AvatarFallback() {
+function AvatarFallback({ instructor }: { instructor: ResolvedInstructor }) {
+  // Derive initials from the English name, falling back to the first
+  // two letters of the Arabic name for monogram display.
+  const initials =
+    instructor.nameEn
+      .split(" ")
+      .filter((p) => /^[A-Za-z]/.test(p))
+      .map((p) => p[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || instructor.nameAr.slice(0, 2);
+
   return (
     <div
       className="flex h-full w-full flex-col items-center justify-center gap-3"
       style={{ color: "var(--fg-muted)" }}
     >
       <span
-        className="font-display text-6xl font-semibold"
-        style={{ color: "var(--accent)" }}
+        className="font-arabic-display text-6xl font-semibold"
+        style={{ color: "var(--course-accent)" }}
       >
-        AJ
+        {initials}
       </span>
       <span className="font-mono text-[9px] tracking-[0.28em] uppercase">
-        drop image at
+        upload photo in CMS
       </span>
       <code
         className="font-mono text-[10px]"
         style={{ color: "var(--fg)" }}
       >
-        /public/instructor.jpg
+        {instructor.id}
       </code>
     </div>
   );

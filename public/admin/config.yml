@@ -1,11 +1,14 @@
 # Sveltia CMS schema for ai.with.aj
 #
-# Dumbified on purpose. Three collections, each edits ONE small JSON file with
-# the minimum fields. Changing something here commits to GitHub; Vercel
-# redeploys within ~60 seconds.
+# Two-course site: hub at /, deep-dive pages at /bootcamp and /ai-video.
+# Content lives under src/content/{courses,instructors}/*.json plus
+# hub.json, faq.json, global.json, and copy.json. Edits commit to GitHub;
+# Vercel redeploys within ~60s.
 #
-# For anything NOT in this form (bio, curriculum, hero copy, etc.):
-# edit src/content/site.json directly on GitHub.
+# Adding a new course: open the Courses collection → "New entry". The new
+# JSON file lands under src/content/courses/. To make it appear on the live
+# site, register it in src/lib/site.ts (COURSES_RAW) and add a route at
+# src/app/<slug>/page.tsx. Documented in HANDOFF.md.
 
 backend:
   name: github
@@ -14,9 +17,9 @@ backend:
   base_url: https://sveltia-cms-auth.amaalgharaballi.workers.dev
 
 commit_messages:
-  create: "content: update {{collection}}"
+  create: "content: create {{collection}} \"{{slug}}\""
   update: "content: update {{collection}}"
-  delete: "content: delete {{collection}}"
+  delete: "content: delete {{collection}} \"{{slug}}\""
   uploadMedia: "content: upload {{path}}"
   deleteMedia: "content: delete {{path}}"
 
@@ -27,98 +30,442 @@ locale: en
 
 collections:
   # ─────────────────────────────────────────────────────────
-  # 1. COHORT — dates, venue, description, per-day schedule. Most-edited.
+  # 1. COURSES — folder collection. Each entry is a per-course JSON.
   # ─────────────────────────────────────────────────────────
-  - name: cohort
-    label: "Next cohort"
-    description: "The next workshop. Changing dates, times, or tools here auto-updates the countdown, tool marquee, hours totals, and day cards on the homepage."
+  - name: courses
+    label: "Courses — edit workshops"
+    description: "Start here for routine course updates. This controls each course page: title, date/TBA status, venue, schedule, pricing, poster, promo video, instructors, and visible sections. Tip: changing fields here commits to GitHub, then Vercel rebuilds the site."
+    folder: src/content/courses
+    extension: json
+    format: json
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    summary: "{{titleAr}} · {{cohort.status}}"
     editor: { preview: false }
-    files:
-      - name: details
-        label: "Workshop details"
-        file: src/content/cohort.json
+    media_folder: "public/courses/{{fields.slug}}"
+    public_folder: "/courses/{{fields.slug}}"
+    fields:
+      - name: slug
+        label: "URL slug — advanced"
+        widget: string
+        pattern: ['^[a-z0-9-]+$', "lowercase letters, digits, hyphens only"]
+        hint: "Used in the URL, like /bootcamp. Do not change this after publishing unless a developer also updates the route."
+      - name: order
+        label: "Hub display order"
+        widget: number
+        value_type: int
+        default: 99
+        hint: "Lower numbers show first on the homepage. Bootcamp uses 1; AI Video uses 2."
+      - name: active
+        label: "Show this course on the website?"
+        widget: boolean
+        default: true
+        hint: "Turn off to hide the course from the homepage without deleting it. Existing direct URLs may still work if the route exists."
+      - name: accentColor
+        label: "Page accent color — advanced"
+        widget: string
+        pattern: ['^#[0-9A-Fa-f]{6}$', "Hex color, e.g. #FF8A4C"]
+        hint: "Hex color used for highlights, glows, focus states, and card accents. Keep this matching the course poster."
+      - name: titleAr
+        label: "Course title shown on page (Arabic)"
+        widget: string
+        hint: "Main course name. Keep it clear and short enough to fit on mobile."
+      - name: titleEn
+        label: "Course title used for metadata (English)"
+        widget: string
+        hint: "Used for browser metadata, links, and English fallback text."
+      - name: taglineAr
+        label: "Short course tagline (Arabic)"
+        widget: string
+        hint: "One short line for cards and course summaries. Example: خمسة أيام · من الكود إلى الفيلم"
+      - name: taglineEn
+        label: "Short course tagline (English)"
+        widget: string
+        hint: "English version of the short tagline."
+      - name: instructorIds
+        label: "Instructors"
+        widget: relation
+        collection: instructors
+        value_field: id
+        search_fields: [id, nameAr, nameEn]
+        display_fields: [nameAr]
+        multiple: true
+        hint: "Pick one or two instructors. The order here is the order shown on the page."
+      - name: cohort
+        label: "Cohort date, time, and venue"
+        widget: object
+        hint: "Scheduled courses show date, countdown, time, and venue. TBA courses hide the countdown and hide venue everywhere."
         fields:
-          - name: startIso
-            label: "Workshop start (date + time)"
-            widget: datetime
-            format: "YYYY-MM-DDTHH:mm:ssZ"
-            picker_utc: false
-            hint: "Kuwait time. First day of the workshop."
-          - name: endIso
-            label: "Workshop end (date + time)"
-            widget: datetime
-            format: "YYYY-MM-DDTHH:mm:ssZ"
-            picker_utc: false
-            hint: "Kuwait time. Last day of the workshop. The date label on the homepage is built from start + end automatically."
-          - name: venueAr
-            label: "Venue (Arabic)"
-            widget: string
-            hint: "Example: فندق أرابيلا البدع · قاعة ليان"
-          - name: descriptionAr
-            label: "Workshop description (Arabic)"
-            widget: text
-            hint: "Short paragraph shown in the 'About the workshop' section."
-          - name: days
-            label: "Workshop days"
+          - name: status
+            label: "Date status"
+            widget: select
+            default: scheduled
+            options:
+              - { label: "Scheduled date", value: scheduled }
+              - { label: "To be announced (TBA)", value: tba }
+            hint: "Scheduled date = show countdown/date/venue. TBA = show 'Date to be announced' and hide venue."
+          - { name: startIso, label: "Scheduled start — leave blank for TBA", widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false, required: false, hint: "Kuwait time. Required only when Date status is Scheduled." }
+          - { name: endIso,   label: "Scheduled end — leave blank for TBA",   widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false, required: false, hint: "Must be after the start date. Required only when Date status is Scheduled." }
+          - { name: venueAr,  label: "Venue shown on Arabic site",  widget: string, required: false, hint: "Leave blank when Date status is TBA. Do not type a venue for TBA courses." }
+          - { name: venueEn,  label: "Venue fallback (English)", widget: string, required: false, hint: "Optional. Leave blank when Date status is TBA." }
+      - name: descriptionAr
+        label: "About section opening paragraph (Arabic)"
+        widget: text
+        hint: "Shown as the first paragraph in 'About this course'. Keep it specific: duration, outcome, tools, and who it is for."
+      - name: days
+        label: "Curriculum days — controls hours and tools"
+        widget: list
+        summary: "{{fields.titleAr}} · {{fields.startTime}}–{{fields.endTime}}"
+        hint: "Each entry becomes a curriculum card. Start/end times are summed automatically into the total training hours. Tools are collected into the moving tools strip."
+        fields:
+          - { name: titleAr,  label: "Day card title (Arabic)",       widget: string, hint: "Example: اليوم الأول · أساسيات Replit" }
+          - { name: bodyAr,   label: "Day card description (Arabic)", widget: text, hint: "What the student does or learns that day. Avoid long paragraphs." }
+          - { name: startTime, label: "Day start time (24-hour)", widget: string, pattern: ['^\d{2}:\d{2}$', "Use 24-hour format, e.g. 17:00"], hint: "Use 24-hour time only, for example 17:00." }
+          - { name: endTime,   label: "Day end time (24-hour)",   widget: string, pattern: ['^\d{2}:\d{2}$', "Use 24-hour format, e.g. 20:00"], hint: "Used to calculate total training hours." }
+          - name: tools
+            label: "Tools taught this day"
             widget: list
-            summary: "{{fields.titleAr}}  ·  {{fields.startTime}}–{{fields.endTime}}"
-            hint: "Each day becomes a curriculum card. The tools listed here auto-fill the tool marquee, and the total hours auto-propagate to the hero, stats, and pricing."
+            field: { name: name, label: "Tool name", widget: string }
+            hint: "One tool per entry. These auto-populate the tool marquee at the top of the page."
+      - name: pricing
+        label: "Pricing cards"
+        widget: object
+        hint: "Shown inside the booking section. Keep the number of tiers small unless a developer updates the design."
+        fields:
+          - { name: currency, label: "Currency code", widget: string, default: "KWD", hint: "Usually KWD. Keep it short." }
+          - name: tiers
+            label: "Pricing tiers"
+            widget: list
+            summary: "{{fields.nameAr}} · {{fields.price}} {{fields.id}}"
+            hint: "Recommended: one early-bird tier and one standard tier. The highlighted tier gets stronger visual emphasis."
             fields:
-              - name: titleAr
-                label: "Day title (Arabic)"
-                widget: string
-                hint: "Example: اليوم الأول · توليد الصور"
-              - name: bodyAr
-                label: "Day description (Arabic)"
-                widget: text
-              - name: startTime
-                label: "Start time"
-                widget: string
-                pattern: ['^\d{2}:\d{2}$', "Use 24-hour format, e.g. 18:00"]
-                hint: "24-hour format. Example: 18:00"
-              - name: endTime
-                label: "End time"
-                widget: string
-                pattern: ['^\d{2}:\d{2}$', "Use 24-hour format, e.g. 21:00"]
-                hint: "24-hour format. Example: 21:00"
-              - name: tools
-                label: "Tools taught this day"
-                widget: list
-                field: { name: name, label: "Tool name", widget: string }
-                hint: "One tool per entry. Example: Veo 3.1, Sora 2, Kling AI. These auto-populate the tool marquee."
+              - { name: id, label: "Tier type", widget: select, options: [{ label: "Early bird", value: "early-bird" }, { label: "Standard", value: "standard" }], hint: "This controls booking form options. Do not invent new tier IDs without a developer." }
+              - { name: isHighlighted, label: "Visually highlight this tier?", widget: boolean, default: false, hint: "Use for the tier you want people to choose first." }
+              - { name: price, label: "Price number", widget: number, value_type: int, hint: "Number only, no currency text. Example: 75" }
+              - { name: soldOut, label: "Mark this tier sold out?", widget: boolean, default: false, hint: "Only turn on when the tier is genuinely unavailable." }
+              - { name: nameAr, label: "Tier display name (Arabic)",  widget: string }
+              - { name: nameEn, label: "Tier display name (English)", widget: string }
+              - { name: featuresAr, label: "Tier feature bullets (Arabic)", widget: list, field: { name: line, widget: string }, hint: "One short bullet per entry. Tokens like __TOTAL_HOURS_AR__ and __DAY_COUNT_AR__ are filled automatically from the schedule." }
+              - { name: featuresEn, label: "Tier feature bullets (English)", widget: list, field: { name: line, widget: string }, hint: "English fallback bullets. Keep aligned with the Arabic list." }
+      - name: media
+        label: "Course media — poster and video"
+        widget: object
+        hint: "Poster appears on the homepage card and course hero. Promo video appears in the video section. For promo video, use either a URL or an upload, never both."
+        fields:
+          - name: posterImage
+            label: "Poster image (used on the hub card and course page)"
+            widget: image
+            required: false
+            hint: "Landscape artwork works best: 16:9 or slightly wider. The site preserves the full poster without portrait cropping. Uploaded to /public/courses/<slug>/."
+          - name: videoTitleAr
+            label: "Promo video title (Arabic)"
+            widget: string
+            required: false
+            hint: "Headline shown next to the promo video. Leave blank to use the shared default title."
+          - name: promoVideoUrl
+            label: "Promo video URL (YouTube / Vimeo)"
+            widget: string
+            required: false
+            hint: "Paste a URL OR upload an MP4 below — not both. Setting both will fail the site build."
+          - name: promoVideoFile
+            label: "Promo video upload (mp4)"
+            widget: file
+            required: false
+            multiple: false
+            hint: "Use only MP4. Uploading video files increases repo size; a YouTube/Vimeo URL is safer for large videos."
+      - name: stats
+        label: "Training stats panel"
+        widget: list
+        required: false
+        hint: "Small proof numbers shown under the hero. Keep values short. Value (Latin numerals) drives the count-up animation."
+        fields:
+          - { name: valueAr, label: "Displayed value (Arabic copy)", widget: string, hint: "Shown for screen readers/fallback copy." }
+          - { name: valueEn, label: "Animated value (Latin digits)",  widget: string, hint: "Use Latin digits like 650+ or 9. The animation reads this field." }
+          - { name: labelAr, label: "Stat label (Arabic)",          widget: string, hint: "Example: متدرب" }
+          - { name: labelEn, label: "Stat label (English)",         widget: string, hint: "English fallback." }
+      - name: curriculumBonus
+        label: "Extra curriculum cards"
+        widget: list
+        required: false
+        summary: "{{fields.titleAr}}"
+        hint: "Optional cards shown after the day-by-day schedule, such as certificate, PDF guide, or live workshop."
+        fields:
+          - { name: titleAr, label: "Bonus title (Arabic)",       widget: string }
+          - { name: bodyAr,  label: "Bonus description (Arabic)", widget: text }
+      - name: whatsappOverride
+        label: "Course-specific WhatsApp number — advanced"
+        widget: string
+        required: false
+        hint: "Leave blank to use the global WhatsApp number. If set, use digits only: 96565524555. No plus sign, no spaces."
+      - name: sections
+        label: "Show/hide page sections — advanced"
+        widget: object
+        collapsed: false
+        hint: "Use only if a whole section should disappear. Hidden sections do not render on the course page."
+        fields:
+          - { name: hero,           label: "Hero (poster + title + dates + CTAs)", widget: boolean, default: true }
+          - { name: toolMarquee,    label: "Tools marquee strip",                  widget: boolean, default: true }
+          - { name: stats,          label: "Countdown + training stats",           widget: boolean, default: true }
+          - { name: about,          label: "About this course",                    widget: boolean, default: true }
+          - { name: montage,        label: "Promo video",                          widget: boolean, default: true }
+          - { name: curriculum,     label: "Curriculum days + bonus cards",        widget: boolean, default: true }
+          - { name: instructor,     label: "Instructor profile(s)",                widget: boolean, default: true }
+          - { name: accreditations, label: "Accreditation strip",                  widget: boolean, default: true }
+          - { name: booking,        label: "Booking form (registration + pricing)", widget: boolean, default: true }
+          - { name: faq,            label: "FAQ accordion",                        widget: boolean, default: true }
+      - name: copyOverrides
+        label: "Override section titles and copy — advanced"
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Most edits should happen in the normal fields above. Use this only when one course needs different hero/about/booking section text. Leave fields blank to use shared defaults."
+        fields:
+          - { name: hero, label: "Hero", widget: object, required: false, collapsed: true, fields: [
+              { name: headlineLine1Ar,        label: "Title — line 1 (Arabic)",         widget: string, required: false },
+              { name: headlineLine2PrefixAr,  label: "Title — line 2 prefix",           widget: string, required: false },
+              { name: headlineLine2AccentAr,  label: "Title — accent word",             widget: string, required: false },
+              { name: subHeadlineAr,          label: "Sub-headline (Arabic)",           widget: text,   required: false },
+              { name: ctaPrimaryAr,           label: "Primary CTA label",               widget: string, required: false },
+              { name: ctaSecondaryAr,         label: "Secondary CTA label",             widget: string, required: false }
+            ] }
+          - { name: about, label: "About this course", widget: object, required: false, collapsed: true, fields: [
+              { name: headlineLine1Ar,        label: "Title — line 1",                  widget: string, required: false },
+              { name: headlineLine2Ar,        label: "Title — line 2",                  widget: string, required: false },
+              { name: paragraph2BeforeAr,     label: "Paragraph 2 — before highlight",  widget: string, required: false },
+              { name: paragraph2HighlightAr,  label: "Paragraph 2 — highlighted word",  widget: string, required: false },
+              { name: paragraph2AfterAr,      label: "Paragraph 2 — after highlight",   widget: text,   required: false }
+            ] }
+          - { name: montage, label: "Promo video", widget: object, required: false, collapsed: true, fields: [
+              { name: headlineLine1Ar, label: "Title — first part",   widget: string, required: false },
+              { name: headlineAccentAr, label: "Title — accent word", widget: string, required: false }
+            ] }
+          - { name: curriculumSection, label: "Curriculum section", widget: object, required: false, collapsed: true, fields: [
+              { name: tagline,           label: "Tagline shown next to the headline", widget: text,   required: false },
+              { name: headlinePrefixAr,  label: "Headline prefix",                    widget: string, required: false, hint: "Tokens like __DAY_COUNT_AR__ are auto-substituted." },
+              { name: headlineAccentAr,  label: "Headline accent",                    widget: string, required: false, hint: "Tokens like __TOOL_COUNT_AR__ are auto-substituted." }
+            ] }
+          - { name: booking, label: "Booking section", widget: object, required: false, collapsed: true, fields: [
+              { name: headlineLine1Ar,  label: "Title — first part",      widget: string, required: false },
+              { name: headlineAccentAr, label: "Title — accent",          widget: string, required: false },
+              { name: subHeadlineAr,    label: "Sub-headline",            widget: text,   required: false },
+              { name: submitCtaAr,      label: "Submit button label",     widget: string, required: false }
+            ] }
 
   # ─────────────────────────────────────────────────────────
-  # 2. PRICING — prices + seats-left counter.
+  # 2. INSTRUCTORS — folder collection.
   # ─────────────────────────────────────────────────────────
-  - name: pricing
-    label: "Pricing"
-    description: "Tier prices and the early-bird seats-left counter."
+  - name: instructors
+    label: "Instructors — trainer profiles"
+    description: "Trainer profiles used by course pages. Courses reference instructors by ID, so do not rename an instructor ID after courses use it."
+    folder: src/content/instructors
+    extension: json
+    format: json
+    create: true
+    slug: "{{fields.id}}"
+    identifier_field: id
+    summary: "{{nameAr}}"
+    editor: { preview: false }
+    media_folder: "public/instructors"
+    public_folder: "/instructors"
+    fields:
+      - { name: id,      label: "Instructor ID — advanced", widget: string, pattern: ['^[a-z0-9-]+$', "lowercase letters, digits, hyphens"], hint: "Used by courses to find this trainer. Do not change after publishing." }
+      - { name: nameAr,  label: "Name (Arabic)",   widget: string }
+      - { name: nameEn,  label: "Name (English)",  widget: string }
+      - { name: titleAr, label: "Trainer title (Arabic)",  widget: string, hint: "Short credential line shown under the name." }
+      - { name: titleEn, label: "Trainer title (English)", widget: string }
+      - name: bioParagraphsAr
+        label: "Bio paragraphs (Arabic)"
+        widget: list
+        field: { name: paragraph, label: "Paragraph", widget: text }
+        hint: "Each entry is one paragraph. The first paragraph is bolder; the rest are muted."
+      - { name: photo, label: "Trainer photo", widget: image, required: false, hint: "Square portrait works best. Uploaded to /public/instructors/." }
+      - { name: ig,    label: "Instagram handle (without @)", widget: string, required: false, hint: "Example: ai.with.aj" }
+      - { name: igUrl, label: "Full Instagram URL",                widget: string, required: false, hint: "Example: https://instagram.com/ai.with.aj" }
+
+  # ─────────────────────────────────────────────────────────
+  # 3. GLOBAL — site-wide settings.
+  # ─────────────────────────────────────────────────────────
+  - name: global
+    label: "Global settings"
+    description: "Site-wide details used everywhere: WhatsApp number, brand handle, Instagram link, and accreditation names. Be careful here: these values affect every page."
     editor: { preview: false }
     files:
-      - name: prices
-        label: "Prices & seats"
-        file: src/content/pricing.json
+      - name: global
+        label: "Global settings"
+        file: src/content/global.json
         fields:
-          - name: earlyBirdPrice
-            label: "Early bird price (KWD)"
-            widget: number
-            value_type: int
-          - name: standardPrice
-            label: "Standard price (KWD)"
-            widget: number
-            value_type: int
-          - name: earlyBirdSoldOut
-            label: "Early bird sold out?"
-            widget: boolean
-            default: false
-            hint: "Toggle ON when the early-bird tier is full. A 'مكتمل' badge appears on the pricing card."
+          - { name: whatsapp, label: "Default WhatsApp number", widget: string, pattern: ['^\d+$', "Digits only, no plus sign or spaces"], hint: "Used by all booking and inquiry buttons unless a course overrides it. Example: 96565524555" }
+          - name: brand
+            label: "Brand"
+            widget: object
+            fields:
+              - { name: nameAr, label: "Brand name (Arabic/global)", widget: string }
+              - { name: nameEn, label: "Brand name (English)", widget: string }
+              - { name: handle, label: "Instagram handle without @", widget: string, hint: "Shown in the top nav and footer. Example: ai.with.aj" }
+              - { name: taglineAr, label: "Footer tagline (Arabic)", widget: string }
+              - { name: taglineEn, label: "Footer tagline (English)", widget: string }
+          - name: links
+            label: "Links"
+            widget: object
+            fields:
+              - { name: instagram, label: "Instagram URL", widget: string, hint: "Full URL opened by the nav and footer handle." }
+          - name: accreditations
+            label: "Accreditations"
+            widget: list
+            summary: "{{fields.nameEn}}"
+            hint: "Shown in the accreditation strip. Logos are stored for future use; the current design renders names only."
+            fields:
+              - { name: nameAr, label: "Arabic name", widget: string }
+              - { name: nameEn, label: "English/short name", widget: string }
+              - { name: logo, label: "Logo path — optional", widget: image, required: false, hint: "Optional. Current site uses text names, not logos." }
 
   # ─────────────────────────────────────────────────────────
-  # 3. FAQ — questions and answers.
+  # 4. SHARED COPY — advanced global wording.
+  # ─────────────────────────────────────────────────────────
+  - name: copy
+    label: "Shared copy — advanced"
+    description: "Advanced shared wording used across course pages. Most course-specific wording should be edited in Courses instead. Tokens such as __DAY_COUNT_AR__ and __TOTAL_HOURS_AR__ are filled automatically."
+    editor: { preview: false }
+    files:
+      - name: copy
+        label: "Shared copy"
+        file: src/content/copy.json
+        fields:
+          - name: hero
+            label: "Hero copy"
+            widget: object
+            fields:
+              - { name: headlineLine1Ar, label: "Headline line 1", widget: string }
+              - { name: headlineLine2PrefixAr, label: "Headline line 2 prefix", widget: string }
+              - { name: headlineLine2AccentAr, label: "Headline accent word", widget: string }
+              - { name: subHeadlineAr, label: "Sub-headline", widget: text, hint: "Allowed tokens: __DAY_COUNT_AR__, __TOTAL_HOURS_AR__." }
+              - { name: ctaPrimaryAr, label: "Primary CTA", widget: string }
+              - { name: ctaSecondaryAr, label: "Secondary CTA", widget: string }
+          - name: about
+            label: "About section copy"
+            widget: object
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string, hint: "Screen-reader label only; not a visible section badge." }
+              - { name: headlineLine1Ar, label: "Headline line 1", widget: string }
+              - { name: headlineLine2Ar, label: "Headline line 2", widget: string }
+              - { name: paragraph1Ar, label: "Fallback opening paragraph", widget: text, required: false, hint: "Usually blank. Course description is used first." }
+              - { name: paragraph2BeforeAr, label: "Paragraph 2 before highlight", widget: string }
+              - { name: paragraph2HighlightAr, label: "Paragraph 2 highlighted word", widget: string }
+              - { name: paragraph2AfterAr, label: "Paragraph 2 after highlight", widget: text }
+              - name: badges
+                label: "Small about badges"
+                widget: list
+                summary: "{{fields.v}}"
+                fields:
+                  - { name: k, label: "Internal key — not displayed", widget: string, hint: "Kept for data stability. The site does not display [A]/[B]/[C]." }
+                  - { name: v, label: "Visible badge text", widget: string }
+          - name: montage
+            label: "Promo video section"
+            widget: object
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string }
+              - { name: headlineLine1Ar, label: "Headline first part", widget: string }
+              - { name: headlineAccentAr, label: "Headline accent word", widget: string }
+          - name: curriculumSection
+            label: "Curriculum section"
+            widget: object
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string }
+              - { name: headlinePrefixAr, label: "Headline prefix", widget: string, hint: "Allowed tokens: __DAY_COUNT_AR__." }
+              - { name: headlineAccentAr, label: "Headline accent", widget: string, hint: "Allowed tokens: __TOOL_COUNT_AR__." }
+              - { name: tagline, label: "Tagline", widget: text, required: false, hint: "Leave blank to hide." }
+          - name: instructorSection
+            label: "Instructor section"
+            widget: object
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string }
+              - { name: orbitalLabel, label: "Rotating portrait label", widget: string }
+          - name: pricing
+            label: "Pricing copy"
+            widget: object
+            hint: "Kept for compatibility with older content. The current booking section reads pricing tiers from each course."
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string }
+              - { name: headlinePrefixAr, label: "Headline prefix", widget: string }
+              - { name: headlineAccentAr, label: "Headline accent", widget: string }
+              - { name: footnoteAr, label: "Footnote", widget: string }
+              - { name: inquireLinkAr, label: "Inquiry link label", widget: string }
+              - { name: bookPrefixAr, label: "Book prefix", widget: string }
+          - name: booking
+            label: "Booking form copy"
+            widget: object
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string }
+              - { name: headlineLine1Ar, label: "Headline first part", widget: string }
+              - { name: headlineAccentAr, label: "Headline accent", widget: string }
+              - { name: subHeadlineAr, label: "Sub-headline", widget: text }
+              - { name: tierLegendAr, label: "Tier chooser label", widget: string }
+              - { name: totalLabelAr, label: "Total label", widget: string }
+              - { name: submitCtaAr, label: "Submit button label", widget: string }
+              - name: fieldLabels
+                label: "Field labels"
+                widget: object
+                fields:
+                  - { name: nameAr, label: "Name field label", widget: string }
+                  - { name: namePlaceholderAr, label: "Name placeholder", widget: string, required: false }
+                  - { name: phoneAr, label: "Phone field label", widget: string }
+                  - { name: phoneHintAr, label: "Phone hint", widget: string }
+                  - { name: emailAr, label: "Email field label", widget: string }
+                  - { name: emailHintAr, label: "Email hint", widget: string }
+                  - { name: workFieldAr, label: "Work field label", widget: string }
+              - name: errors
+                label: "Validation errors"
+                widget: object
+                fields:
+                  - { name: nameAr, label: "Name error", widget: string }
+                  - { name: phoneAr, label: "Phone error", widget: string }
+                  - { name: emailAr, label: "Email error", widget: string }
+              - name: workFieldsAr
+                label: "Work field options"
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: value, label: "Internal value", widget: string, pattern: ['^[a-z0-9-]+$', "lowercase letters, digits, hyphens only"] }
+                  - { name: label, label: "Visible label", widget: string }
+          - name: faqSection
+            label: "FAQ section"
+            widget: object
+            fields:
+              - { name: labelAr, label: "ARIA label", widget: string }
+              - { name: headlineAccentAr, label: "Headline accent", widget: string }
+              - { name: headlineSuffixAr, label: "Headline suffix", widget: string }
+          - name: footer
+            label: "Footer CTA copy"
+            widget: object
+            fields:
+              - { name: finalTagAr, label: "Small label", widget: string }
+              - { name: finalBeforeAr, label: "Final sentence before accent", widget: string }
+              - { name: finalAccentAr, label: "Final sentence accent", widget: string }
+              - { name: finalAfterAr, label: "Final sentence after accent", widget: string }
+              - { name: ctaPrimaryAr, label: "Primary CTA", widget: string }
+              - { name: ctaSecondaryAr, label: "Secondary CTA", widget: string }
+
+  # ─────────────────────────────────────────────────────────
+  # 5. HUB — copy for the landing page.
+  # ─────────────────────────────────────────────────────────
+  - name: hub
+    label: "Homepage hub"
+    description: "Copy on the landing page (/) that lists all visible courses. This is not a course page; course-specific edits belong in Courses."
+    editor: { preview: false }
+    files:
+      - name: hub
+        label: "Hub copy"
+        file: src/content/hub.json
+        fields:
+          - { name: courseCardCta,    label: "Course card link label",      widget: string, hint: "Shown on each course card on the homepage. Example: تفاصيل الورشة" }
+
+  # ─────────────────────────────────────────────────────────
+  # 6. FAQ — shared list for both courses.
   # ─────────────────────────────────────────────────────────
   - name: faq
-    label: "FAQ"
-    description: "Questions shown in the FAQ accordion at the bottom of the page."
+    label: "FAQ — shared questions"
+    description: "Questions shown in the FAQ accordion. The same list appears on the homepage and course pages. Use dynamic tokens for date/time/location instead of typing a fixed venue."
     editor: { preview: false }
     files:
       - name: list
@@ -126,11 +473,12 @@ collections:
         file: src/content/faq.json
         fields:
           - name: faq
-            label: "Questions"
+            label: "FAQ questions"
             widget: list
             summary: "{{fields.qAr}}"
+            hint: "Tip: for the date/venue answer, use __WHEN_WHERE_AR__ and __WHEN_WHERE_EN__. Those tokens adapt per course and hide venue automatically when a course is TBA."
             fields:
               - { name: qAr, label: "Question (Arabic)", widget: string }
-              - { name: aAr, label: "Answer (Arabic)", widget: text }
+              - { name: aAr, label: "Answer (Arabic)",   widget: text, hint: "Allowed dynamic tokens: __WHEN_WHERE_AR__, __DATE_RANGE_AR__, __TIME_RANGE_AR__, __VENUE_AR__, __TOTAL_HOURS_AR__, __DAY_COUNT_AR__. Prefer __WHEN_WHERE_AR__ for date/venue answers." }
               - { name: qEn, label: "Question (English)", widget: string, required: false }
-              - { name: aEn, label: "Answer (English)", widget: text, required: false }
+              - { name: aEn, label: "Answer (English)",   widget: text, required: false, hint: "Allowed dynamic tokens: __WHEN_WHERE_EN__, __DATE_RANGE_EN__, __META_TIME__, __VENUE_EN__, __TOTAL_HOURS_EN__, __DAY_COUNT_EN__." }

@@ -1,11 +1,15 @@
-import { SITE } from "@/lib/site";
+import type { ResolvedCourse } from "@/lib/site";
 
 /**
  * Since we don't have real tool SVGs yet, render monospace wordmarks
  * with a subtle divider. Swap to <img src={tool.logo} /> when assets land.
  */
-export default function ToolMarquee() {
-  const tools = SITE.tools;
+interface ToolMarqueeProps {
+  course: ResolvedCourse;
+}
+
+export default function ToolMarquee({ course }: ToolMarqueeProps) {
+  const tools = course.tools;
   const loop = [...tools, ...tools]; // seamless loop
 
   return (
