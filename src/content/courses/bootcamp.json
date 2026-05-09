@@ -7,7 +7,10 @@
   "titleEn": "Claude Code & Film Making Bootcamp",
   "taglineAr": "خمسة أيام · من الكود إلى الفيلم",
   "taglineEn": "Five days · from code to film",
-  "instructorIds": ["mishaal", "aj"],
+  "instructorIds": [
+    "mishaal",
+    "aj"
+  ],
   "cohort": {
     "status": "scheduled",
     "startIso": "2026-05-31T17:00:00+03:00",
@@ -22,35 +25,52 @@
       "bodyAr": "إستكشاف واجهة Replit، بناء ونشر التطبيقات بسرعة، والعمل الجماعي خلال الورشة.",
       "startTime": "17:00",
       "endTime": "20:00",
-      "tools": ["Replit"]
+      "tools": [
+        "Replit"
+      ]
     },
     {
       "titleAr": "اليوم الثاني · بناء الموقع والتطبيق",
       "bodyAr": "كتابة الأكواد اللازمة لبناء موقعك الإلكتروني أو أبليكيشن باستخدام Claude Code، GitHub، Vercel، وSupabase.",
       "startTime": "17:00",
       "endTime": "20:00",
-      "tools": ["Claude Code", "GitHub", "Vercel", "Supabase"]
+      "tools": [
+        "Claude Code",
+        "GitHub",
+        "Vercel",
+        "Supabase"
+      ]
     },
     {
       "titleAr": "اليوم الثالث · المشروع النهائي",
       "bodyAr": "المشروع النهائي والتطبيق العملي في Claude Code — تخرج من اليوم بمشروع جاهز للنشر.",
       "startTime": "17:00",
       "endTime": "20:00",
-      "tools": ["Claude Code"]
+      "tools": [
+        "Claude Code"
+      ]
     },
     {
       "titleAr": "اليوم الرابع · توليد الصور الاحترافية",
       "bodyAr": "كتابة البرومبت الاحترافي وصناعة السيناريو والصور وتغيير الإضاءات والزوايا الإخراجية في Higgsfield — البرنامج الشامل.",
       "startTime": "17:00",
       "endTime": "20:00",
-      "tools": ["Higgsfield", "Gemini", "ChatGPT-5"]
+      "tools": [
+        "Higgsfield",
+        "Gemini",
+        "ChatGPT-5"
+      ]
     },
     {
       "titleAr": "اليوم الخامس · الفيديو والتحريك",
       "bodyAr": "مهارات الفيديو وكتابة البرومبتات في أفضل برامج التحريك مع Higgsfield.",
       "startTime": "17:00",
       "endTime": "20:00",
-      "tools": ["Seedance 2.0", "Kling AI", "Higgsfield"]
+      "tools": [
+        "Seedance 2.0",
+        "Kling AI",
+        "Higgsfield"
+      ]
     }
   ],
   "pricing": {
@@ -102,13 +122,23 @@
   },
   "media": {
     "posterImage": "/courses/bootcamp/poster.jpg",
+    "videoTitleAr": "من الفكرة للنشر",
     "promoVideoUrl": "",
-    "promoVideoFile": "",
-    "videoTitleAr": "من الفكرة للنشر"
+    "promoVideoFile": ""
   },
   "stats": [
-    { "valueAr": "+٦٥٠", "valueEn": "650+", "labelAr": "متدرب", "labelEn": "trainees" },
-    { "valueAr": "٥", "valueEn": "5", "labelAr": "جهات اعتماد", "labelEn": "accreditations" }
+    {
+      "valueAr": "+٦٥٠",
+      "valueEn": "650+",
+      "labelAr": "متدرب",
+      "labelEn": "trainees"
+    },
+    {
+      "valueAr": "٥",
+      "valueEn": "5",
+      "labelAr": "جهات اعتماد",
+      "labelEn": "accreditations"
+    }
   ],
   "curriculumBonus": [
     {
@@ -124,13 +154,13 @@
       "bodyAr": "شهادة معتمدة من ٥ جهات رسمية تستلمها في اليوم الأخير."
     }
   ],
-  "whatsappOverride": null,
+  "whatsappOverride": "",
   "sections": {
     "hero": true,
     "toolMarquee": true,
     "stats": true,
     "about": true,
-    "montage": true,
+    "montage": false,
     "curriculum": true,
     "instructor": true,
     "accreditations": true,
@@ -140,20 +170,29 @@
   "copyOverrides": {
     "hero": {
       "headlineLine1Ar": "Claude Code",
-      "headlineLine2PrefixAr": "+ ",
+      "headlineLine2PrefixAr": "+",
       "headlineLine2AccentAr": "صناعة الأفلام",
       "subHeadlineAr": "بوتكامب مكثّف __DAY_COUNT_AR__ أيام · __TOTAL_HOURS_AR__ ساعة. تتعلم كتابة الكود وبناء التطبيقات بـClaude Code، وتطبّق على صناعة الفيديوهات الاحترافية بـHiggsfield. بدون أي خبرة سابقة."
     },
     "about": {
       "headlineLine1Ar": "كود وكاميرا",
       "headlineLine2Ar": "في خمسة أيام",
-      "paragraph2BeforeAr": "نجمع لك ",
+      "paragraph2BeforeAr": "نجمع لك",
       "paragraph2HighlightAr": "البرمجة والإخراج",
-      "paragraph2AfterAr": " في بوتكامب واحد. تخرج تعرف تبني موقعك أو تطبيقك بنفسك، وتعرف تصور وتنتج محتوى احترافي بالذكاء الاصطناعي.",
+      "paragraph2AfterAr": "في بوتكامب واحد. تخرج تعرف تبني موقعك أو تطبيقك بنفسك، وتعرف تصور وتنتج محتوى احترافي بالذكاء الاصطناعي.",
       "badges": [
-        { "k": "A", "v": "كود + فيلم" },
-        { "k": "B", "v": "مشروعان جاهزان" },
-        { "k": "C", "v": "متابعة بعد البوتكامب" }
+        {
+          "v": "كود + فيلم",
+          "k": "A"
+        },
+        {
+          "v": "مشروعان جاهزان",
+          "k": "B"
+        },
+        {
+          "v": "متابعة بعد البوتكامب",
+          "k": "C"
+        }
       ]
     }
   }
