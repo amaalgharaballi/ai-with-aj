@@ -11,9 +11,9 @@
     "aj"
   ],
   "cohort": {
-    "status": "tba",
-    "startIso": "",
-    "endIso": "",
+    "status": "scheduled",
+    "startIso": "2026-06-28T17:00:00+03:00",
+    "endIso": "2026-06-30T20:00:00+03:00",
     "venueAr": "",
     "venueEn": ""
   },
@@ -60,7 +60,7 @@
       {
         "id": "early-bird",
         "isHighlighted": true,
-        "price": 250,
+        "price": 150,
         "soldOut": false,
         "nameAr": "الحجز المبكر",
         "nameEn": "Early Access",
@@ -80,7 +80,7 @@
       {
         "id": "standard",
         "isHighlighted": false,
-        "price": 300,
+        "price": 200,
         "soldOut": false,
         "nameAr": "السعر الكامل",
         "nameEn": "Standard",
@@ -109,8 +109,8 @@
   },
   "stats": [
     {
-      "valueAr": "+٦٥٠",
-      "valueEn": "650+",
+      "valueAr": "850+",
+      "valueEn": "850+",
       "labelAr": "متدرب",
       "labelEn": "trainees"
     },
@@ -122,10 +122,6 @@
     }
   ],
   "curriculumBonus": [
-    {
-      "titleAr": "دليل PDF شامل",
-      "bodyAr": "مرجع دائم بكل الأدوات والخطوات — ترجع له بعد الورشة متى ما احتجت."
-    },
     {
       "titleAr": "ورشة تطبيقية مباشرة",
       "bodyAr": "تشتغل على مقطع فعلي خلال الورشة وتخرج بنتيجة حقيقية في يدك."
