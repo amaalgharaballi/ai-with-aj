@@ -85,14 +85,12 @@
         "nameEn": "Early Access",
         "featuresAr": [
           "حضور البوتكامب الكامل (__TOTAL_HOURS_AR__ ساعة)",
-          "دليل PDF شامل بكل الأدوات والأكواد",
           "شهادة إتمام معتمدة",
           "وصول لمجموعة واتساب خاصة",
           "جلسة أسئلة وأجوبة خاصة بعد البوتكامب"
         ],
         "featuresEn": [
           "Full __TOTAL_HOURS_EN__-hour bootcamp access",
-          "Comprehensive PDF guide (all tools + code)",
           "Accredited completion certificate",
           "Private WhatsApp community"
         ]
@@ -102,7 +100,7 @@
         "isHighlighted": false,
         "price": 300,
         "soldOut": false,
-        "nameAr": "السعر الكامل",
+        "nameAr": "السعر الأساسي",
         "nameEn": "Standard",
         "featuresAr": [
           "حضور البوتكامب الكامل (__TOTAL_HOURS_AR__ ساعة)",
@@ -129,8 +127,8 @@
   },
   "stats": [
     {
-      "valueAr": "+٦٥٠",
-      "valueEn": "650+",
+      "valueAr": "+٨٥٠",
+      "valueEn": "850+",
       "labelAr": "متدرب",
       "labelEn": "trainees"
     },
@@ -183,16 +181,16 @@
       "paragraph2AfterAr": "في بوتكامب واحد. تخرج تعرف تبني موقعك أو تطبيقك بنفسك، وتعرف تصور وتنتج محتوى احترافي بالذكاء الاصطناعي.",
       "badges": [
         {
-          "k": "A",
-          "v": "كود + فيلم"
+          "v": "كود + فيلم",
+          "k": "A"
         },
         {
-          "k": "B",
-          "v": "مشروعان جاهزان"
+          "v": "مشروعان جاهزان",
+          "k": "B"
         },
         {
-          "k": "C",
-          "v": "متابعة بعد البوتكامب"
+          "v": "متابعة بعد البوتكامب",
+          "k": "C"
         }
       ]
     }
