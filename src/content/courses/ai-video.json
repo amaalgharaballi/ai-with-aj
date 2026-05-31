@@ -1,7 +1,7 @@
 {
+  "active": true,
   "slug": "ai-video",
   "order": 2,
-  "active": true,
   "accentColor": "#5FAEC0",
   "titleAr": "دورة صناعة المحتوى والدعايات بالذكاء الاصطناعي",
   "titleEn": "AI Short Films Course",
@@ -82,7 +82,7 @@
         "isHighlighted": false,
         "price": 200,
         "soldOut": false,
-        "nameAr": "السعر الكامل",
+        "nameAr": "السعر الأساسي",
         "nameEn": "Standard",
         "featuresAr": [
           "حضور الورشة الكاملة (__TOTAL_HOURS_AR__ ساعات)",
