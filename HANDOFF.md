@@ -130,6 +130,26 @@ Don't set both — only one is used.
 relevant tier → toggle **Sold out**. A "مكتمل" badge appears on the
 pricing card.
 
+### Removing a course from the site
+
+The CMS does not have a delete button (intentionally — deleting a course
+file used to break the build). To take a course off the site:
+
+1. `/admin` → **Courses** → pick the course
+2. The first field is **Visible on the website**. Toggle it **OFF**.
+3. Save.
+
+What happens:
+- The course disappears from the homepage immediately.
+- Its direct URL (`/<slug>`) returns "page not found".
+- All the course data is preserved. To bring it back, flip the toggle ON
+  and save — everything appears exactly as it was.
+
+If a course needs to be truly deleted (the JSON file removed from disk),
+that requires a developer to also remove the entry from
+`src/lib/site.ts → COURSES_RAW` and delete the matching `src/app/<slug>/`
+route file. The CMS toggle is almost always the right answer instead.
+
 ### Editing FAQ
 
 `/admin` → **FAQ** → **Questions**. Add/remove/reorder questions. The same

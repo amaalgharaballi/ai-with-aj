@@ -47,6 +47,11 @@ collections:
     media_folder: "../../../public/courses/{{fields.slug}}"
     public_folder: "/courses/{{fields.slug}}"
     fields:
+      - name: active
+        label: "Visible on the website — this is how you remove a course"
+        widget: boolean
+        default: true
+        hint: "Turn OFF to remove the course from the site. It disappears from the homepage and from its direct URL (anyone who visits /<slug> sees 'page not found'). The course data is preserved — turn it back ON anytime to bring the course back exactly as it was. Use this instead of trying to delete."
       - name: slug
         label: "URL slug — advanced"
         widget: string
@@ -58,11 +63,6 @@ collections:
         value_type: int
         default: 99
         hint: "Lower numbers show first on the homepage. Bootcamp uses 1; AI Video uses 2."
-      - name: active
-        label: "Show this course on the website?"
-        widget: boolean
-        default: true
-        hint: "Turn off to hide the course from the homepage without deleting it. Existing direct URLs may still work if the route exists."
       - name: accentColor
         label: "Page accent color — advanced"
         widget: string
