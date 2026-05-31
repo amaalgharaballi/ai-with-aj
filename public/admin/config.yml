@@ -39,6 +39,7 @@ collections:
     extension: json
     format: json
     create: true
+    delete: false
     slug: "{{fields.slug}}"
     identifier_field: slug
     summary: "{{titleAr}} · {{cohort.status}}"
@@ -262,6 +263,7 @@ collections:
     extension: json
     format: json
     create: true
+    delete: false
     slug: "{{fields.id}}"
     identifier_field: id
     summary: "{{nameAr}}"
