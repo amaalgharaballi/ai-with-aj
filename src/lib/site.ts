@@ -247,7 +247,7 @@ interface RawInstructor {
 const COURSES_RAW: RawCourse[] = [
   bootcampData as RawCourse,
   aiVideoData as RawCourse,
-  claudecodeData as RawCourse,
+  claudecodeData as unknown as RawCourse,
 ];
 
 const INSTRUCTOR_REGISTRY: Record<string, RawInstructor> = {
