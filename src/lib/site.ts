@@ -20,6 +20,7 @@
 
 import bootcampData from "@/content/courses/bootcamp.json";
 import aiVideoData from "@/content/courses/ai-video.json";
+import claudecodeData from "@/content/courses/claudecode.json";
 import ajData from "@/content/instructors/aj.json";
 import mishaalData from "@/content/instructors/mishaal.json";
 import hubData from "@/content/hub.json";
@@ -246,6 +247,7 @@ interface RawInstructor {
 const COURSES_RAW: RawCourse[] = [
   bootcampData as RawCourse,
   aiVideoData as RawCourse,
+  claudecodeData as RawCourse,
 ];
 
 const INSTRUCTOR_REGISTRY: Record<string, RawInstructor> = {
