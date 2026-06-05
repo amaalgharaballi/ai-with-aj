@@ -1,0 +1,91 @@
+{
+  "active": true,
+  "slug": "claudecode",
+  "order": 2,
+  "accentColor": "#da7756",
+  "titleAr": "كلوود كود",
+  "titleEn": "Claude Code",
+  "taglineAr": "٣ أيام - من الصفر إلى صناعة الموقع",
+  "taglineEn": "3 days - from 0 to web design",
+  "instructorIds": [
+    "mishaal"
+  ],
+  "cohort": {
+    "status": "scheduled",
+    "startIso": "2026-06-25T17:00:00+03:00",
+    "endIso": "2026-06-27T20:00:00+03:00",
+    "venueAr": "",
+    "venueEn": ""
+  },
+  "descriptionAr": "٣ أيام\nفي كيفيه صناعة المواقع والتطبيقات من خلال كلوود كود \nوبرامج مساعده مثل replit \nفي اسرع وابسط شكل",
+  "days": [
+    {
+      "titleAr": "طريقة عمل الأكواد الازمه لبناء موقعك الإلكتروني أو الأبليكيشن",
+      "bodyAr": "Claude Code - GitHub - Vercel - Supabase",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "tools": [
+        "Claude Code - GitHub - Vercel - Supabase"
+      ]
+    },
+    {
+      "titleAr": "Replit إستكشاف واجهة",
+      "bodyAr": "1. إستكشاف واجهة Replit\n2. بناء ونشر التطبيقات بسرعه\n3. العمل الجماعي في وقت الدوره",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "tools": [
+        "Replit"
+      ]
+    },
+    {
+      "titleAr": "المشروع النهائي",
+      "bodyAr": "المشروع النهائي والتطبيق في Claude code",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "tools": [
+        "all tools"
+      ]
+    }
+  ],
+  "pricing": {
+    "currency": "KWD",
+    "tiers": [
+      {
+        "id": "early-bird",
+        "isHighlighted": true,
+        "price": 150,
+        "soldOut": false,
+        "nameAr": "التسجيل المبكر",
+        "nameEn": "early birds",
+        "featuresAr": [
+          "التسجيل المبكر"
+        ],
+        "featuresEn": [
+          "early registration"
+        ]
+      }
+    ]
+  },
+  "media": {
+    "posterImage": "courses/claudecode/hf_20260605_102028_d3009e82-dfcb-45de-9e7d-d845ebefa0ff.png",
+    "videoTitleAr": "",
+    "promoVideoUrl": "",
+    "promoVideoFile": ""
+  },
+  "stats": [],
+  "curriculumBonus": [],
+  "whatsappOverride": "",
+  "sections": {
+    "hero": true,
+    "toolMarquee": true,
+    "stats": true,
+    "about": true,
+    "montage": true,
+    "curriculum": true,
+    "instructor": true,
+    "accreditations": true,
+    "booking": true,
+    "faq": true
+  },
+  "copyOverrides": null
+}
