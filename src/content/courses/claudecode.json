@@ -87,5 +87,12 @@
     "booking": true,
     "faq": true
   },
-  "copyOverrides": null
+  "copyOverrides": {
+    "hero": {
+      "headlineLine1Ar": "دورة",
+      "headlineLine2PrefixAr": "",
+      "headlineLine2AccentAr": "Claude Code",
+      "subHeadlineAr": "أسهل طريقه لصناعة الموقع والتطبيقات"
+    }
+  }
 }
