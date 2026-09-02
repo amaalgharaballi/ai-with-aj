@@ -12,8 +12,8 @@
   ],
   "cohort": {
     "status": "scheduled",
-    "startIso": "2026-09-06T17:30:00+03:00",
-    "endIso": "2026-09-08T20:30:00+03:00",
+    "startIso": "2026-10-25T17:30:00+03:00",
+    "endIso": "2026-10-27T20:30:00+03:00",
     "venueAr": "",
     "venueEn": ""
   },
@@ -149,11 +149,19 @@
       "headlineLine1Ar": "دورة صناعة المحتوى",
       "headlineLine2PrefixAr": "بـ",
       "headlineLine2AccentAr": "الذكاء الاصطناعي",
-      "subHeadlineAr": "ورشة مكثّفة __DAY_COUNT_AR__ أيام · __TOTAL_HOURS_AR__ ساعات في الكويت. تتعلم تنتج الصور بالأوامر، وتحوّلها إلى فيديو حركي للإعلانات والأفلام القصيرة — بدون أي خبرة سابقة."
+      "subHeadlineAr": "ورشة مكثّفة __DAY_COUNT_AR__ أيام · __TOTAL_HOURS_AR__ ساعات في الكويت. تتعلم تنتج الصور بالأوامر، وتحوّلها إلى فيديو حركي للإعلانات والأفلام القصيرة — بدون أي خبرة سابقة.",
+      "ctaPrimaryAr": "",
+      "ctaSecondaryAr": ""
     },
     "about": {
       "headlineLine1Ar": "من الأمر",
-      "headlineLine2Ar": "إلى الفيلم"
-    }
+      "headlineLine2Ar": "إلى الفيلم",
+      "paragraph2BeforeAr": "",
+      "paragraph2HighlightAr": "",
+      "paragraph2AfterAr": ""
+    },
+    "montage": null,
+    "curriculumSection": null,
+    "booking": null
   }
 }
