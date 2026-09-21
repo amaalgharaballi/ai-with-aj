@@ -36,8 +36,8 @@
     {
       "titleAr": "اليوم الثاني · تحويل الصور إلى فيديو",
       "bodyAr": "٣ ساعات تدريب على تحويل الصور إلى فيديو حركي والصوت — جاهزة للاستخدام في الإعلانات والأفلام القصيرة والفيديوكليب.",
-      "startTime": "17:30",
-      "endTime": "20:30",
+      "startTime": "17:00",
+      "endTime": "20:00",
       "tools": [
         "Kling AI",
         "Seedance 2.5"
@@ -46,8 +46,8 @@
     {
       "titleAr": "اليوم الثالث · Higgsfield الشامل",
       "bodyAr": "التدرّب على برنامج Higgsfield الشامل وSeedance 2.0 — توليد فيديو احترافي بأسلوب سينمائي من الفكرة إلى المشهد النهائي.",
-      "startTime": "17:30",
-      "endTime": "20:30",
+      "startTime": "17:00",
+      "endTime": "20:00",
       "tools": [
         "Eleven Labs",
         "Flow Music"
@@ -60,7 +60,7 @@
       {
         "id": "early-bird",
         "isHighlighted": true,
-        "price": 150,
+        "price": 180,
         "soldOut": false,
         "nameAr": "الحجز المبكر",
         "nameEn": "Early Access",
@@ -80,7 +80,7 @@
       {
         "id": "standard",
         "isHighlighted": false,
-        "price": 200,
+        "price": 240,
         "soldOut": false,
         "nameAr": "السعر الأساسي",
         "nameEn": "Standard",
