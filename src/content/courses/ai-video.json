@@ -60,7 +60,7 @@
       {
         "id": "early-bird",
         "isHighlighted": true,
-        "price": 180,
+        "price": 150,
         "soldOut": false,
         "nameAr": "الحجز المبكر",
         "nameEn": "Early Access",
